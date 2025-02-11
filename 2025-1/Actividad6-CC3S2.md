@@ -159,7 +159,7 @@ Además del comando básico `git log`, hay numerosas opciones que te permiten ad
 - `git log -p`: Muestra la diferencia (es decir, el parche) introducida en cada *commit*.
 - `git log --stat`: Proporciona algunas estadísticas abreviadas para cada *commit*.
 - `git log --oneline`: Da una salida más compacta, mostrando cada *commit* como una sola línea.
-- `git log --graph`: Visualiza la historia de *branches* y *merges* en un diseño de gráfico ASCII.
+- `git log --graph`: Visualiza la historia de *ramas* y *merges* en un diseño de gráfico ASCII.
 - `git log --author="Kapumota"`: Filtra los *commits* para mostrar solo los realizados por una persona específica (en este caso, "Kapumota").
 
 Por ejemplo, también puede mejorar la perspectiva de la siguiente manera:
@@ -208,7 +208,7 @@ Mientras que las secciones anteriores te proporcionan una comprensión sólida d
 
 #### git branch: Entendiendo los conceptos básicos de Git branch
 
-Cuando inicializas un repositorio de Git, automáticamente crea una *rama (branch)* predeterminada, generalmente llamada `main` (anteriormente conocida como `master`). Cuando ejecutas el comando `git branch`, mostrará la lista de todas las *branches* en tu repositorio, con la *branch* actual destacada:
+Cuando inicializas un repositorio de Git, automáticamente crea una *rama (branch)* predeterminada, generalmente llamada `main` (anteriormente conocida como `master`). Cuando ejecutas el comando `git branch`, mostrará la lista de todas las *ramas* en tu repositorio, con la *branch* actual destacada:
 
 ```bash
 $ git branch
@@ -462,7 +462,7 @@ $ git branch -d feature/new-feature
    - Reflexiona sobre cómo el historial de tu proyecto se visualiza en este formato. ¿Qué información adicional puedes inferir?
 
 
-#### Ejercicio 3: Creación y gestión de branches desde commits específicos
+#### Ejercicio 3: Creación y gestión de ramas desde commits específicos
 
 **Objetivo:** Practicar la creación de ramas desde commits específicos y comprender cómo Git maneja las referencias históricas.
 
