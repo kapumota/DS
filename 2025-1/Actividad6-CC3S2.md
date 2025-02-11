@@ -91,7 +91,8 @@ Changes to be committed:
     new file:   README.m
 ```
 
-Ahora Git reconoce `README.md` como un nuevo archivo y ahora está rastreado. El estado objetivo para guardar mediante el comando `git add` se llama *staged* (preparado). También puedes escuchar el término *índice* (index) utilizado indistintamente con *staging*. Antes de que los archivos o cambios sean preparados, residen en un área a menudo referida como el *espacio de trabajo* (workspace). Esta es esencialmente el entorno donde estás haciendo cambios activamente en tus archivos. Algunos también pueden referirse a esta área como el *árbol de trabajo* (worktree). En resumen, en este proceso, has preparado el archivo `README.md` desde el árbol de trabajo utilizando el comando `git add`.
+Ahora Git reconoce `README.md` como un nuevo archivo y ahora está rastreado. El estado objetivo para guardar mediante el comando `git add` se llama *staged* (preparado). También puedes escuchar el término *índice* (index) utilizado indistintamente con *staging*. Antes de que los archivos o cambios sean preparados, residen en un área a menudo referida como el *espacio de trabajo* (workspace). Esta es esencialmente el entorno donde estás haciendo cambios activamente en tus archivos. 
+Algunos también pueden referirse a esta área como el *árbol de trabajo* (worktree). En resumen, en este proceso, has preparado el archivo `README.md` desde el árbol de trabajo utilizando el comando `git add`.
 
 **Importante**: `git add` tiene otras opciones también. Puedes incluir todo con `git add .`, incluir varios archivos como `git add file1.md file2.md file3.md`, o usar un comodín como `git add *.md` para agregar todos los archivos con la extensión `.md`.
 
@@ -124,9 +125,9 @@ Si aparece el mensaje "*nothing to commit*", tus cambios han sido incorporados.
 
 Bueno, eso es todo; es muy fácil guardar un archivo en Git. Revisémoslo aquí. El flujo de edición, preparación y commit sigue siendo el mismo sin importar cuán complejo sea tu proyecto:
 
-1. **Editar archivos**: Realiza los cambios necesarios en tus archivos. Por ejemplo, en esta figura, se han editado dos archivos existentes para eliminaciones y modificaciones, y se ha agregado otro archivo:
+1. **Editar archivos**: Realiza los cambios necesarios en tus archivos. 
 
-2. **Preparar cambios**: Decide qué archivos o cambios específicos te gustaría cometer y prepáralos. Por ejemplo, en esta figura, de las tres ediciones, solo las eliminaciones y modificaciones están preparadas:
+2. **Preparar cambios**: Decide qué archivos o cambios específicos te gustaría cometer y prepáralos. 
 
 3. **Commit de cambios**: Una vez satisfecho con los cambios preparados, realiza un commit para registrarlos. Recuerda que cada commit genera una ID de commit única:
 
