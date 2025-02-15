@@ -1,3 +1,4 @@
+## Ejemplo de prueba
 # tests/test_carrito.py
 
 import pytest
