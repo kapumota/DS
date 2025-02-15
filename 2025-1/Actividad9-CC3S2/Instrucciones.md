@@ -4,8 +4,8 @@ Este proyecto es un ejemplo de cómo utilizar **behave**, una herramienta para p
 
 ### Tabla de contenidos
 
-- [Requisitos Previos](#requisitos-previos)
-- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Requisitos previos](#requisitos-previos)
+- [Estructura del proyecto](#estructura-del-proyecto)
 - [Instalación](#instalación)
 - [Ejecutar las pruebas](#ejecutar-las-pruebas)
 - [Detalles del proyecto](#detalles-del-proyecto)
