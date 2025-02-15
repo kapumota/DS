@@ -1,4 +1,6 @@
 # src/belly.py
+# from src.clock import get_current_time
+
 class Belly:
     def __init__(self):
         self.pepinos_comidos = 0
@@ -22,4 +24,3 @@ class Belly:
         if self.tiempo_esperado >= 1.5 and self.pepinos_comidos > 10:
             return True
         return False
-
