@@ -26,7 +26,16 @@ Este ciclo se repite iterativamente para desarrollar funcionalidades de manera s
 
 ### Ejemplo 
 
-La funcionalidad que mejoraremos será una clase `ShoppingCart` que permite agregar artículos, eliminar artículos y calcular el total del carrito. El código será acumulativo, es decir, cada iteración se basará en la anterior.
+La funcionalidad que mejoraremos será una clase `ShoppingCart` que permite agregar artículos, eliminar artículos y calcular el total del carrito. El código será acumulativo, es decir, cada iteración se basará en la anterior. Utiliza la siguiente estructura para este ejemplo:
+
+```
+├── pytest.ini
+├── src
+│   └── shopping_cart.py
+└── tests
+    └── test_shopping_cart.py
+
+```
 
 #### **Primera iteración (RGR 1): Agregar artículos al carrito**
 
@@ -234,14 +243,14 @@ def test_calculate_total():
 
 #### **Ejecutar las pruebas**
 
-Para ejecutar las pruebas, asegúrate de tener `pytest` instalado y ejecuta el siguiente comando en tu terminal:
+Para ejecutar las pruebas, asegúrate de tener `pytest` instalado y ejecuta el siguiente comando en tu terminal en la ubicación adecuada:
 
 ```bash
 pytest test_shopping_cart.py
 ```
 Todas las pruebas deberían pasar, confirmando que la funcionalidad `ShoppingCart` funciona correctamente después de las tres iteraciones del proceso RGR. 
 
-**Más interacciones**
+#### **Más interacciones**
 
 Se presenta un ejemplo avanzado que incluye **cuatro iteraciones** del proceso RGR (Red-Green-Refactor) utilizando Python y `pytest`. Continuaremos mejorando la funcionalidad de la clase `ShoppingCart`, añadiendo una nueva característica en cada iteración. Las funcionalidades a implementar serán:
 
@@ -252,9 +261,7 @@ Se presenta un ejemplo avanzado que incluye **cuatro iteraciones** del proceso R
 
 El código será acumulativo, es decir, cada iteración se basará en la anterior.
 
----
-
-#### **Primera iteración (RGR 1): Agregar artículos al carrito**
+#### **Cuarta iteración (RGR 4): Agregar artículos al carrito**
 
 **1. Escribir una prueba que falle (Red)**
 
@@ -289,9 +296,8 @@ class ShoppingCart:
 
 En este caso, el código es sencillo y no requiere refactorización inmediata. Sin embargo, podríamos anticipar mejoras futuras, como manejar múltiples adiciones del mismo artículo.
 
----
 
-#### **Segunda iteración (RGR 2): eliminar artículos del carrito**
+#### **Quinta iteración (RGR 5): eliminar artículos del carrito**
 
 **1. Escribir una prueba que falle (Red)**
 
@@ -345,9 +351,8 @@ class ShoppingCart:
             del self.items[name]
 ```
 
----
 
-#### **Tercera iteración (RGR 3): calcular el total del carrito**
+#### **Sexta iteración (RGR 6): calcular el total del carrito**
 
 **1. Escribir una prueba que falle (Red)**
 
@@ -414,9 +419,8 @@ class ShoppingCart:
         return sum(item["quantity"] * item["unit_price"] for item in self.items.values())
 ```
 
----
 
-#### **Cuarta iteración (RGR 4): aplicar descuentos al total**
+#### **Séptima iteración (RGR 7): aplicar descuentos al total**
 
 **1. Escribir una prueba que falle (Red)**
 
@@ -501,7 +505,6 @@ class ShoppingCart:
             raise ValueError("El porcentaje de descuento debe estar entre 0 y 100.")
 ```
 
----
 
 #### **Código final acumulativo**
 
@@ -570,9 +573,9 @@ def test_apply_discount():
     assert total == round(expected_total, 2)  # Redondear a 2 decimales
 ```
 
-#### **Ejecutar las Pruebas**
+#### **Ejecutar las pruebas**
 
-Para ejecutar las pruebas, asegúrate de tener `pytest` instalado y ejecuta el siguiente comando en tu terminal:
+Para ejecutar las pruebas, asegúrate de tener `pytest` instalado y ejecuta el siguiente comando en tu termina en la ubicación adecuada:
 
 ```bash
 pytest test_shopping_cart.py
@@ -580,13 +583,12 @@ pytest test_shopping_cart.py
 
 Todas las pruebas deberían pasar, confirmando que la funcionalidad `ShoppingCart` funciona correctamente después de las cuatro iteraciones del proceso RGR.
 
----
 
 #### **Explicación adicional**
 
 **Manejo de errores y validaciones:**
 
-En la cuarta iteración, añadimos validaciones al método `apply_discount` para asegurarnos de que el porcentaje de descuento esté dentro de un rango válido (0-100). Esto previene errores en tiempo de ejecución y asegura la integridad de los datos.
+En la séptima iteración, añadimos validaciones al método `apply_discount` para asegurarnos de que el porcentaje de descuento esté dentro de un rango válido (0-100). Esto previene errores en tiempo de ejecución y asegura la integridad de los datos.
 
 **Redondeo del total:**
 
@@ -608,9 +610,8 @@ Continuaremos mejorando la funcionalidad de la clase `ShoppingCart`, añadiendo 
 
 El código será acumulativo, es decir, cada iteración se basará en la anterior.
 
----
 
-#### **Primera iteración (RGR 1): agregar artículos al carrito**
+#### **Octava iteración (RGR 8): agregar artículos al carrito**
 
 #### **1. Escribir una prueba que falle (Red)**
 
@@ -645,9 +646,8 @@ class ShoppingCart:
 
 El código es sencillo y no requiere refactorización inmediata. Sin embargo, podemos anticipar mejoras futuras, como manejar múltiples adiciones del mismo artículo.
 
----
 
-#### **Segunda iteración (RGR 2): eliminar artículos del carrito**
+#### **Novena iteración (RGR 9): eliminar artículos del carrito**
 
 #### **1. Escribir una prueba que falle (Red)**
 
@@ -701,11 +701,10 @@ class ShoppingCart:
             del self.items[name]
 ```
 
----
 
-#### **Tercera iteración (RGR 3): calcular el total del carrito**
+#### **Décima iteración (RGR 10): calcular el total del carrito**
 
-#### **1. Escribir una prueba que falle (Red)**
+##### **1. Escribir una prueba que falle (Red)**
 
 Añadimos una prueba para calcular el total del carrito.
 
@@ -719,7 +718,7 @@ def test_calculate_total():
     assert total == 2*0.5 + 3*0.75  # 2*0.5 + 3*0.75 = 1 + 2.25 = 3.25
 ```
 
-#### **2. Implementar el código para pasar la prueba (Green)**
+##### **2. Implementar el código para pasar la prueba (Green)**
 
 Implementamos el método `calculate_total`.
 
@@ -746,7 +745,7 @@ class ShoppingCart:
         return total
 ```
 
-#### **3. Refactorizar el código si es necesario (Refactor)**
+##### **3. Refactorizar el código si es necesario (Refactor)**
 
 Optimizar el método `calculate_total` utilizando comprensión de listas y la función `sum`.
 
@@ -770,11 +769,9 @@ class ShoppingCart:
         return sum(item["quantity"] * item["unit_price"] for item in self.items.values())
 ```
 
----
+##### **Onceava iteración (RGR 11): aplicar descuentos al total**
 
-#### **Cuarta iteración (RGR 4): aplicar descuentos al total**
-
-#### **1. Escribir una prueba que falle (Red)**
+##### **1. Escribir una prueba que falle (Red)**
 
 Añadimos una prueba para aplicar un descuento al total del carrito.
 
@@ -790,7 +787,7 @@ def test_apply_discount():
     assert total == round(expected_total, 2)  # Redondear a 2 decimales
 ```
 
-#### **2. Implementar el código para pasar la prueba (Green)**
+##### **2. Implementar el código para pasar la prueba (Green)**
 
 Añadimos el método `apply_discount` y ajustamos `calculate_total` para considerar el descuento.
 
@@ -824,17 +821,16 @@ class ShoppingCart:
             raise ValueError("El porcentaje de descuento debe estar entre 0 y 100.")
 ```
 
-#### **3. Refactorizar el código si es necesario (Refactor)**
+##### **3. Refactorizar el código si es necesario (Refactor)**
 
 Podemos mantener la implementación actual, ya que ya hemos añadido validaciones y redondeo adecuado.
 
----
 
-#### **Quinta iteración (RGR 5): Procesar Pagos a través de un Servicio Externo**
+#### **Doceava iteración (RGR 5): Procesar Pagos a través de un Servicio Externo**
 
 En esta iteración, añadiremos la funcionalidad de procesar pagos utilizando un servicio de pago externo. Para ello, implementaremos **inyección de dependencias** para facilitar el uso de **mocks** y **stubs** en las pruebas.
 
-#### **1. Escribir una prueba que falle (Red)**
+##### **1. Escribir una prueba que falle (Red)**
 
 Añadimos una prueba para procesar el pago. Dado que aún no hemos implementado la funcionalidad, esta prueba debería fallar.
 
@@ -858,7 +854,7 @@ def test_process_payment():
     assert result == True
 ```
 
-#### **2. Implementar el código para pasar la prueba (Green)**
+##### **2. Implementar el código para pasar la prueba (Green)**
 
 Implementamos el método `process_payment` en la clase `ShoppingCart`, utilizando inyección de dependencias para el gateway de pago.
 
@@ -898,7 +894,7 @@ class ShoppingCart:
         return self.payment_gateway.process_payment(amount)
 ```
 
-#### **3. Refactorizar el código si es necesario (Refactor)**
+##### **3. Refactorizar el código si es necesario (Refactor)**
 
 Podemos mejorar la gestión del `payment_gateway` asegurándonos de que es inyectado y manejando posibles excepciones.
 
@@ -943,11 +939,10 @@ class ShoppingCart:
             raise e
 ```
 
----
 
 #### **Código final acumulativo**
 
-#### **shopping_cart.py**
+##### **shopping_cart.py**
 
 ```python
 class ShoppingCart:
@@ -989,7 +984,7 @@ class ShoppingCart:
             raise e
 ```
 
-#### **test_shopping_cart.py**
+##### **test_shopping_cart.py**
 
 ```python
 import pytest
@@ -1054,7 +1049,6 @@ def test_process_payment_failure():
     assert str(exc_info.value) == "Payment failed"
 ```
 
----
 
 #### **Ejecutar las Pruebas**
 
@@ -1066,11 +1060,12 @@ pytest test_shopping_cart.py
 
 Todas las pruebas deberían pasar, confirmando que la funcionalidad `ShoppingCart` funciona correctamente después de las cinco iteraciones del proceso RGR.
 
----
+Nota: Puedes revisar el proyecto final aquí: [Ejemplo de RGR](https://github.com/kapumota/DS/tree/main/2025-1/Actividad11-CC3S2/Ejemplo).
+
 
 #### **Uso de mocks y stubs**
 
-En la quinta iteración, incorporamos el uso de **mocks** para simular el comportamiento de un servicio externo de procesamiento de pagos (`payment_gateway`). Esto se logra mediante la inyección de dependencias, donde el `payment_gateway` se pasa como un parámetro al constructor de `ShoppingCart`. Esto permite que durante las pruebas, podamos sustituir el gateway real por un **mock**, evitando llamadas reales a servicios externos y permitiendo controlar sus comportamientos (como simular pagos exitosos o fallidos).
+Hemos incorporamos el uso de **mocks** para simular el comportamiento de un servicio externo de procesamiento de pagos (`payment_gateway`). Esto se logra mediante la inyección de dependencias, donde el `payment_gateway` se pasa como un parámetro al constructor de `ShoppingCart`. Esto permite que durante las pruebas, podamos sustituir el gateway real por un **mock**, evitando llamadas reales a servicios externos y permitiendo controlar sus comportamientos (como simular pagos exitosos o fallidos).
 
 - **Mock**: Un objeto que simula el comportamiento de objetos reales de manera controlada. En este caso, `payment_gateway` es un mock que simula el método `process_payment`.
 
