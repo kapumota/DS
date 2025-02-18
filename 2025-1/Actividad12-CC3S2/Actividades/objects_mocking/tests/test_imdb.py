@@ -1,5 +1,5 @@
 """
-Casos de prueba para Mocking Lab
+Casos de prueba para el mocking
 """
 import os
 import json
