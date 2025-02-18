@@ -57,7 +57,7 @@ class Account(db.Model):
         db.session.commit()
 
     ##################################################
-    # MÉTODOS DE CLASE
+    # Métodos de clase
     ##################################################
 
     @classmethod
