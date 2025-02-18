@@ -1,6 +1,5 @@
 """
 Acceso a la base de datos de películas de Internet Movie Database
-
 Implementa las APIs SearchTitle, Reviews y Ratings
 """
 import logging
