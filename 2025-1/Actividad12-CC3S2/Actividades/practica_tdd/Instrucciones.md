@@ -245,7 +245,7 @@ def set_counter(name):
 
 3. **Refactor.**
 
-##### 4.3. Listar todos los contadores
+##### 3.3. Listar todos los contadores
 
 1. **Prueba (Red):** 
    - Crea un test que verifique la obtención de todos los contadores en `GET /counters`.
