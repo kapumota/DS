@@ -4,7 +4,7 @@ Clase AccountFactory usando FactoryBoy
 Documentación sobre Faker Providers:
     https://faker.readthedocs.io/en/master/providers/baseprovider.html
 
-Documentación sobre Atributos Fuzzy:
+Documentación sobre atributos Fuzzy:
     https://factoryboy.readthedocs.io/en/stable/fuzzy.html
 """
 import factory
