@@ -32,7 +32,7 @@ class TestIMDbDatabase:
         self.imdb_data = imdb_data
 
     ######################################################################
-    #  CASOS DE PRUEBA
+    #  Casos de prueba
     ######################################################################
 
     @patch('models.imdb.requests.get')
