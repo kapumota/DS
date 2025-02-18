@@ -101,7 +101,7 @@ class TestIMDbDatabase:
         self.imdb_data = imdb_data
 
     ######################################################################
-    #  CASOS DE PRUEBA
+    #  Casos de prueba
     ######################################################################
 
     @patch('test_imdb.IMDb.search_titles')
@@ -154,7 +154,7 @@ def test_search_with_no_results(imdb_mock):
         """Prueba de búsqueda sin resultados"""
         imdb_mock.return_value = Mock(status_code=404)
         imdb = IMDb("k_12345678")
-        resultados = imdb.search_titles("TituloInexistente")
+        resultados = imdb.search_titles("Titulo inexistente")
         assert resultados == {}
 ```
 
