@@ -1,5 +1,5 @@
 """
-Data Models
+Modelo de datos
 """
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
