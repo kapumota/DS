@@ -21,8 +21,10 @@ help:
 	@echo "Comandos disponibles:"
 	@echo "  install              Instala las dependencias en el entorno actual"
 	@echo "  lint                 Ejecuta análisis de código (flake8, black, etc.)"
-	@echo "  test                 Ejecuta pytest en la actividad indicada o en todas"
+	@echo "  test                 Ejecuta pytest en la actividad indicada (ACTIVITY)"
+	@echo "  test_all             Ejecuta pytest en todas las actividades"
 	@echo "  coverage             Ejecuta pytest con reporte de cobertura unificada"
+	@echo "  coverage_individual  Ejecuta la cobertura para cada actividad por separado"
 	@echo "  clean                Elimina archivos temporales, caches, etc."
 	@echo
 	@echo "Opciones:"
@@ -34,6 +36,7 @@ help:
 	@echo "  make test"
 	@echo "  make test ACTIVITY=pruebas_pytest"
 	@echo "  make coverage"
+	@echo "  make coverage_individual"
 	@echo
 	@echo "Actividades disponibles:"
 	@echo "  $(ACTIVITIES)"
@@ -52,19 +55,18 @@ install:
 .PHONY: lint
 lint:
 	@echo "Ejecutando flake8..."
-	# Si quieres usar black o isort, añade otros comandos debajo
 	flake8 .
 
 # =========================================================================
 # Test (ejecución de pruebas)
 #
-# Por defecto, corre las pruebas en la actividad seleccionada con ACTIVITY
+# Por defecto, corre las pruebas en la actividad seleccionada con ACTIVITY.
 # Si quieres correr pruebas en todas las carpetas, usa "test_all".
 # =========================================================================
 .PHONY: test
 test:
 	@echo "Ejecutando pruebas en la actividad: $(ACTIVITY)"
-	cd Actividades/$(ACTIVITY) && pytest
+	cd Actividades/$(ACTIVITY) && pytest .
 
 .PHONY: test_all
 test_all:
@@ -73,30 +75,26 @@ test_all:
 	   echo "=========================================="; \
 	   echo "EJECUTANDO PRUEBAS EN $$activity"; \
 	   echo "=========================================="; \
-	   cd Actividades/$$activity && pytest || exit 1; \
+	   cd Actividades/$$activity && pytest . || exit 1; \
 	   cd - >/dev/null; \
 	done
 
 # =========================================================================
-# Coverage (pruebas con reporte de cobertura)
+# Coverage individual para cada actividad
 # =========================================================================
-.PHONY: coverage
-coverage:
-	@echo "Ejecutando pruebas con cobertura UNIFICADA..."
-	@echo "NOTA: Si cada carpeta tiene su propio setup.cfg, puede ser necesario unificar la config."
-	@echo "      Puedes hacerlo con un solo 'setup.cfg' en la raíz o un 'pyproject.toml'."
-	coverage erase
-	# Un ejemplo simple: correr pytest en cada carpeta y acumular cobertura
+.PHONY: coverage_individual
+coverage_individual:
+	@echo "Ejecutando cobertura individual para cada actividad..."
 	@for activity in $(ACTIVITIES); do \
 	   echo "=========================================="; \
-	   echo "EJECUTANDO PRUEBAS CON COV EN $$activity"; \
+	   echo "Generando cobertura para $$activity"; \
 	   echo "=========================================="; \
-	   cd Actividades/$$activity && pytest --cov=. --cov-append --cov-report=term || exit 1; \
+	   cd Actividades/$$activity && coverage erase && \
+	   coverage run --source=. -m pytest . && \
+	   coverage report -m && \
+	   coverage html -d htmlcov_$$activity || exit 1; \
 	   cd - >/dev/null; \
 	done
-	coverage report -m
-	@echo "Generando reporte HTML..."
-	coverage html
 
 # =========================================================================
 # Limpiar archivos temporales
@@ -106,7 +104,6 @@ clean:
 	@echo "Eliminando archivos de caché y reportes..."
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	rm -rf .pytest_cache
-	rm -rf htmlcov
+	rm -rf htmlcov htmlcov_*
 	coverage erase
 	@echo "Limpieza completa."
-
