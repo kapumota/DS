@@ -66,7 +66,7 @@ lint:
 .PHONY: test
 test:
 	@echo "Ejecutando pruebas en la actividad: $(ACTIVITY)"
-	cd Actividades/$(ACTIVITY) && pytest .
+	cd Actividades/$(ACTIVITY) && PYTHONWARNINGS="ignore::DeprecationWarning" pytest .
 
 .PHONY: test_all
 test_all:
@@ -75,7 +75,7 @@ test_all:
 	   echo "=========================================="; \
 	   echo "EJECUTANDO PRUEBAS EN $$activity"; \
 	   echo "=========================================="; \
-	   cd Actividades/$$activity && pytest . || exit 1; \
+	   cd Actividades/$$activity && PYTHONWARNINGS="ignore::DeprecationWarning" pytest . || exit 1; \
 	   cd - >/dev/null; \
 	done
 
@@ -90,7 +90,7 @@ coverage_individual:
 	   echo "Generando cobertura para $$activity"; \
 	   echo "=========================================="; \
 	   cd Actividades/$$activity && coverage erase && \
-	   coverage run --source=. -m pytest . && \
+	   PYTHONWARNINGS="ignore::DeprecationWarning" coverage run --source=. -m pytest . && \
 	   coverage report -m && \
 	   coverage html -d htmlcov_$$activity || exit 1; \
 	   cd - >/dev/null; \
@@ -107,3 +107,4 @@ clean:
 	rm -rf htmlcov htmlcov_*
 	coverage erase
 	@echo "Limpieza completa."
+
