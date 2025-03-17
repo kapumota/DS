@@ -1,4 +1,4 @@
-## **Actividad: Del código a la producción: Infraestructura, contenedores, despliegue y observabilidad**
+### **Actividad: Del código a la producción: Infraestructura, contenedores, despliegue y observabilidad**
 
 
 #### 1. Objetivos de aprendizaje
@@ -88,7 +88,7 @@
    - **Jobs y Stages**: Cómo agrupar tareas, en qué orden deben ejecutarse.  
    - **Manejo de entornos**: Dev, Staging, Producción.
 
-> **Tarea Teórica:**  
+> **Tarea teórica:**  
 > - Explicar la diferencia entre entrega continua (continuous delivery) y despliegue continuo (continuous deployment).  
 > - Describir la relevancia de implementar pruebas automáticas (unitarias, de integración, de seguridad) dentro del pipeline.
 
