@@ -76,4 +76,4 @@ Responde en equipo las siguientes preguntas con base en la lectura:
 
 ---
 
-🚀 **Consejo:** No se trata solo de responder las preguntas, sino de comprender cómo DevOps impacta la cultura, las herramientas y los procesos dentro de una organización.
+**Consejo:** No se trata solo de responder las preguntas, sino de comprender cómo DevOps impacta la cultura, las herramientas y los procesos dentro de una organización.
