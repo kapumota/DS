@@ -21,7 +21,7 @@ También copiamos algunas respuestas y las modificamos para simular respuestas b
 
 Abre el archivo `tests/fixtures/imdb_responses.json` en el IDE para familiarizarte con las diversas respuestas que utilizaremos en las pruebas.
 
-#### La Clase IMDb
+#### La clase IMDb
 
 En la carpeta `models/` encontrarás un archivo llamado `imdb.py`. Este módulo contiene la clase `IMDb` que vamos a probar. Implementa tres (3) de las muchas APIs que el servicio de IMDb expone. Actualmente, las APIs SearchTitle, Reviews y Ratings han sido implementadas por los métodos `search_titles()`, `movie_reviews()` y `movie_ratings()` respectivamente.
 
