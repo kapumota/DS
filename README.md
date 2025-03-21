@@ -1,16 +1,14 @@
-### Curso: CC3S2
+### Curso CC3S2
 
 Este curso intensivo está diseñado para proporcionar una visión integral de las prácticas modernas de desarrollo y operaciones (DevOps) en el entorno actual. Se abordarán temas fundamentales que van desde la integración de la infraestructura como código hasta la orquestación de contenedores y la ingeniería de confiabilidad del sitio. Además, se explorarán metodologías ágiles, prácticas de testing y estrategias de monitoreo y escalabilidad.
 
 ### Índice
 
-- [Capítulo 1: DevOps y el Desarrollo Moderno](#capítulo-1-devops-y-el-desarrollo-moderno)
-- [Capítulo 2: Desarrollo Ágil y Uso de Git](#capítulo-2-desarrollo-ágil-y-uso-de-git)
+- [Capítulo 1: DevOps y el desarrollo moderno](#capítulo-1-devops-y-el-desarrollo-moderno)
+- [Capítulo 2: Desarrollo ágil y uso de Git](#capítulo-2-desarrollo-ágil-y-uso-de-git)
 - [Capítulo 3: Infraestructura como Código (IaC)](#capítulo-3-infraestructura-como-código-iac)
-- [Capítulo 4: Contenedores y Despliegue de Aplicaciones Modernas](#capítulo-4-contenedores-y-despliegue-de-aplicaciones-modernas)
-- [Capítulo 5: Monitoreo y Escalabilidad](#capítulo-5-monitoreo-y-escalabilidad)
-- [Evaluaciones y Prácticas](#evaluaciones-y-prácticas)
-
+- [Capítulo 4: Contenedores y despliegue de aplicaciones modernas](#capítulo-4-contenedores-y-despliegue-de-aplicaciones-modernas)
+- [Capítulo 5: Monitoreo y escalabilidad](#capítulo-5-monitoreo-y-escalabilidad)
 
 #### Capítulo 1: DevOps y el desarrollo moderno
 
