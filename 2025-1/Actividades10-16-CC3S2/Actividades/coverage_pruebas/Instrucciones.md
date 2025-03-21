@@ -54,10 +54,9 @@ En el ejemplo, el target `coverage_individual` recorre cada actividad (como `ase
    - Documenta en un breve informe los distintos tipos de cobertura que identificaste y cómo cada uno aporta al aseguramiento de la calidad del código.
    - Explica la utilidad del Makefile en tu flujo de trabajo y cómo automatiza procesos que, de otro modo, serían manuales y propensos a errores.
 
----
 #### Ejercicios
 
-##### Ejercicio 1: Análisis y evaluación de la cobertura actual
+#### Ejercicio 1: Análisis y evaluación de la cobertura actual
 
 **Objetivo:**  
 Conocer el estado actual de la cobertura y detectar áreas del código que podrían necesitar pruebas adicionales.
@@ -80,7 +79,7 @@ Conocer el estado actual de la cobertura y detectar áreas del código que podr�
    Registra en un breve informe qué partes del código no están totalmente cubiertas y plantea posibles razones o casos de prueba faltantes.
 
 
-##### Ejercicio 2: Ampliar las pruebas para mejorar la cobertura
+#### Ejercicio 2: Ampliar las pruebas para mejorar la cobertura
 
 **Objetivo:**  
 Aumentar la cobertura de pruebas escribiendo tests que exploren casos adicionales y validen el comportamiento de cada método del modelo `Account`.
@@ -113,12 +112,12 @@ Aumentar la cobertura de pruebas escribiendo tests que exploren casos adicionale
 4. **Prueba del método especial `__repr__`:**
    - Verificar que el formato del string sea exactamente el esperado.
 
-##### Ejercicio 3: Ampliación y optimización del Makefile
+#### Ejercicio 3: Ampliación y optimización del Makefile
 
 **Objetivo:**  
 Automatizar no solo la ejecución de pruebas y generación de reportes, sino también otros procesos comunes en el ciclo de desarrollo.
 
-**Propuestas de Targets adicionales:**
+**Propuestas de targets adicionales:**
 
 1. **`make lint`:**  
    - Ejecuta herramientas de análisis estático (por ejemplo, `flake8` o `black`) para asegurar la calidad del código.  
@@ -155,7 +154,7 @@ Automatizar no solo la ejecución de pruebas y generación de reportes, sino tam
    - Asegúrate de que el target `clean` elimina todos los archivos temporales, caches y reportes generados, para mantener el proyecto limpio.
 
 
-##### Ejercicio 4: Integración y pruebas con una base de datos temporal
+#### Ejercicio 4: Integración y pruebas con una base de datos temporal
 
 **Objetivo:**  
 Implementar pruebas de integración utilizando una base de datos temporal para evitar interferir con datos reales.
@@ -188,7 +187,7 @@ Implementar pruebas de integración utilizando una base de datos temporal para e
    - Ejecuta de nuevo todas las pruebas y asegúrate de que no se están escribiendo datos en `test.db`, sino en una base en memoria que se destruye al finalizar.
 
 
-#### Ejercicio 5: Refactorización y adición de funcionalidades
+### Ejercicio 5: Refactorización y adición de funcionalidades
 
 **Objetivo:**  
 Extender la funcionalidad del modelo y, a su vez, la cobertura de pruebas.
