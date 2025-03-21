@@ -20,6 +20,8 @@ Este curso intensivo está diseñado para proporcionar una visión integral de l
 - [Factory y fakes](https://github.com/kapumota/DS/blob/main/2025-1/Actividades10-16-CC3S2/Actividades/factories_fakes/Instrucciones.md)
 - [Cobertura de pruebas](https://github.com/kapumota/DS/blob/main/2025-1/Actividades10-16-CC3S2/Actividades/coverage_pruebas/Instrucciones.md)
 - [Práctica del ciclo TDD](https://github.com/kapumota/DS/blob/main/2025-1/Actividades10-16-CC3S2/Actividades/practica_tdd/Instrucciones.md)
+- [Gestión ágil de proyectos con GitHub Projects, configuración de Kanban Board y creación de historias de usuario](https://github.com/kapumota/DS/blob/main/2025-1/Actividad17-CC3S2.md)
+- [ Gestión ágil de sprints con GitHub, planificación, ejecución y cierre de Sprints](https://github.com/kapumota/DS/blob/main/2025-1/Actividad18-CC3S2.md)
 
 ### Índice
 
