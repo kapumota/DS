@@ -1,7 +1,5 @@
 ### Actividad: Revisión de fixtures en pruebas
 
-**Tiempo estimado necesario**: 30 minutos
-
 En esta actividad, aprenderás a utilizar los diferentes fixtures de prueba que están disponibles en el paquete `pytest`.
 
 Los **fixtures** permiten establecer y limpiar el estado antes y después de las pruebas, facilitando la preparación del entorno de pruebas.
