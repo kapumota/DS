@@ -1,6 +1,25 @@
-### Curso CC3S2
+## Curso CC3S2
 
 Este curso intensivo está diseñado para proporcionar una visión integral de las prácticas modernas de desarrollo y operaciones (DevOps) en el entorno actual. Se abordarán temas fundamentales que van desde la integración de la infraestructura como código hasta la orquestación de contenedores y la ingeniería de confiabilidad del sitio. Además, se explorarán metodologías ágiles, prácticas de testing y estrategias de monitoreo y escalabilidad.
+
+### Lista de actividades
+
+- [Introducción a DevOps](https://github.com/kapumota/DS/blob/main/2025-1/Actividad1-CC3S2.md)
+- [Del código a la producción: Infraestructura, contenedores, despliegue y observabilidad](https://github.com/kapumota/DS/blob/main/2025-1/Actividad2-CC3S2.md)
+- [Computación en la nube](https://github.com/kapumota/DS/blob/main/2025-1/Actividad3-CC3S2.md)
+- [Introducción a Git - conceptos básicos y operaciones esenciales](https://github.com/kapumota/DS/blob/main/2025-1/Actividad4-CC3S2.md)
+- [Explorando diferentes formas de fusionar en Git](https://github.com/kapumota/DS/blob/main/2025-1/Actividad5-CC3S2.md)
+- [Rebase, Cherry-Pick y CI/CD en un entorno ágil](https://github.com/kapumota/DS/blob/main/2025-1/Actividad6-CC3S2.md)
+- [Pruebas BDD con behave en español](https://github.com/kapumota/DS/blob/main/2025-1/Actividad7-CC3S2/Instrucciones.md)
+- [El patrón Arrange-Act-Assert](https://github.com/kapumota/DS/blob/main/2025-1/Actividad8-CC3S2/Instrucciones.md)
+- [Red-Green-Refactor](https://github.com/kapumota/DS/blob/main/2025-1/Actividad9-CC3S2/Instrucciones.md)
+- [Ejecutar pruebas con pytest](https://github.com/kapumota/DS/blob/main/2025-1/Actividades10-16-CC3S2/Actividades/pruebas_pytest/Instrucciones.md)
+- [Escribir aserciones en pruebas con pytest](https://github.com/kapumota/DS/blob/main/2025-1/Actividades10-16-CC3S2/Actividades/aserciones_pruebas/Instrucciones.md)
+- [Revisión de fixtures en pruebas](https://github.com/kapumota/DS/blob/main/2025-1/Actividades10-16-CC3S2/Actividades/pruebas_fixtures/Instrucciones.md)
+- [Objetos mocking](https://github.com/kapumota/DS/blob/main/2025-1/Actividades10-16-CC3S2/Actividades/objects_mocking/Instrucciones.md)
+- [Factory y fakes](https://github.com/kapumota/DS/blob/main/2025-1/Actividades10-16-CC3S2/Actividades/factories_fakes/Instrucciones.md)
+- [Cobertura de pruebas](https://github.com/kapumota/DS/blob/main/2025-1/Actividades10-16-CC3S2/Actividades/coverage_pruebas/Instrucciones.md)
+- [Práctica del ciclo TDD](https://github.com/kapumota/DS/blob/main/2025-1/Actividades10-16-CC3S2/Actividades/practica_tdd/Instrucciones.md)
 
 ### Índice
 
