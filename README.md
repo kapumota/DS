@@ -19,7 +19,7 @@ Este curso intensivo está diseñado para proporcionar una visión integral de l
   - Infraestructura, contenedores, despliegue y observabilidad.
 - **Computación en la nube.**
 
-#### Material Opcional:
+#### Material opcional:
 - **Visión cultural de DevOps:**
   - Comunicación y colaboración.
 - **Evolución hacia DevSecOps:**
@@ -39,12 +39,12 @@ Este curso intensivo está diseñado para proporcionar una visión integral de l
 - **Rebase, Cherry-Pick y CI/CD en un entorno ágil.**
 - **Pruebas BDD con behave.**
 
-### Test-Driven Development (TDD)  
+#### Test-Driven Development (TDD)  
 
 - **Patrón AAA y ciclo Red-Green-Refactor.**
 - **Uso de Pytest, aserciones y fixtures.**
 
-### Mocks y Stubs en TDD  
+#### Mocks y stubs en TDD  
 
 - **Diferencia entre mocks, stubs y spies.**
 - **Implementación de mocks y stubs para aislar dependencias.**
@@ -57,17 +57,14 @@ Este curso intensivo está diseñado para proporcionar una visión integral de l
 - **Gestión de sprints con GitHub:**
   - Planificación, ejecución y cierre de Sprints.
 
-
 #### Capítulo 3: Infraestructura como código (IaC)
 
-#### Infraestructura como Código  
+#### Infraestructura como código  
 
 
 - **Razones para usar código en la construcción de infraestructura.**
 - **Introducción a Vagrant, Ansible y Terraform.**
 - **Creación de una máquina virtual y patrones de IaC.**
-
-**Examen Parcial:** 12/05/25
 
 #### Estrategia de testing para infraestructura  
 
