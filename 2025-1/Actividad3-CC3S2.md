@@ -55,7 +55,7 @@ Esta actividad se orienta a estudiantes de desarrollo de software que deseen ent
    - Diseña una estrategia (de forma teórica) para migrar el 50% de tus cargas de trabajo a un segundo proveedor de nube, con el fin de no depender exclusivamente de uno.  
    - Explica dónde iría la base de datos, cómo manejarías la configuración de red y cuál sería el plan de contingencia si un proveedor falla.
 
-4. **Debate sobre costos y tetos**  
+4. **Debate sobre costos**  
    - Prepara un breve análisis de los pros y contras de cada tipo de nube (pública, privada, híbrida, multi-cloud) considerando:
      1. Costos iniciales (CAPEX vs. OPEX).  
      2. Flexibilidad y escalabilidad a mediano y largo plazo.  
@@ -63,7 +63,7 @@ Esta actividad se orienta a estudiantes de desarrollo de software que deseen ent
      4. Barreras o complejidades al cambiar de proveedor.
 
 
-#### C. Ejercicio de presentación de "Mini-Proyecto"
+#### C. Ejercicio de presentación de "mini-proyecto"
 
 Como parte del **aprendizaje práctico**, forma equipos y presenten un **"Mini-proyecto de arquitectura en la Nube"**:
 
