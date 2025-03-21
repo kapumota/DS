@@ -1,0 +1,18 @@
+# dependencias que pueden causar problemas
+Werkzeug==2.1.2
+SQLAlchemy==1.4.46
+
+# Dependencias para todo las actividades
+Flask==2.1.2
+Flask-SQLAlchemy==2.5.1
+requests==2.31.0
+
+# Probando las dependencias
+pytest==7.1.2          # Reemplazo de nose
+pytest-cov==3.0.0      # Reemplazo de pinocchio para cobertura
+coverage==6.3.2
+factory-boy==3.2.1     # Versión actualizada
+pylint==2.14.0
+
+# Linter (lo que falta agregar)
+flake8==6.0.0
