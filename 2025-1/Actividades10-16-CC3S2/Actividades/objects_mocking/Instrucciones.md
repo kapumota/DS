@@ -1,6 +1,6 @@
 ### Actividad: Objetos mocking
 
-Bienvenido a la actividad de **Objetos mocking**. Mocking es un proceso para crear objetos que imitan el comportamiento de objetos reales. Puede ser muy útil cuando tu código llama a otro sistema del cual depende y que podría no estar disponible durante las pruebas. Entender el mocking es crítico para asegurarse de que solo estás probando tu propio código, no el sistema de otra persona.
+Bienvenido a la actividad de **objetos mocking**. Mocking es un proceso para crear objetos que imitan el comportamiento de objetos reales. Puede ser muy útil cuando tu código llama a otro sistema del cual depende y que podría no estar disponible durante las pruebas. Entender el mocking es crítico para asegurarse de que solo estás probando tu propio código, no el sistema de otra persona.
 
 En esta actividad vamos a usar tanto patching como mocking para simular las llamadas reales al servicio de Internet Movie Database (IMDb) durante las pruebas. También utilizaremos fixtures de prueba para proporcionarnos respuestas válidas que hubiéramos recibido del servicio de IMDb si realmente lo hubiéramos llamado. De esta manera, podemos controlar lo que se devuelve del servicio sin tener que realizar una llamada real a él.
 
