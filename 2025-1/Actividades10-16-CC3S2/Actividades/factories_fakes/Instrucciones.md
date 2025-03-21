@@ -1,10 +1,9 @@
-## Factory y Fakes
+## Factory y fakes
 
 A menudo necesitas datos falsos(fakes) para realizar pruebas. Por supuesto, puedes usar algunos datos de muestra "codificados" en tus pruebas. Pero, ¿qué sucede si necesitas cientos o incluso miles de registros de datos de prueba? Eso puede ser tedioso de crear y mantener.
 
 En esta actividad, veremos cómo usar un paquete de Python popular llamado **FactoryBoy** para proporcionar datos falsos para las pruebas.
 
-**Tiempo de la actividad**: 30 minutos
 
 ### Objetivos de aprendizaje
 
