@@ -2,9 +2,7 @@
 
 En esta actividad, aprenderás cómo utilizar herramientas fundamentales para ejecutar pruebas unitarias en Python utilizando el framework pytest y otros complementos más actuales.
 
-**Tiempo estimado necesario**: 30 minutos
-
-Después de completar este laboratorio, serás capaz de:
+Después de completar esta actividad serás capaz de:
 
 - Instalar pytest y pytest-cov
 - Ejecutar pruebas unitarias con pytest
