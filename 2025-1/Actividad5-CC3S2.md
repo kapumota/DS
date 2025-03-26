@@ -1,6 +1,6 @@
 ### **Actividad: Explorando diferentes formas de fusionar en Git**
 
-**Objetivo:**  
+**Objetivo de aprendizaje:**  
 En esta actividad, exploraremos el proceso de fusionar dos ramas en Git utilizando tres métodos diferentes: fast-forward, no-fast-forward y squash. A través de los ejemplos, comprenderás cómo funcionan y cuándo es recomendable utilizar cada tipo de fusión.
 
 
