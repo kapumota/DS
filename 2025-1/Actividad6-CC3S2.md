@@ -1,6 +1,6 @@
 ### **Actividad:Rebase, Cherry-Pick y CI/CD en un entorno ágil**
 
-**Objetivo:**  
+**Objetivo de aprendizaje:**  
 Aprender a usar los comandos `git rebase` y `git cherry-pick` para mantener un historial de commits limpio y manejable en proyectos colaborativos.  También explorarás cuándo y por qué utilizar estos comandos en lugar de los merges regulares.
 
 #### **Parte 1: git rebase para mantener un historial lineal**
