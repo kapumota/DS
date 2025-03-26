@@ -1,6 +1,6 @@
 ### Actividad: Red-Green-Refactor
 
-**Objetivo:**  El objetivo de este proyecto es desarrollar una clase ShoppingCart que permita gestionar de forma eficiente un carrito de compras. La clase debe soportar las siguientes funcionalidades:
+**Objetivo de aprendizaje:**  El objetivo de este proyecto es desarrollar una clase ShoppingCart que permita gestionar de forma eficiente un carrito de compras. La clase debe soportar las siguientes funcionalidades:
 
 - Agregar artículos al carrito: Permitir añadir productos especificando nombre, cantidad y precio unitario, gestionando la posibilidad de agregar múltiples cantidades del mismo producto.
 - Eliminar artículos del carrito: Remover productos previamente agregados.
