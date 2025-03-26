@@ -56,9 +56,9 @@ resource "aws_instance" "app_server" {
 }
 ```
 
-Este enfoque permite que cualquier cambio en la infraestructura se documente y se controle de forma automática, facilitando la colaboración y la detección de desviaciones mediante herramientas de “terraform plan” que comparan el estado actual con el definido en los archivos.
+Este enfoque permite que cualquier cambio en la infraestructura se documente y se controle de forma automática, facilitando la colaboración y la detección de desviaciones mediante herramientas de "terraform plan" que comparan el estado actual con el definido en los archivos.
 
-#### Automatización y Orquestación de Entornos Locales
+#### Automatización y orquestación de entornos locales
 
 Herramientas como Vagrant permiten definir entornos virtuales reproducibles a través de un archivo denominado *Vagrantfile*. Esto resulta especialmente útil para crear entornos de desarrollo locales que se asemejen a la infraestructura de producción. Por ejemplo, un Vagrantfile puede definir una máquina virtual basada en Ubuntu, configurar redes, carpetas compartidas y ejecutar scripts de aprovisionamiento (por ejemplo, instalar Apache) de forma automática.
 
