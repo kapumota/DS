@@ -2,6 +2,17 @@
 
 Este proyecto es un ejemplo de cómo utilizar **behave**, una herramienta para pruebas de desarrollo dirigido por comportamiento (Behavior-Driven Development - BDD) en Python, para escribir y ejecutar pruebas en español. Simula el comportamiento de un estómago (`Belly`) que gruñe o no en función de la cantidad de pepinos consumidos y el tiempo de espera.
 
+### Objetivos de aprendizaje
+
+Esta actividad tiene como propósito:
+
+- Implementar los pasos de los escenarios BDD en Python, conectando las especificaciones de negocio con el código.
+- Desarrollar pruebas unitarias con **Pytest**, aplicando principios de **TDD**.
+- Estructurar correctamente un proyecto con **carpetas separadas para código fuente, pruebas unitarias y pruebas BDD**.
+- Diseñar funciones capaces de interpretar y validar entradas humanas como descripciones de tiempo (ej. "dos horas y media").
+- Manejar correctamente **errores y validaciones de entrada**, incluyendo casos fraccionarios o no válidos.
+- Experimentar un ciclo completo de desarrollo: **historia de usuario → criterios de aceptación → pruebas → código → validación**.
+
 ### Tabla de contenidos
 
 - [Requisitos previos](#requisitos-previos)
