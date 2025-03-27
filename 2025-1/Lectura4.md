@@ -25,6 +25,10 @@ Cada archivo en tu proyecto puede estar en uno de cuatro estados:
 - **Staged:** Después de la modificación, los archivos pueden prepararse (staging) utilizando el comando `git add`, señalando a Git
   que están listos para el próximo commit. Aunque estos cambios han sido marcados, no se guardan en el repositorio hasta que los cometes.
 
+La siguiente figura muestra estas transiciones de estado. Los archivos van y vienen entre estos estados: 
+
+<img src="Imagenes/transiciones_estado.png" width="560">
+
 Cuando creas o introduces nuevos archivos a tu proyecto, comienzan como no rastreados (untracked). 
 Al agregar estos archivos utilizando el comando `git add`, pasan al estado **staged**, indicando que están listos para ser comprometidos. 
 Una vez que ejecutas el comando `git commit`, los cambios se registran en el historial del repositorio y los archivos pasan al 
