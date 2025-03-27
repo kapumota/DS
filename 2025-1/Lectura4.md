@@ -252,6 +252,8 @@ La maravilla de la eficiencia de Git está profundamente arraigada en cómo alma
 
 Ilustremos la relación entre cada uno de estos:
 
+<img src="Imagenes/arboles_blobs.png" width="560">
+
 Cada commit en Git corresponde a un árbol, que representa el estado de los archivos y directorios del repositorio en ese momento específico. 
 Para una inmersión más profunda, considera el diagrama presentado. El commit etiquetado como `fb36640` tiene una referencia al árbol `d6f50a2`.
 Este árbol refleja el directorio raíz del repositorio durante ese commit.
@@ -266,6 +268,8 @@ Al estructurar sus datos de esta manera jerárquica, Git puede rastrear rápidam
 almacenamiento redundante. Por ejemplo, los archivos no modificados a lo largo de los commits apuntan al mismo blob, optimizando 
 el almacenamiento y la recuperación.
 
+<img src="Imagenes/commits_arboles_blobs.png" width="560">
+
 Entender la estructura de árbol de Git y cómo se relaciona con blobs y commits es fundamental para cualquier desarrollador. 
 No se trata solo de usar comandos de Git; se trata de apreciar la ingeniosa arquitectura subyacente, asegurando que el historial de tu 
 código se conserve de manera eficiente y precisa. A medida que progresas en tu viaje con Git, este conocimiento te empoderará para
@@ -273,4 +277,3 @@ utilizar las capacidades de Git al máximo.
 
 Si echas un vistazo dentro del directorio `.git/`, verás que tiene una estructura muy simple, y es gracias a esta simplicidad que 
 Git puede gestionar proyectos complejos.
-
