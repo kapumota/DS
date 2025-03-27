@@ -241,7 +241,7 @@ Un commit tiene el ID de su commit padre, estableciendo una relación referencia
 flechas a menudo representan esta relación. Vale la pena señalar que la dirección de estas flechas a menudo aparece inversa a la secuencia 
 de commits. Cada commit tiene la relación mostrada en la figura:
 
-<img src="Imagenes/commits.png" width="560">
+<img src="Imagenes/commits1.png" width="560">
 
 *Observación:* Los commits a veces pueden tener múltiples padres, especialmente cuando dos branches se fusionan. 
 Esta doble paternidad significa la unión de dos líneas separadas de desarrollo.
