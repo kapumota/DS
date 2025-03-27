@@ -27,7 +27,7 @@ Cada archivo en tu proyecto puede estar en uno de cuatro estados:
 
 La siguiente figura muestra estas transiciones de estado. Los archivos van y vienen entre estos estados: 
 
-<img src="Imagenes/transiciones_estado.png" width="560">
+<img src="Imagenes/transiciones_estado.png" width="500">
 
 Cuando creas o introduces nuevos archivos a tu proyecto, comienzan como no rastreados (untracked). 
 Al agregar estos archivos utilizando el comando `git add`, pasan al estado **staged**, indicando que están listos para ser comprometidos. 
