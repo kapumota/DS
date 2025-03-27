@@ -27,7 +27,7 @@ Cada archivo en tu proyecto puede estar en uno de cuatro estados:
 
 La siguiente figura muestra estas transiciones de estado. Los archivos van y vienen entre estos estados: 
 
-<img src="Imagenes/transiciones_estado.png" width="560">
+<img src="Imagenes/transiciones_estado.png" width="500">
 
 Cuando creas o introduces nuevos archivos a tu proyecto, comienzan como no rastreados (untracked). 
 Al agregar estos archivos utilizando el comando `git add`, pasan al estado **staged**, indicando que están listos para ser comprometidos. 
@@ -241,7 +241,7 @@ Un commit tiene el ID de su commit padre, estableciendo una relación referencia
 flechas a menudo representan esta relación. Vale la pena señalar que la dirección de estas flechas a menudo aparece inversa a la secuencia 
 de commits. Cada commit tiene la relación mostrada en la figura:
 
-<img src="Imagenes/commits.png" width="560">
+<img src="Imagenes/commits1.png" width="560">
 
 *Observación:* Los commits a veces pueden tener múltiples padres, especialmente cuando dos branches se fusionan. 
 Esta doble paternidad significa la unión de dos líneas separadas de desarrollo.
