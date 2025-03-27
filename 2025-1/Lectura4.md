@@ -112,7 +112,7 @@ $ ls .git/objects/b6/
 Los objetos en Git están organizados en subdirectorios bajo `.git/objects/` según los dos primeros caracteres del hash SHA-1. 
 El archivo que se muestra corresponde al objeto completo `b6416404135d84b272600d3419cad3b0352d7041`.
 
-**git cat-file: Desentrañando el funcionamiento interno**
+#### git cat-file: Desentrañando el funcionamiento interno
 
 Para inspeccionar el contenido del valor en el almacén de clave-valor, se puede usar el comando `git cat-file`. 
 Al pasar las primeras siete letras del ID del commit como argumento, obtenemos resultados que muestran el árbol y el padre, que se refiere 
@@ -166,7 +166,7 @@ Welcome to the project
 
 Debes entender que Git no es una caja negra; es un sistema que gestiona el historial como valor, claveado por un hash SHA-1.
 
-**git show: Más fácil de usar en tus actividades diarias**
+#### git show
 
 Anteriormente, utilizamos el comando `git cat-file` para aprender cómo funciona Git, pero hay un comando similar, `git show`. 
 Ambos son comandos de Git poderosos, pero sirven para propósitos algo diferentes y proporcionan salidas diferentes. 
@@ -240,6 +240,8 @@ del repositorio.
 Un commit tiene el ID de su commit padre, estableciendo una relación referencial. En muchas representaciones visuales de commits, las 
 flechas a menudo representan esta relación. Vale la pena señalar que la dirección de estas flechas a menudo aparece inversa a la secuencia 
 de commits. Cada commit tiene la relación mostrada en la figura:
+
+<img src="Imagenes/commits.png" width="560">
 
 *Observación:* Los commits a veces pueden tener múltiples padres, especialmente cuando dos branches se fusionan. 
 Esta doble paternidad significa la unión de dos líneas separadas de desarrollo.
