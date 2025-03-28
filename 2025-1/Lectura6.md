@@ -89,7 +89,7 @@ permite abordar rápidamente problemas críticos sin comprometer la estabilidad.
 **Git Flow** es una política de ramificación orientada a proyectos robustos y es especialmente adecuada para aquellos que tienen un ciclo de lanzamiento programado. 
 Este enfoque estructurado involucra varios tipos de ramas: *feature*, *release*, *develop* y *hotfix*, junto con la rama *main* (o *master*).
 
-<img src="Imagenes/Gitflow.png" width="600">
+<img src="Imagenes/Git-flow.png" width="560">
 
 En Git Flow:
 
