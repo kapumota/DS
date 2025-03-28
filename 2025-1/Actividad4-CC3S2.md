@@ -1,7 +1,8 @@
-### **Actividad:** Introducción a Git - conceptos básicos y operaciones esenciales
+## **Actividad:** Introducción a Git - conceptos básicos y operaciones esenciales
 
-**Objetivo de aprendizaje:** Familiarizarse con los conceptos básicos de Git y realizar operaciones esenciales, como la configuración inicial, creación de repositorios, preparación y confirmación de cambios, visualización de historial, y gestión de ramas.
+### Objetivo de aprendizaje
 
+Familiarizarse con los conceptos básicos de Git y realizar operaciones esenciales, como la configuración inicial, creación de repositorios, preparación y confirmación de cambios, visualización de historial, y gestión de ramas.
 
 #### Conceptos básicos de Git: Comienza con una experiencia práctica
 
