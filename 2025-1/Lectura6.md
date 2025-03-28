@@ -457,5 +457,22 @@ Esto combinará todos los cambios de la rama `add-basic-files` en un solo nuevo 
 <img src="Imagenes/merge-squash3.png" width="480">
 
 
+**¿Por qué usar fusiones squash en DevOps y colaboración en equipo?**
 
+Las fusiones squash ofrecen un conjunto único de beneficios para el desarrollo colaborativo y DevOps:
+
+- **Cambios atómicos:** Una fusión squash consolida todos los cambios de una feature en un solo commit, lo que facilita revertir la integración si es necesario.  
+- **Ruido reducido:** Al eliminar la acumulación de múltiples commits pequeños –a menudo experimentales– en la rama principal, el historial resulta más limpio y fácil de leer.  
+- **Mensajes de commit estratégicos:** Consolidar los cambios en un único commit permite redactar un mensaje que encapsule de manera más efectiva el propósito e impacto de la feature, en comparación con una serie de commits fragmentados.
+
+Sin embargo, es importante señalar que, aunque las fusiones squash simplifican el historial, también pueden oscurecerlo. Al perderse los commits individuales de la feature branch en la rama principal, se dificulta comprender el contexto y la evolución de cada cambio. Por ello, se recomienda usar esta estrategia con prudencia y conocer su impacto en el historial de desarrollo.
+
+**La ética y las trampas de las fusiones squash**
+
+Aplastar los commits de otros puede ser problemático. El comando `git merge --squash` es una herramienta poderosa para consolidar múltiples commits en uno solo. Si bien esta función mantiene el historial limpio y manejable, también plantea cuestiones éticas y prácticas cuando se aplica a commits realizados por otros colaboradores:
+
+- **Mala atribución de autoría:** Por defecto, la persona que ejecuta el squash se convierte en el autor del commit consolidado, lo que borra el historial de los contribuyentes originales y puede desmotivar al equipo al no reconocer sus aportes.  
+- **Alteración del historial:** Al modificar el historial de commits, se puede perder información valiosa sobre la evolución del código, lo que podría interpretarse como una falta de respeto al trabajo realizado.
+
+Si mantener la integridad de los commits individuales es importante, es preferible optar por una fusión estándar, que, aunque genere un historial más complejo, preserva el trabajo y el reconocimiento de cada colaborador. Además, el comando `git rebase` ofrece mayor control sobre el historial, permitiendo limpiar o reorganizar el propio trabajo sin afectar a otros.
 
