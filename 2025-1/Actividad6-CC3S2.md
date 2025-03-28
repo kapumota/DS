@@ -1,6 +1,7 @@
-### **Actividad:Rebase, Cherry-Pick y CI/CD en un entorno ágil**
+## **Actividad:Rebase, Cherry-Pick y CI/CD en un entorno ágil**
 
-**Objetivo de aprendizaje:**  
+### Objetivo de aprendizaje:  
+
 Aprender a usar los comandos `git rebase` y `git cherry-pick` para mantener un historial de commits limpio y manejable en proyectos colaborativos.  También explorarás cuándo y por qué utilizar estos comandos en lugar de los merges regulares.
 
 #### **Parte 1: git rebase para mantener un historial lineal**
@@ -15,8 +16,8 @@ Aprender a usar los comandos `git rebase` y `git cherry-pick` para mantener un h
 
    - Crea un nuevo repositorio Git y dos ramas, main y new-feature:
      ```bash
-     $ mkdir try-git-rebase
-     $ cd try-git-rebase
+     $ mkdir prueba-git-rebase
+     $ cd prueba-git-rebase
      $ git init
      $ echo "# Mi Proyecto de Rebase" > README.md
      $ git add README.md
@@ -84,14 +85,14 @@ Aprender a usar los comandos `git rebase` y `git cherry-pick` para mantener un h
 
    ```bash
    # Inicializar un nuevo repositorio
-   $ mkdir try-cherry-pick
-   $ cd try-cherry-pick
+   $ mkdir prueba-cherry-pick
+   $ cd prueba-cherry-pick
    $ git init
 
    # Agregar y commitear README.md inicial a main
-   $ echo "# My Project" > README.md
+   $ echo "# Mi Projecto" > README.md
    $ git add README.md
-   $ git commit -m "Initial commit"
+   $ git commit -m "Commit inicial"
 
    # Crear y cambiar a una nueva rama 'add-base-documents'
    $ git checkout -b add-base-documents
@@ -100,12 +101,12 @@ Aprender a usar los comandos `git rebase` y `git cherry-pick` para mantener un h
    # Agregar CONTRIBUTING.md
    $ echo "# CONTRIBUTING" >> CONTRIBUTING.md
    $ git add CONTRIBUTING.md
-   $ git commit -m "Add CONTRIBUTING.md"
+   $ git commit -m "Se agrega CONTRIBUTING.md"
 
    # Agregar LICENSE.txt
    $ echo "LICENSE" >> LICENSE.txt
    $ git add LICENSE.txt
-   $ git commit -m "Add LICENSE.txt"
+   $ git commit -m "Agrega LICENSE.txt"
 
    # Echa un vistazo al log de la rama 'add-base-documents'
    $ git log add-base-documents --graph --oneline
