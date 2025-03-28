@@ -8,7 +8,7 @@ grandes proyectos con un gran número de colaboradores y gestionar el código en
 
 ####  El ciclo de vida del archivo en Git
 
-En Git, aprendimos que guardar cambios es una acción de dos pasos: preparación y commit, pero Git en realidad maneja los archivos en 
+Hasta ahora en Git aprendimos que guardar cambios es una acción de dos pasos: preparación y commit, pero Git en realidad maneja los archivos en 
 cuatro estados.
 
 Cada archivo en tu proyecto puede estar en uno de cuatro estados:
