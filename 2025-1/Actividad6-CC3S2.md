@@ -1,4 +1,4 @@
-## **Actividad:Rebase, Cherry-Pick y CI/CD en un entorno ágil**
+## **Actividad: Rebase, Cherry-Pick y CI/CD en un entorno ágil**
 
 ### Objetivo de aprendizaje:  
 
