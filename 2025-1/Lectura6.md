@@ -257,7 +257,7 @@ Esta sección se centra en el comportamiento de Git conocido como **fast-forward
 
 La fusión fast-forward es una de las formas más simples de integrar ramas en Git, ya que **mueve la referencia de la rama objetivo al último commit de la rama fuente**. Al revisar el historial, parecerá que no se ha realizado ningún cambio, lo cual es precisamente el beneficio de esta técnica. En Git, una fusión fast-forward es posible cuando no hay nuevos commits en la rama base después de que se creó la rama de características, eliminando la necesidad de un commit adicional para la unión.
 
-<img src="Imagenes/fast-forward.png" width="480">
+<img src="Imagenes/fast-forward.png" width="600">
 
 #### Pasos prácticos para la fusión fast-forward
 
@@ -285,7 +285,7 @@ $ git commit -m "Agregar descripción del proyecto en README.md"
 
 En este punto, la estructura de tu repositorio se parecería al siguiente diagrama (git merge --ff(1)):
 
-<img src="Imagenes/merge-ff.png" width="500">
+<img src="Imagenes/merge-ff.png" width="600">
 
 Ahora, fusiona estas ramas cambiando de nuevo a la rama `main`:
 
