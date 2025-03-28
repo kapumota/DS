@@ -55,8 +55,8 @@ La fusión fast-forward es la forma más simple de combinar ramas en Git. Solo e
 
 ```bash
 # Crear un nuevo repositorio
-$ mkdir try-fast-forward-merge
-$ cd try-fast-forward-merge
+$ mkdir prueba-fast-forward-merge
+$ cd prueba-fast-forward-merge
 $ git init
 
 # Agregar un archivo inicial en la rama principal (main)
@@ -73,7 +73,7 @@ $ git add README.md
 $ git commit -m "Agregar descripción al README.md"
 ```
 
-**Pregunta:** MUestra la estructura de commits resultante.
+**Pregunta:** Muestra la estructura de commits resultante.
 
 ```bash
 # Cambiar de vuelta a la rama 'main' y realizar la fusión fast-forward
@@ -95,8 +95,8 @@ La fusión no-fast-forward crea un nuevo commit de fusión. Es útil para preser
 
 ```bash
 # Crear un nuevo repositorio
-$ mkdir try-no-fast-forward-merge
-$ cd try-no-fast-forward-merge
+$ mkdir prueba-no-fast-forward-merge
+$ cd prueba-no-fast-forward-merge
 $ git init
 
 # Agregar un archivo inicial en la rama principal (main)
@@ -139,8 +139,8 @@ La fusión squash combina todos los cambios de una rama en un solo commit en la 
 
 ```bash
 # Crear un nuevo repositorio
-$ mkdir try-squash-merge
-$ cd try-squash-merge
+$ mkdir prueba-squash-merge
+$ cd prueba-squash-merge
 $ git init
 
 # Agregar un archivo inicial en la rama principal (main)
