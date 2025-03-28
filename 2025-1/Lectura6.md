@@ -1,4 +1,4 @@
-### Uso avanzado de Git para la colaboración en equipo
+## Uso avanzado de Git para la colaboración en equipo
 
 En esta lectura profundizaremos en varias prácticas que querrás adoptar para mejorar la colaboración en equipo.  Aprenderás a organizar tu historial de commits, gestionar 
 ramas complejas y resolver conflictos durante los merges.  El objetivo es que tengas un control total sobre el flujo de ramas y la colaboración en equipo.
@@ -30,7 +30,6 @@ este repositorio.
 
 Por ello, al definir tu enfoque de ramificación, es crucial elegir una política que sirva de base y personalizarla para alinear los procesos de desarrollo con las 
 necesidades y objetivos únicos de tu organización, reduciendo la fricción y acelerando los lanzamientos de software.
-
 
 #### Cambios pequeños y frecuentes versus cambios grandes y menos frecuentes
 
@@ -84,14 +83,14 @@ permite abordar rápidamente problemas críticos sin comprometer la estabilidad.
 - **Riesgo de inestabilidad:** Si las pruebas no son exhaustivas, las fusiones frecuentes pueden introducir código inestable en la línea principal.
 - **Limitado para características grandes:** Para cambios muy grandes o disruptivos, este enfoque puede desestabilizar la línea principal durante un período prolongado.
 
-#### Git Flow
+#### Git flow
 
-**Git Flow** es una política de ramificación orientada a proyectos robustos y es especialmente adecuada para aquellos que tienen un ciclo de lanzamiento programado. 
+**Git flow** es una política de ramificación orientada a proyectos robustos y es especialmente adecuada para aquellos que tienen un ciclo de lanzamiento programado. 
 Este enfoque estructurado involucra varios tipos de ramas: *feature*, *release*, *develop* y *hotfix*, junto con la rama *main* (o *master*).
 
 <img src="Imagenes/Git-flow.png" width="560">
 
-En Git Flow:
+En Git flow:
 
 - El desarrollo comienza ramificando una rama **develop** a partir de **main**.
 - La rama **develop** sirve como integración para las características, donde se fusionan todas las ramas de los desarrolladores.
@@ -101,7 +100,7 @@ En Git Flow:
 - Cuando la release está lista, se fusiona en **main** y se etiqueta con un número de versión, además de fusionarse de nuevo en **develop** para incorporar los cambios futuros.
 - Para correcciones urgentes, se puede crear una **hotfix branch** directamente desde **main**.
 
-Git Flow proporciona una estructura que favorece la separación de procesos de desarrollo, lo que facilita una historia del proyecto más legible y reversible.
+Git flow proporciona una estructura que favorece la separación de procesos de desarrollo, lo que facilita una historia del proyecto más legible y reversible.
 
 **Pros:**
 - **Flujo de trabajo estructurado:** Es ideal para proyectos con ciclos de lanzamiento definidos.
@@ -113,14 +112,17 @@ Git Flow proporciona una estructura que favorece la separación de procesos de d
 - **Integración retrasada:** Las feature branches de larga duración pueden ocasionar conflictos de merge o la detección tardía de errores.
 
 
-#### GitHub Flow
+#### GitHub flow
 
-**GitHub Flow** es un flujo de trabajo simplificado que fomenta la entrega continua. Se basa en una única línea principal y en feature branches de corta duración. 
+**GitHub flow** es un flujo de trabajo simplificado que fomenta la entrega continua. Se basa en una única línea principal y en feature branches de corta duración. 
 Su principio es: ramificar, desarrollar una nueva característica, enviar un pull request y revisar el código antes de desplegar. 
 El pull request, una funcionalidad propia de GitHub, permite notificar al equipo que se ha completado una tarea, la cual se revisa y discute antes de fusionarse en la 
 rama principal.
 
-El proceso típico en GitHub Flow es el siguiente:
+<img src="Imagenes/github-flow.png" width="560">
+
+El proceso típico en GitHub flow es el siguiente:
+
 1. Crear una nueva rama descriptiva a partir de la rama predeterminada del repositorio, que actúa como entorno seguro para realizar cambios sin afectar la base de código principal.
 2. Realizar commits y enviar la rama al repositorio remoto.
 3. Crear un pull request detallado para revisión, vinculado a issues relacionados para proporcionar contexto.
@@ -134,11 +136,10 @@ El proceso típico en GitHub Flow es el siguiente:
 - **Colaboración mejorada:** El mecanismo de pull request promueve revisiones de código transparentes y la colaboración, asegurando calidad y propiedad colectiva del proyecto.
 
 **Contras:**
-- **Compatibilidad con plataformas:** GitHub Flow está optimizado para GitHub; al integrarse con otras plataformas puede requerir herramientas adicionales o ajustes.
+- **Compatibilidad con plataformas:** GitHub flow está optimizado para GitHub; al integrarse con otras plataformas puede requerir herramientas adicionales o ajustes.
 - **Adaptabilidad en proyectos complejos:** Para equipos grandes o proyectos multifacéticos, la simplicidad de GitHub Flow puede limitar el control granular sobre desarrollos
    simultáneos, requiriendo estrategias adicionales para la coordinación de lanzamientos.
 
-El texto está bastante bien escrito. Sin embargo, te propongo una versión corregida y con algunos ajustes para mejorar la claridad y cohesión:
 
 #### Directrices y ejemplos para el nombramiento de ramas
 
@@ -191,4 +192,133 @@ La base de código es un entorno vivo y colaborativo, que recoge el historial de
 En un entorno de ritmo acelerado, puede resultar tentador realizar commits apresurados o enviar grandes porciones de cambios de una sola vez para cumplir con los plazos. 
 Sin embargo, al fusionar, es crucial evaluar cómo tus cambios contribuyen a mantener un entorno compartido que sea consistente, comprensible y estable. 
 Esta consideración es especialmente vital en una cultura DevOps, donde el objetivo no es solo un despliegue rápido, sino también una colaboración sin fricciones.
+
+---
+### Merging  y rebasing
+
+Git ofrece dos técnicas principales para integrar cambios: **merging** y **rebasing**. Aunque ambos cumplen el mismo propósito final –juntar diferentes líneas de código–, 
+tienen matices operativos distintos. Antes de sumergirnos en varios comandos reales, distingamos entre ambos métodos.
+
+#### Merging
+
+El **merging** toma el contenido de una rama fuente y lo integra en una rama objetivo. Este nuevo commit tendrá dos commits padres, preservando los historiales 
+independientes de las ramas que se fusionan. Aunque el merging puede resultar complejo al mantener el historial tal como está, es muy útil por la flexibilidad que 
+ofrece cuando varias personas trabajan simultáneamente en un proyecto.
+
+Principalmente, existen dos formas de realizar un merge:
+
+- **Non-fast-forward merge:** Crea un nuevo commit de merge para registrar la fusión.
+- **Fast-forward merge:** No crea un commit de merge, sino que mueve la referencia de la rama objetivo al último commit de la rama fuente.
+
+Además, está la opción **squash**, que comprime varios commits en uno solo para la fusión.
+
+En plataformas como GitHub, la configuración predeterminada suele realizar commits de merge, como se muestra en la siguiente figura:
+
+<img src="Imagenes/ramificacion-fusion.png" width="480">
+
+**Pros del merging:**
+- **Preservación del historial:** Conserva el historial de ambas ramas, ofreciendo un registro detallado.
+- **Sencillez:** Es generalmente más fácil de entender para principiantes.
+- **Aislamiento de ramas:** Permite que las ramas individuales continúen haciendo cambios de forma independiente.
+
+**Contras del merging:**
+- **Historial complejo:** Puede generar un registro de commits complicado y desordenado.
+- **Falta de linealidad:** El historial del proyecto se vuelve no lineal, lo que dificulta su seguimiento.
+
+
+#### Rebasing
+
+El **rebasing** es el proceso de mover o combinar una secuencia de commits sobre una nueva base. Esencialmente, toma los cambios realizados en una rama de características (feature branch) y los reproduce sobre la parte superior de otra rama. En lugar de crear un nuevo commit, el rebasing reescribe el historial para producir una secuencia lineal.
+ Al mirar hacia atrás en el tiempo, es fácil seguir el flujo de lo que sucedió en la rama principal, lo cual es muy bueno en términos de corrección de errores. 
+ 
+<img src="Imagenes/rebase-fusion.png" width="480">
+
+Una de sus grandes ventajas es la linealidad del historial, lo que facilita el rastreo de cambios y la corrección de errores.
+
+**Pros del rebasing:**
+- **Historial más limpio:** Resulta en un historial de proyecto mucho más limpio y lineal.
+- **Elimina el ruido:** Suprime commits de merge innecesarios.
+- **Depuración sencilla:** Con un historial lineal, resulta más fácil identificar y solucionar problemas.
+
+**Contras del rebasing:**
+- **Riesgo en ramas compartidas:** Puede ser destructivo en ramas compartidas, ya que reescribe el historial.
+- **Complejidad:** Es más complicado de entender y ejecutar correctamente.
+
+Ambas técnicas tienen ventajas y desventajas. Mientras que el merging conserva el historial original pero puede complicarlo, el rebasing ofrece un historial limpio con ciertos riesgos en entornos colaborativos.
+
+
+### Explorando diferentes formas de fusionar en Git
+
+Ahora profundicemos en los pasos prácticos para fusionar dos ramas, lo que te ayudará a comprender mejor cada método.
+
+#### git merge --ff – Manteniéndolo simple
+
+Esta sección se centra en el comportamiento de Git conocido como **fast-forward** (–ff). Verás cómo funciona este método y cuándo es adecuado usarlo.
+
+La fusión fast-forward es una de las formas más simples de integrar ramas en Git, ya que **mueve la referencia de la rama objetivo al último commit de la rama fuente**. Al revisar el historial, parecerá que no se ha realizado ningún cambio, lo cual es precisamente el beneficio de esta técnica. En Git, una fusión fast-forward es posible cuando no hay nuevos commits en la rama base después de que se creó la rama de características, eliminando la necesidad de un commit adicional para la unión.
+
+<img src="Imagenes/fast-forward.png" width="480">
+
+#### Pasos prácticos para la fusión fast-forward
+
+Supongamos que tienes una rama `main` y una rama `add-description`. La rama `add-description` se ha derivado de `main` y planeas fusionar la característica de nuevo en `main`.
+
+```bash
+# Inicializar un nuevo repositorio
+$ mkdir prueba-fast-forward-merge
+$ cd prueba-fast-forward-merge
+$ git init
+
+# Agregar y commitear README.md inicial en main
+$ echo "# Un proyecto" > README.md
+$ git add README.md
+$ git commit -m "Commit inicial en main"
+
+# Crear y cambiar a una nueva rama 'add-descripcion'
+$ git checkout -b add-descripcion
+
+# Hacer cambios para agregar una descripción, agregar y commitear los cambios
+$ echo "Este proyecto es un ejemplo de cómo usar Git." >> README.md
+$ git add README.md
+$ git commit -m "Agregar descripción del proyecto en README.md"
+```
+
+En este punto, la estructura de tu repositorio se parecería al siguiente diagrama (git merge --ff(1)):
+
+<img src="Imagenes/merge-ff.png" width="500">
+
+Ahora, fusiona estas ramas cambiando de nuevo a la rama `main`:
+
+```bash
+# Cambiar de nuevo a 'main' y realizar una fusión fast-forward
+$ git checkout main
+$ git merge add-description
+
+# Ver el historial lineal
+$ git log --graph --oneline
+
+* 26d90bf (HEAD -> main, add-description) Agregar descripción del proyecto en README.md
+* 37ecd54 Agregar descripción del proyecto en README.md
+* a1164b9 Commit inicial en main
+```
+
+Con este proceso, el historial de tu repositorio quedará limpio y lineal (git merge --ff(2)):
+
+<img src="Imagenes/merge-ff1.png" width="500">
+
+
+#### Por qué las fusiones fast-forward son preferidas en DevOps y colaboración en equipo
+
+Detrás de escena, una fusión fast-forward simplemente mueve **HEAD** (el puntero) al último commit, sin crear un nuevo commit de merge. Esto mantiene el historial de Git limpio y lineal, lo que lo convierte en una operación simple y eficiente.
+
+Las fusiones fast-forward son preferidas en entornos colaborativos por varias razones:
+- **Simplicidad:** Mantienen un historial lineal, facilitando su seguimiento.
+- **Transparencia:** Permiten rastrear cambios, depurar problemas y comprender la secuencia de integraciones de forma directa.
+- **Eficiencia:** Al eliminar la necesidad de un commit de fusión adicional, simplifican las revisiones de código.
+
+No obstante, ten en cuenta que las fusiones fast-forward no siempre son posibles. Este método es adecuado cuando se trabaja en solitario o en desarrollos simples. En proyectos con cambios simultáneos en múltiples ramas, puede ser necesaria una fusión non-fast-forward (o fusión de tres vías).
+
+
+
+
 
