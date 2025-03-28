@@ -66,7 +66,7 @@ completa, permitiendo que el código se integre sin afectar a los usuarios final
 
 Como se ilustra en la figura, en TBD se crean muchas ramas de corta duración que se fusionan en la línea principal.
 
-<img src="Imagenes/tbd.png" width="500">
+<img src="Imagenes/tbd.png" width="600">
 
 Dado que la integración ocurre con frecuencia, es crucial contar con un conjunto robusto de pruebas automatizadas que se ejecuten cada vez que se fusiona código en el troncal, 
 asegurando así que la base de código se mantenga estable y desplegable. Las herramientas de integración continua (CI) se utilizan comúnmente en conjunto con TBD para 
@@ -88,6 +88,8 @@ permite abordar rápidamente problemas críticos sin comprometer la estabilidad.
 
 **Git Flow** es una política de ramificación orientada a proyectos robustos y es especialmente adecuada para aquellos que tienen un ciclo de lanzamiento programado. 
 Este enfoque estructurado involucra varios tipos de ramas: *feature*, *release*, *develop* y *hotfix*, junto con la rama *main* (o *master*).
+
+<img src="Imagenes/Gitflow.png" width="600">
 
 En Git Flow:
 
