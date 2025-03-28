@@ -214,7 +214,7 @@ Además, está la opción **squash**, que comprime varios commits en uno solo pa
 
 En plataformas como GitHub, la configuración predeterminada suele realizar commits de merge, como se muestra en la siguiente figura:
 
-<img src="Imagenes/ramificacion-fusion.png" width="480">
+<img src="Imagenes/non-fast-forward.png" width="480">
 
 **Pros del merging:**
 - **Preservación del historial:** Conserva el historial de ambas ramas, ofreciendo un registro detallado.
