@@ -251,13 +251,13 @@ Ambas técnicas tienen ventajas y desventajas. Mientras que el merging conserva 
 
 Ahora profundicemos en los pasos prácticos para fusionar dos ramas, lo que te ayudará a comprender mejor cada método.
 
-#### git merge --ff – Manteniéndolo simple
+#### git merge --ff
 
 Esta sección se centra en el comportamiento de Git conocido como **fast-forward** (–ff). Verás cómo funciona este método y cuándo es adecuado usarlo.
 
 La fusión fast-forward es una de las formas más simples de integrar ramas en Git, ya que **mueve la referencia de la rama objetivo al último commit de la rama fuente**. Al revisar el historial, parecerá que no se ha realizado ningún cambio, lo cual es precisamente el beneficio de esta técnica. En Git, una fusión fast-forward es posible cuando no hay nuevos commits en la rama base después de que se creó la rama de características, eliminando la necesidad de un commit adicional para la unión.
 
-<img src="Imagenes/fast-forward.png" width="600">
+<img src="Imagenes/fast-forward.png" width="520">
 
 #### Pasos prácticos para la fusión fast-forward
 
@@ -274,8 +274,8 @@ $ echo "# Un proyecto" > README.md
 $ git add README.md
 $ git commit -m "Commit inicial en main"
 
-# Crear y cambiar a una nueva rama 'add-descripcion'
-$ git checkout -b add-descripcion
+# Crear y cambiar a una nueva rama 'add-description'
+$ git checkout -b add-description
 
 # Hacer cambios para agregar una descripción, agregar y commitear los cambios
 $ echo "Este proyecto es un ejemplo de cómo usar Git." >> README.md
@@ -285,7 +285,7 @@ $ git commit -m "Agregar descripción del proyecto en README.md"
 
 En este punto, la estructura de tu repositorio se parecería al siguiente diagrama (git merge --ff(1)):
 
-<img src="Imagenes/merge-ff.png" width="600">
+<img src="Imagenes/merge-ff.png" width="560">
 
 Ahora, fusiona estas ramas cambiando de nuevo a la rama `main`:
 
@@ -318,6 +318,127 @@ Las fusiones fast-forward son preferidas en entornos colaborativos por varias ra
 
 No obstante, ten en cuenta que las fusiones fast-forward no siempre son posibles. Este método es adecuado cuando se trabaja en solitario o en desarrollos simples. En proyectos con cambios simultáneos en múltiples ramas, puede ser necesaria una fusión non-fast-forward (o fusión de tres vías).
 
+#### git merge --no-ff – Preservar el historial de ramas
+
+Las fusiones non‑fast‑forward, comúnmente invocadas con el flag `--no-ff`, ofrecen una estrategia de fusión alternativa que difiere de las fusiones fast‑forward 
+que discutimos anteriormente. A diferencia de estas últimas, que mueven el puntero de la rama objetivo al último commit de la rama fuente, las fusiones non‑fast‑forward generan un nuevo commit de fusión. Este commit tiene dos padres: uno correspondiente a la rama fuente y otro a la rama objetivo.
+
+Estas fusiones permiten incrustar contexto en el commit de fusión, de modo que, al revisar el historial, sea posible identificar cuándo y por qué se realizó la integración.
+
+<img src="Imagenes/non-fast-forward.png" width="480">
+
+#### Pasos prácticos para la fusión non‑fast‑forward
+
+Supongamos que estás trabajando con una rama `main` y una rama `add-feature`. Los pasos para realizar una fusión non‑fast‑forward son los siguientes:
+
+```bash
+# Inicializar un nuevo repositorio
+$ mkdir prueba-no-fast-forward-merge
+$ cd prueba-no-fast-forward-merge
+$ git init
+
+# Agregar y commitear README.md inicial en main
+$ echo "# Un projecto" > README.md
+$ git add README.md
+$ git commit -m "Commit inicial en main"
+
+# Crear y cambiar a una nueva rama 'add-feature'
+$ git checkout -b add-feature
+
+# Realizar cambios, agregarlos y commitearlos
+$ echo "Agregando una nueva funcionalidad..." >> README.md
+$ git add README.md
+$ git commit -m "Implementar una nueva funcionalidad"
+```
+Ahora, el log de commits es como se muestra en la figura. Lo que hiciste hasta ahora es lo mismo que hiciste en la sección de git merge --ff. 
+
+<img src="Imagenes/merge-no-ff.png" width="480">
+
+Ahora, cambiaremos de nuevo a `main` y realizaremos una fusión non‑fast‑forward:
+
+```bash
+$ git checkout main
+$ git merge --no-ff add-feature
+```
+
+Al ejecutar este comando, aparecerá un editor de texto para que edites el mensaje del commit de fusión (por ejemplo, el mensaje predeterminado podría ser: `Merge branch 'add-feature'`). Guarda el mensaje y, a continuación, revisa el historial:
+
+```bash
+# Ver el historial
+$ git log --graph --oneline
+
+* f58977f (HEAD -> main) Merge branch 'add-feature'
+|\
+| * a48c0a9 (add-feature) Implementar una nueva funcionalidad
+|/
+* fe93feb Commit inicial en main
+```
+
+El historial mostrará un nuevo commit de fusión que indica dónde se integró la rama `add-feature` en la rama principal.
+
+<img src="Imagenes/merge-no-ff1.png" width="480">
+
+#### ¿Por qué usar fusiones non‑fast‑forward en DevOps y colaboración en equipo?
+
+Las fusiones non‑fast‑forward ofrecen beneficios importantes en escenarios colaborativos:
+
+- **Preservación del contexto:** Al generar un nuevo commit de fusión, se conserva no solo el código, sino también el historial y el contexto, lo que facilita comprender cuándo y cómo se combinaron los cambios de distintas ramas.
+
+- **Rastreabilidad:** Usar `--no-ff` aporta transparencia, ya que el registro de cambios muestra claramente quién realizó cada modificación, cuándo y por qué. Esto es especialmente valioso en equipos grandes y proyectos complejos.
+
+Sin embargo, es importante usar esta estrategia de forma consciente, ya que, si se abusa de ella o se documenta de forma inadecuada, el historial de Git puede volverse desordenado.
+
+#### git merge --squash
+
+La opción `git merge --squash` ofrece una técnica de fusión que condensa todos los cambios de la rama fuente en un solo commit antes de integrarlos a la rama objetivo. Esto permite mantener un historial limpio y fácil de seguir, ya que se evita incorporar múltiples commits de prueba y error que podrían ensuciar el historial de producción.
+
+En una fusión squash, todos los cambios realizados en la rama de características se combinan en un único commit en la rama principal (`main`). Esta acción deja los cambios en estado pendiente (sin confirmar), lo que te permite revisarlos y modificarlos antes de finalizar el commit.
+
+Si bien esta técnica ayuda a mantener la base de código ordenada, ten en cuenta que se pierde el detalle de los commits individuales realizados en la rama de características.
+
+<img src="Imagenes/merge-squash" width="480">
+
+#### Pasos prácticos para la fusión squash
+
+Imagina que tienes una rama `main` y una rama `add-multiple-features`. Para realizar una fusión squash, sigue estos pasos:
+
+```bash
+# Inicializar un nuevo repositorio
+$ mkdir try-squash-merge
+$ cd try-squash-merge
+$ git init
+
+# Agregar y commitear README.md inicial en main
+$ echo "# My Project" > README.md
+$ git add README.md
+$ git commit -m "Commit inicial en main"
+
+# Crear y cambiar a una nueva rama 'add-multiple-features'
+$ git checkout -b add-multiple-features
+
+# Realizar algunos cambios, agregarlos y commitearlos
+$ echo "# HOW TO CONTRIBUTE" >> CONTRIBUTING.md
+$ git add CONTRIBUTING.md
+$ git commit -m "Agregar CONTRIBUTING.md"
+
+$ echo "# LICENSE" >> LICENSE.txt
+$ git add LICENSE.txt
+$ git commit -m "Agregar LICENSE.txt"
+```
+
+Una vez realizados estos pasos, las ramas se verán de forma similar a la figura referenciada como `git merge --squash (1)`.
+
+Ahora, cambia de nuevo a la rama `main` y realiza la fusión squash:
+
+```bash
+# Cambiar de nuevo a 'main' y realizar una fusión squash
+$ git checkout main
+$ git merge --squash add-multiple-features
+```
+
+Los cambios de la rama `add-multiple-features` se consolidarán en un solo commit pendiente. Al confirmar este commit, el historial de Git se actualizará de forma limpia, como se ilustra en la figura referenciada como `git merge --squash (2)`.
+
+*Esta figura muestra cómo, tras la fusión squash, los cambios pendientes se relacionan con las ramas existentes.*
 
 
 
