@@ -214,9 +214,7 @@ integraciones –el doble, sólo en este ejemplo simplificado. Pero, lo que es m
 caso de baja frecuencia. Integraciones más pequeñas significan menos trabajo, ya que hay menos cambios de código que podrían generar conflictos. 
 Pero, más importante que menos trabajo, también implica menor riesgo. El problema con las fusiones grandes no es tanto el trabajo que conllevan, sino 
 la incertidumbre de ese trabajo. La mayoría de las veces, incluso las fusiones grandes transcurren sin problemas, pero ocasionalmente salen muy, muy mal. 
-Ese dolor ocasional termina siendo peor que un dolor regular. Si comparo gastar diez minutos extra por integración con una posibilidad de 1 entre 50 de 
-pasar 6 horas arreglando una integración –¿cuál prefiero? Si solo miro el esfuerzo, entonces el caso de 1 en 50 es mejor, ya que son 6 horas en lugar de
-8 horas y veinte minutos. Pero la incertidumbre hace que el caso de 1 en 50 se sienta mucho peor, una incertidumbre que conduce al miedo a la integración.
+Si comparo gastar diez minutos extra por integración con una posibilidad de 1 entre 50 de pasar 6 horas arreglando una integración –¿cuál prefiero? Si solo miro el esfuerzo, entonces el caso de 1 en 50 es mejor, ya que son 6 horas en lugar de 8 horas y veinte minutos. Pero la incertidumbre hace que el caso de 1 en 50 se sienta mucho peor, una incertidumbre que conduce al miedo a la integración.
 
 Miremos la diferencia entre estas frecuencias desde otra perspectiva. ¿Qué ocurre si Scarlett y Violet desarrollan un conflicto en sus primeros commits? 
 ¿Cuándo detectan que ha ocurrido el conflicto? En el caso de baja frecuencia, no lo detectan hasta la fusión final de Violet, porque es la primera vez
@@ -233,7 +231,7 @@ latente en el trabajo del equipo, que solo se manifiesta cuando ocurre la integr
 Quizás Violet estaba revisando un cálculo de facturación y vio que incluía la evaluación de impuestos, donde el autor había asumido un mecanismo 
 impositivo particular. Su funcionalidad requiere tratamientos diferentes para los impuestos, por lo que la solución directa fue sacar el impuesto del 
 cálculo de facturación y hacerlo como una función separada más adelante. 
-El cálculo de facturación sólo se llamaba en un par de lugares, por lo que es fácil utilizar la técnica *Move Statements to Callers* –y el resultado tiene 
+El cálculo de facturación sólo se llamaba en un par de lugares, por lo que es fácil utilizar la técnica *Move Statements to Callers* y el resultado tiene 
 más sentido para la evolución futura del programa. Sin embargo, Scarlett no sabía que Violet estaba haciendo esto y escribió su funcionalidad asumiendo 
 que la función de facturación se encargaba de los impuestos.
 
@@ -263,8 +261,7 @@ Los desarrolladores realizan la integración en la rama principal tan pronto com
 día de trabajo
 
 Una vez que un equipo ha comprobado que la integración de alta frecuencia es tanto más eficiente como menos estresante, la pregunta natural que surge 
-es "¿con qué frecuencia podemos hacerlo?". La ramificación de funcionalidades implica un límite inferior al tamaño de un conjunto de cambios: no puede ser más 
-pequeño que una funcionalidad cohesionada.
+es "¿con qué frecuencia podemos hacerlo?". La ramificación de funcionalidades implica un límite inferior al tamaño de un conjunto de cambios: no puede ser más pequeño que una funcionalidad cohesionada.
 
 La integración continua aplica un disparador diferente para la integración: se integra cada vez que se ha realizado un avance sustancial en la funcionalidad y
 la rama sigue estando saludable. No se espera que la funcionalidad esté completa, solo que se haya realizado una cantidad significativa de cambios en la base
@@ -275,31 +272,28 @@ En la práctica, la mayoría de los practicantes de la integración continua int
 
 Los desarrolladores que utilizan la integración continua deben acostumbrarse a la idea de alcanzar puntos de integración frecuentes con una funcionalidad
 parcialmente construida. Deben considerar cómo hacerlo sin exponer una funcionalidad incompleta en el sistema en ejecución.
-A menudo esto es sencillo: si estoy implementando un algoritmo de descuento que depende de un código de cupón, y ese código aún no está en la lista
-válida, entonces mi código no se invocará, incluso si está en producción. De manera similar, si estoy añadiendo una funcionalidad que pregunta a un reclamante
-de un seguro si es fumador, puedo construir y probar la lógica detrás del código y asegurarme de que no se utilice en producción dejando la interfaz de
-usuario que plantea la pregunta hasta el último día de desarrollo de la funcionalidad. Ocultar una funcionalidad parcialmente construida conectando una
-[interfaz Keystone](https://martinfowler.com/bliki/KeystoneInterface.html) al final es a menudo una técnica efectiva.
+A menudo esto es sencillo: si estoy implementando un algoritmo de descuento que depende de un código de cupón (lista de códigos autorizados), y ese código aún no está en la lista válida, entonces mi código no se invocará, incluso si está en producción. 
 
-Si no hay forma de ocultar fácilmente la funcionalidad parcial, se pueden usar feature flags. Además de ocultar una funcionalidad incompleta, dichos flags 
-también permiten que la funcionalidad se revele selectivamente a un subconjunto de usuarios, lo cual resulta útil para un despliegue paulatino de una nueva 
-funcionalidad.
+De manera similar, si estoy añadiendo una funcionalidad que pregunta a un reclamante de un seguro si es fumador, puedo construir y probar la lógica detrás del código y asegurarme de que no se utilice en producción dejando la interfaz de usuario que plantea la pregunta hasta el último día de desarrollo de la funcionalidad. 
+
+Ocultar una funcionalidad parcialmente construida conectando una [interfaz Keystone](https://martinfowler.com/bliki/KeystoneInterface.html) al final es a menudo una técnica efectiva.
+
+Si no hay forma de ocultar fácilmente la funcionalidad parcial, se pueden usar **feature flags**. Además de ocultar una funcionalidad incompleta, dichos flags también permiten que la funcionalidad se revele selectivamente a un subconjunto de usuarios, lo cual resulta útil para un despliegue paulatino de una nueva funcionalidad.
 
 Integrar funcionalidades parcialmente construidas preocupa especialmente a quienes temen tener código defectuoso en la rama principal. 
-En consecuencia, quienes usan la Integración Continua también necesitan Self Testing Code, para tener la confianza de que contar con funcionalidades
+En consecuencia, quienes usan la integración continua también necesitan **self testing code**, para tener la confianza de que contar con funcionalidades
 incompletas en la rama principal no aumenta la probabilidad de errores. Con este enfoque, los desarrolladores escriben pruebas para las funcionalidades 
 parciales mientras desarrollan el código de la funcionalidad y comiten tanto el código de la funcionalidad como las pruebas a la rama principal conjuntamente 
-(quizás utilizando Test Driven Development).
+(quizás utilizando test driven development).
 
 En términos de repositorio local, la mayoría de las personas que utilizan la integración continua no se complican con una rama local separada para trabajar. 
-Normalmente es sencillo hacer commit en el master local y realizar la integración en la rama principal una vez terminado. Sin embargo, es perfectamente válido 
-abrir una rama de funcionalidad y trabajar allí, si los desarrolladores lo prefieren, integrando de vuelta en el master local y en la rama principal a
-intervalos frecuentes. La diferencia entre la ramificación de funcionalidades y la Integración Continua no reside en si existe o no una rama de 
+Normalmente es sencillo hacer commit en el master local y realizar la integración en la rama principal una vez terminado. Sin embargo, es perfectamente válido abrir una rama de funcionalidad y trabajar allí, si los desarrolladores lo prefieren, integrando de vuelta en el master local y en la rama principal a
+intervalos frecuentes. La diferencia entre la ramificación de funcionalidades y la integración continua no reside en si existe o no una rama de 
 funcionalidad, sino en cuándo los desarrolladores integran con la rama principal.
 
 #### Cuándo usarlo
 
-La integración continua es una alternativa a la ramificación de funcionalidades. 
+> La integración continua es una alternativa a la ramificación de funcionalidades. 
 
 #### Comparación entre la ramificación de funcionalidades y la integración continua
 
@@ -308,40 +302,37 @@ que argumentan que la integración continua suele ser un enfoque superior. La ve
 de integración más alta, a menudo mucho más alta.
 
 La diferencia en la frecuencia de integración depende de lo pequeñas que pueda hacer un equipo sus funcionalidades. 
+
 Si todas las funcionalidades de un equipo pueden desarrollarse en menos de un día, entonces pueden aplicar tanto la ramificación de funcionalidades como la 
-integración continua. Pero la mayoría de los equipos tienen funcionalidades que requieren más tiempo —y cuanto mayor sea la duración de la funcionalidad, mayor
-será la diferencia entre ambos patrones.
+integración continua. Pero la mayoría de los equipos tienen funcionalidades que requieren más tiempo —y cuanto mayor sea la duración de la funcionalidad, mayor será la diferencia entre ambos patrones.
 
 Como ya he indicado, una mayor frecuencia de integración conduce a integraciones menos complicadas y a un menor temor a integrar. Esto suele ser algo difícil 
 de comunicar. Si has vivido en un mundo en el que se integra cada pocas semanas o meses, la integración es probablemente una actividad muy cargada de tensión.
 Puede resultar difícil creer que es algo que se puede hacer muchas veces al día. Pero la integración es una de esas cosas en las que la frecuencia reduce la 
-dificultad. Es una noción contraintuitiva: “si duele, hazlo más a menudo”. Pero cuanto más pequeñas sean las integraciones, menos probable es que se conviertan
-en una épica fusión de miseria y desesperación. 
+dificultad. Es una noción contraintuitiva: "si duele, hazlo más a menudo". Pero cuanto más pequeñas sean las integraciones, menos probable es que se conviertan en una épica fusión de miseria y desesperación. 
+
 Con la ramificación de funcionalidades, esto aboga por funcionalidades más pequeñas: días, no semanas (y los meses están descartados).
 
 La integración continua permite a un equipo obtener los beneficios de una integración de alta frecuencia, al mismo tiempo que desacopla la duración de la 
 funcionalidad de la frecuencia de integración. Si un equipo prefiere funcionalidades que duren una o dos semanas, la integración continua les permite hacerlo 
-sin dejar de obtener todos los beneficios de la frecuencia de integración más alta. Las fusiones son más pequeñas, requiriendo menos trabajo para resolverlas.
-Más importante aún, como se explicó anteriormente, hacer fusiones más frecuentemente reduce el riesgo de una fusión desastrosa, lo que elimina las malas 
-sorpresas que esto conlleva y reduce el temor general a fusionar. Si surgen conflictos en el código, la integración de alta frecuencia los detecta
-rápidamente, antes de que provoquen esos desagradables problemas de integración. Estos beneficios son tan sólidos que hay equipos con funcionalidades
-que solo toman un par de días que aún aplican la integración continua.
+sin dejar de obtener todos los beneficios de la frecuencia de integración más alta. 
+
+Las fusiones son más pequeñas, requiriendo menos trabajo para resolverlas. Más importante aún, como se explicó anteriormente, hacer fusiones más frecuentemente reduce el riesgo de una fusión desastrosa, lo que elimina las malas  sorpresas que esto conlleva y reduce el temor general a fusionar. Si surgen conflictos en el código, la integración de alta frecuencia los detecta rápidamente, antes de que provoquen esos desagradables problemas de integración. Estos beneficios son tan sólidos que hay equipos con funcionalidades que solo toman un par de días que aún aplican la integración continua.
 
 La desventaja evidente de la integración continua es que carece del cierre de esa integración climática a la rama principal. 
 No solo se pierde esa celebración, sino que también representa un riesgo si un equipo no es bueno en mantener una rama saludable. 
 Mantener todos los commits de una funcionalidad juntos también posibilita tomar una decisión tardía sobre si incluir o no una funcionalidad en un próximo 
-lanzamiento. Aunque los feature flags permiten activar o desactivar funcionalidades desde la perspectiva del usuario, el código de la funcionalidad 
-sigue estando en el producto. Las preocupaciones sobre esto suelen estar sobredimensionadas, ya que el código no pesa nada, pero sí implica que 
-los equipos que desean usar la integración continua deben desarrollar un régimen de pruebas sólido para tener la confianza de que la rama principal se mantiene
-saludable incluso con muchas integraciones al día. 
+lanzamiento. 
+
+Aunque los feature flags permiten activar o desactivar funcionalidades desde la perspectiva del usuario, el código de la funcionalidad  sigue estando en el producto. Las preocupaciones sobre esto suelen estar sobredimensionadas, ya que el código no pesa nada, pero sí implica que  los equipos que desean usar la integración continua deben desarrollar un régimen de pruebas sólido para tener la confianza de que la rama principal se mantiene saludable incluso con muchas integraciones al día. 
+
 Algunos equipos encuentran difícil imaginar esta habilidad, pero otros la consideran tanto posible como liberadora. Este requisito implica que la ramificación
 de funcionalidades es más adecuada para equipos que no insisten en una rama saludable y requieren ramas de lanzamiento para estabilizar el código antes
 de publicarlo.
 
 Si bien el tamaño e incertidumbre de las fusiones es el problema más obvio de la ramificación de funcionalidades, el mayor inconveniente de este enfoque 
 puede ser que desalienta el refactoring. El refactoring es más efectivo cuando se realiza de manera regular y con poca fricción. 
-El refactoring introducirá conflictos y, si estos no se detectan y resuelven rápidamente, la fusión se complica. Por ello, el refactoring funciona mejor con 
-una alta frecuencia de integración, por lo que no es sorprendente que se popularizara como parte del Extreme Programming, que también tiene la 
+El **refactoring** introducirá conflictos y, si estos no se detectan y resuelven rápidamente, la fusión se complica. Por ello, el refactoring funciona mejor con una alta frecuencia de integración, por lo que no es sorprendente que se popularizara como parte del extreme programming, que también tiene la 
 integración continua como una de sus prácticas originales. La ramificación de funcionalidades también desincentiva a los desarrolladores a realizar cambios 
 que no se vean como parte de la funcionalidad en desarrollo, lo que socava la capacidad del refactoring para mejorar de forma constante una base de código.
 
@@ -353,6 +344,5 @@ de software, un hallazgo que se ha repetido en cada encuesta desde entonces.
 
 Utilizar la integración continua no elimina las demás ventajas de mantener funcionalidades pequeñas. 
 Publicar frecuentemente pequeñas funcionalidades proporciona un ciclo de retroalimentación rápido que puede hacer maravillas para mejorar un producto.
-Muchos equipos que usan la integración continua también se esfuerzan por construir rebanadas delgadas del producto y lanzar nuevas funcionalidades tan 
+Muchos equipos que usan la integración continua también se esfuerzan por construir partes delgadas del producto y lanzar nuevas funcionalidades tan 
 frecuentemente como sea posible.
-
