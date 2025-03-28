@@ -396,25 +396,25 @@ En una fusión squash, todos los cambios realizados en la rama de característic
 
 Si bien esta técnica ayuda a mantener la base de código ordenada, ten en cuenta que se pierde el detalle de los commits individuales realizados en la rama de características.
 
-<img src="Imagenes/merge-squash" width="480">
+<img src="Imagenes/merge-squash.png" width="480">
 
 #### Pasos prácticos para la fusión squash
 
-Imagina que tienes una rama `main` y una rama `add-multiple-features`. Para realizar una fusión squash, sigue estos pasos:
+Imagina que tienes una rama `main` y una rama `add-basic-files`. Para realizar una fusión squash, sigue estos pasos:
 
 ```bash
 # Inicializar un nuevo repositorio
-$ mkdir try-squash-merge
-$ cd try-squash-merge
+$ mkdir prueba-squash-merge
+$ cd prueba-squash-merge
 $ git init
 
 # Agregar y commitear README.md inicial en main
-$ echo "# My Project" > README.md
+$ echo "# Un projecto" > README.md
 $ git add README.md
 $ git commit -m "Commit inicial en main"
 
-# Crear y cambiar a una nueva rama 'add-multiple-features'
-$ git checkout -b add-multiple-features
+# Crear y cambiar a una nueva rama 'add-basic-files'
+$ git checkout -b add-basic-files
 
 # Realizar algunos cambios, agregarlos y commitearlos
 $ echo "# HOW TO CONTRIBUTE" >> CONTRIBUTING.md
@@ -426,19 +426,35 @@ $ git add LICENSE.txt
 $ git commit -m "Agregar LICENSE.txt"
 ```
 
-Una vez realizados estos pasos, las ramas se verán de forma similar a la figura referenciada como `git merge --squash (1)`.
+<img src="Imagenes/merge-squash1.png" width="480">
 
 Ahora, cambia de nuevo a la rama `main` y realiza la fusión squash:
 
 ```bash
 # Cambiar de nuevo a 'main' y realizar una fusión squash
 $ git checkout main
-$ git merge --squash add-multiple-features
+$ git merge --squash add-basic-files
 ```
 
-Los cambios de la rama `add-multiple-features` se consolidarán en un solo commit pendiente. Al confirmar este commit, el historial de Git se actualizará de forma limpia, como se ilustra en la figura referenciada como `git merge --squash (2)`.
+Los cambios de la rama `add-basic-files` se consolidarán en un solo commit pendiente. 
 
-*Esta figura muestra cómo, tras la fusión squash, los cambios pendientes se relacionan con las ramas existentes.*
+<img src="Imagenes/merge-squash2.png" width="480">
+
+Luego, Git agregará los cambios no commiteados a la rama main.  Para completar la fusión, necesitas commitear esos cambios no commiteados: 
+
+```bash  
+$ git add . 
+
+$ git commit -m "Agrega documentos de repositorios estandar" 
+$ git log --graph --oneline 
+* 6eb6df3 (HEAD -> main) Add repository standard docs 
+* ffc2ed5 Add CONTRIBUTING.md 
+* 2c5ad11 Initial commit on main 
+```
+
+Esto combinará todos los cambios de la rama `add-basic-files` en un solo nuevo commit en la rama main: 
+
+<img src="Imagenes/merge-squash3.png" width="480">
 
 
 
