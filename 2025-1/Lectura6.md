@@ -1,5 +1,7 @@
 **Traducción del artículo de Martin Fowler: [Patterns for Managing Source Code Branches](https://martinfowler.com/articles/branching-patterns.html)**
 
+## Parte 1
+
 ## Patrones para la gestión de ramas de código fuente
 
 Los sistemas modernos de control de versiones proporcionan herramientas poderosas que facilitan la creación de ramas en el código fuente. 
