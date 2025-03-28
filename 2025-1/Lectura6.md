@@ -218,7 +218,7 @@ Una línea principal saludable también allana el camino hacia la producción. E
 producción a partir de la punta de la línea principal. Los mejores equipos descubren que necesitan hacer poco trabajo para estabilizar
 dicha base de código, pudiendo a menudo lanzar directamente desde la línea principal a producción.
 
-Crucial para tener una línea principal saludable es el Self Testing Code con una commit suite que se ejecute en unos pocos minutos. 
+Crucial para tener una línea principal saludable es el self testing code con una commit suite que se ejecute en unos pocos minutos. 
 Puede ser una inversión significativa construir esta capacidad, pero una vez que podemos asegurarnos en pocos minutos de que mi commit no 
 ha roto nada, eso cambia completamente nuestro proceso de desarrollo. 
 Podemos hacer cambios mucho más rápido, refactorizar nuestro código con confianza para mantenerlo fácil de trabajar, y reducir 
