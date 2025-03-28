@@ -1,6 +1,7 @@
-### **Actividad: Explorando diferentes formas de fusionar en Git**
+## **Actividad: Explorando diferentes formas de fusionar en Git**
 
-**Objetivo de aprendizaje:**  
+### **Objetivo de aprendizaje:**  
+
 En esta actividad, exploraremos el proceso de fusionar dos ramas en Git utilizando tres métodos diferentes: fast-forward, no-fast-forward y squash. A través de los ejemplos, comprenderás cómo funcionan y cuándo es recomendable utilizar cada tipo de fusión.
 
 
@@ -213,8 +214,8 @@ En algunos casos, las fusiones no son tan sencillas y pueden surgir conflictos q
 
 1. Inicializa un nuevo repositorio:
    ```bash
-   mkdir try-merge-conflict
-   cd try-merge-conflict
+   mkdir prueba-merge-conflict
+   cd prueba-merge-conflict
    git init
    ```
 
@@ -286,8 +287,8 @@ Este ejercicio te permitirá observar las diferencias en el historial generado p
 
 1. Crea un nuevo repositorio y realiza varios commits en dos ramas:
    ```bash
-   mkdir try-compare-merge
-   cd try-compare-merge
+   mkdir prueba-compare-merge
+   cd prueba-compare-merge
    git init
    echo "Version 1.0" > version.txt
    git add version.txt
@@ -320,7 +321,7 @@ Este ejercicio te permitirá observar las diferencias en el historial generado p
    echo "Caracteristica 3 paso 1" >> version.txt
    git add version.txt
    git commit -m "Caracteristica 3 paso 1"
-   echo "Feature 3 step 2" >> version.txt
+   echo "Caracteristica 3 paso 2" >> version.txt
    git add version.txt
    git commit -m "Caracteristica 3 paso 2"
    git checkout main
@@ -355,8 +356,8 @@ En este ejercicio, aprenderás cómo Git puede fusionar automáticamente cambios
 
 1. Inicializa un nuevo repositorio y realiza dos commits en main:
    ```bash
-   mkdir try-auto-merge
-   cd try-auto-merge
+   mkdir prueba-auto-merge
+   cd prueba-auto-merge
    git init
    echo "Linea 1" > file.txt
    git add file.txt
@@ -379,7 +380,7 @@ En este ejercicio, aprenderás cómo Git puede fusionar automáticamente cambios
    git checkout main
    echo "Footer: Fin del archivo" >> file.txt
    git add file.txt
-   git commit -m "Add footer to file.txt"
+   git commit -m "Add footer al archivo file.txt"
    ```
 
 4. Fusiona la rama auto-merge con main:
