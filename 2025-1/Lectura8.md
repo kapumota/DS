@@ -4,7 +4,7 @@
 
 ### Patrones de integración
 
-El branching se trata de gestionar la interacción entre el aislamiento y la integración. Hacer que todos trabajen en una única base de código compartida
+El branching se trata de gestionar la interacción entre el aislamiento y la integración. Hacer que todos trabajen en un único código base  compartido
 todo el tiempo no funciona, porque no puedo compilar el programa si estás en medio de escribir el nombre de una variable. 
 Así que, al menos en cierta medida, necesitamos la noción de un espacio de trabajo privado en el que pueda trabajar durante un tiempo. 
 Las herramientas modernas de control de código fuente facilitan la creación de ramas y el monitoreo de los cambios en esas ramas. 
@@ -35,12 +35,12 @@ esto traerá los cambios de Violet. Mientras trabaja en su master local, los com
 
 <img src="https://martinfowler.com/articles/branching-patterns/mainline-integration-pull.png" alt="pull de integración en mainline">
 
-Ahora necesita combinar sus cambios con los de Violet. Algunos equipos prefieren hacerlo mediante fusiones (merge), otros mediante rebase. 
-En general, la gente usa la palabra "merge" cada vez que habla de unir ramas, ya sea que utilicen una operación de git merge o de rebase. 
-Seguiré ese uso, así que, a menos que esté discutiendo las diferencias entre merge y rebase, considera "merge" como la tarea lógica que puede implementarse 
+Ahora necesita combinar sus cambios con los de Violet. Algunos equipos prefieren hacerlo mediante fusiones (merge), otros mediante re. 
+En general, la gente usa la palabra "merge" cada vez que habla de unir ramas, ya sea que utilicen una operación de git merge o de re. 
+Seguiré ese uso, así que, a menos que esté discutiendo las diferencias entre merge y re, considera "merge" como la tarea lógica que puede implementarse 
 con cualquiera de las dos.
 
-Existe toda otra discusión sobre si utilizar fusiones simples, usar o evitar fast-forward merges, o usar rebase. 
+Existe toda otra discusión sobre si utilizar fusiones simples, usar o evitar fast-forward merges, o usar re. 
 
 
 Si Scarlett tiene suerte, la fusión del código de Violet será limpia; de lo contrario, tendrá algunos conflictos que resolver. 
@@ -245,7 +245,7 @@ el problema.
 
 Lo que mucha gente no se da cuenta es que un sistema de control de versiones es una herramienta de comunicación. Permite a Scarlett ver lo que los demás 
 en el equipo están haciendo. Con integraciones frecuentes, no solo se le alerta de inmediato cuando hay conflictos, sino que también está más al tanto de 
-lo que todos están haciendo y de cómo está evolucionando la base de código. Dejamos de ser individuos trabajando de manera independiente para ser un 
+lo que todos están haciendo y de cómo está evolucionando el código base. Dejamos de ser individuos trabajando de manera independiente para ser un 
 equipo que colabora.
 
 Aumentar la frecuencia de integración es una razón importante para reducir el tamaño de las funcionalidades, pero hay otras ventajas también. 
@@ -264,8 +264,8 @@ Una vez que un equipo ha comprobado que la integración de alta frecuencia es ta
 es "¿con qué frecuencia podemos hacerlo?". La ramificación de funcionalidades implica un límite inferior al tamaño de un conjunto de cambios: no puede ser más pequeño que una funcionalidad cohesionada.
 
 La integración continua aplica un disparador diferente para la integración: se integra cada vez que se ha realizado un avance sustancial en la funcionalidad y
-la rama sigue estando saludable. No se espera que la funcionalidad esté completa, solo que se haya realizado una cantidad significativa de cambios en la base
-de código. La regla general es que "todos hacen commit a la rama principal cada día", o más precisamente: nunca deberías tener más de un día de trabajo 
+la rama sigue estando saludable. No se espera que la funcionalidad esté completa, solo que se haya realizado una cantidad significativa de cambios en el
+código base. La regla general es que "todos hacen commit a la rama principal cada día", o más precisamente: nunca deberías tener más de un día de trabajo 
 sin integrar en tu repositorio local. 
 
 En la práctica, la mayoría de los practicantes de la integración continua integran muchas veces al día, contentos de integrar una hora de trabajo o menos.
@@ -334,7 +334,7 @@ Si bien el tamaño e incertidumbre de las fusiones es el problema más obvio de 
 puede ser que desalienta el refactoring. El refactoring es más efectivo cuando se realiza de manera regular y con poca fricción. 
 El **refactoring** introducirá conflictos y, si estos no se detectan y resuelven rápidamente, la fusión se complica. Por ello, el refactoring funciona mejor con una alta frecuencia de integración, por lo que no es sorprendente que se popularizara como parte del extreme programming, que también tiene la 
 integración continua como una de sus prácticas originales. La ramificación de funcionalidades también desincentiva a los desarrolladores a realizar cambios 
-que no se vean como parte de la funcionalidad en desarrollo, lo que socava la capacidad del refactoring para mejorar de forma constante una base de código.
+que no se vean como parte de la funcionalidad en desarrollo, lo que socava la capacidad del refactoring para mejorar de forma constante de un código base.
 
 Cuando me encuentro con estudios científicos sobre prácticas de desarrollo de software, por lo general permanezco escéptico debido a serios problemas en su
 metodología. Una excepción es el `State Of Dev Ops Report`, que ha desarrollado una métrica de rendimiento en la entrega de software, la cual han
