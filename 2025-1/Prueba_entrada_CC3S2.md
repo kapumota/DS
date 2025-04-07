@@ -121,7 +121,7 @@ Mejorar la interfaz de usuario en la consola y agregar características adiciona
 - Funcionamiento del pipeline CI/CD.
 
 
-#### Ejercicios adicionales para reforzar CI/CD y DevOps
+### Ejercicios adicionales para reforzar CI/CD y DevOps
 
 #### Ejercicio 1: Mejora del pipeline CI/CD con GitHub Actions
 
@@ -216,7 +216,6 @@ Implementar pruebas de carga utilizando herramientas como Locust para simular m�
 **Resultado esperado:**  
 El pipeline CI/CD debería incluir pruebas de carga y rendimiento para asegurar que la aplicación puede manejar múltiples usuarios de manera eficiente.
 
----
 ### Implementación 
 
 > Nota el código a continuación es de referencia.
@@ -578,9 +577,8 @@ El pipeline CI/CD debería incluir pruebas de carga y rendimiento para asegurar 
 
 El repositorio debe contener los avances diarios (commits) que demuestren el trabajo progresivo y no únicamente la versión final.
 
----
 
-**Entrega**
+### **Entrega**
 
 1. **Ramas diarias:**  
    Crea una rama específica para cada día (por ejemplo, `feature/dia1`, `feature/dia2`, …, `feature/dia7`). Trabaja en cada rama durante el día y, al final, realiza un merge a la rama principal de desarrollo (por ejemplo, `develop`).
