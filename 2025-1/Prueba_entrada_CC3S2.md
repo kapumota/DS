@@ -91,7 +91,7 @@ Implementar un sistema de puntuación y refinar la lógica del juego para maneja
 4. **Gestión de Git:**
    - Fusiona las ramas `feature` en `develop`.
      
-### Sprint 3: Mejoras en la interfaz y refinamiento
+#### Sprint 3: Mejoras en la interfaz y refinamiento
 
 #### Objetivo
 
@@ -121,7 +121,7 @@ Mejorar la interfaz de usuario en la consola y agregar características adiciona
 - Funcionamiento del pipeline CI/CD.
 
 
-### Ejercicios adicionales para reforzar CI/CD y DevOps
+#### Ejercicios adicionales para reforzar CI/CD y DevOps
 
 #### Ejercicio 1: Mejora del pipeline CI/CD con GitHub Actions
 
@@ -220,7 +220,7 @@ El pipeline CI/CD debería incluir pruebas de carga y rendimiento para asegurar 
 
 > Nota el código a continuación es de referencia.
 
-### Día 1 - Configuración del entorno y estructura básica (Sprint 1 – Parte 1)
+#### Día 1 - Configuración del entorno y estructura básica (Sprint 1 – Parte 1)
 
 #### Objetivos
 - **Configuración del proyecto:**  
@@ -256,7 +256,7 @@ El pipeline CI/CD debería incluir pruebas de carga y rendimiento para asegurar 
   ```
 - **Registro diario:** Utilizar `git diff` para ver los cambios y `git blame` en los archivos modificados para registrar el historial.
 
-### Día 2 - Implementación de la clase Question y pruebas unitarias (Sprint 1 – Parte 2)
+#### Día 2 - Implementación de la clase Question y pruebas unitarias (Sprint 1 – Parte 2)
 
 #### Objetivos
 - **Clase Question:**  
@@ -300,7 +300,7 @@ El pipeline CI/CD debería incluir pruebas de carga y rendimiento para asegurar 
   ```
 - **Registro diario:** Utilizar `git diff` para ver diferencias y `git blame test_trivia.py` para asignar responsabilidad en el código.
 
-### Día 3 - Implementación de la clase Quiz y flujo básico del juego (Sprint 1 – Parte 3)
+#### Día 3 - Implementación de la clase Quiz y flujo básico del juego (Sprint 1 – Parte 3)
 
 #### Objetivos
 - **Clase Quiz:**  
@@ -337,7 +337,7 @@ El pipeline CI/CD debería incluir pruebas de carga y rendimiento para asegurar 
   ```
 - **Registro diario:** Utilizar `git diff` para revisar cambios y `git checkout` para navegar entre ramas.
 
-### Día 4 - Sistema de puntuación, manejo de rondas y finalización del juego (Sprint 2)
+#### Día 4 - Sistema de puntuación, manejo de rondas y finalización del juego (Sprint 2)
 
 #### Objetivos
 - **Ampliar la clase Quiz:**  
@@ -395,7 +395,7 @@ El pipeline CI/CD debería incluir pruebas de carga y rendimiento para asegurar 
   ```
 - **Registro diario:** Usar `git blame` para verificar el origen de cada cambio en la clase Quiz y documentar el progreso.
 
-### Día 5 - Mejoras en la interfaz de usuario y refinamientos (Sprint 3)
+#### Día 5 - Mejoras en la interfaz de usuario y refinamientos (Sprint 3)
 
 #### Objetivos
 - **Interfaz de consola:**  
@@ -446,7 +446,7 @@ El pipeline CI/CD debería incluir pruebas de carga y rendimiento para asegurar 
   git checkout develop
   git merge feature/ui-improvements
   ```
-### Día 6 - Pipeline CI/CD y pruebas de integración 
+#### Día 6 - Pipeline CI/CD y pruebas de integración 
 
 #### Objetivos
 - **CI/CD:**  
@@ -509,7 +509,7 @@ El pipeline CI/CD debería incluir pruebas de carga y rendimiento para asegurar 
   ```
 - **Registro diario:** Utilizar `git diff` para confirmar la correcta integración del pipeline y documentar cada cambio.
 
-### Día 7 - Gestión de configuración, seguridad y pruebas de rendimiento
+#### Día 7 - Gestión de configuración, seguridad y pruebas de rendimiento
 
 #### Objetivos
 - **Gestión de variables de entorno:**  
@@ -577,8 +577,7 @@ El pipeline CI/CD debería incluir pruebas de carga y rendimiento para asegurar 
 
 El repositorio debe contener los avances diarios (commits) que demuestren el trabajo progresivo y no únicamente la versión final.
 
-
-### **Entrega**
+#### **Entrega**
 
 1. **Ramas diarias:**  
    Crea una rama específica para cada día (por ejemplo, `feature/dia1`, `feature/dia2`, …, `feature/dia7`). Trabaja en cada rama durante el día y, al final, realiza un merge a la rama principal de desarrollo (por ejemplo, `develop`).
