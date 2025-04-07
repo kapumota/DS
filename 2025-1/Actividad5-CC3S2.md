@@ -452,4 +452,3 @@ Analiza el historial de commits:
 
 - Revisa el historial para entender cómo los diferentes métodos de fusión afectan el árbol de commits.
 - Compara los resultados y discute con tus compañeros de equipo cuál sería la mejor estrategia de fusión para proyectos más grandes.
-```
