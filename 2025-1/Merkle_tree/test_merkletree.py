@@ -5,8 +5,7 @@ import merkletree
 
 def H(element):
     """
-    Función auxiliar para computar el hash SHA-1.
-    Soporta tipos: str, int, bytes.
+    Función auxiliar para computar el hash SHA-1. Soporta tipos: str, int, bytes.
     """
     H_obj = hashlib.sha1()
     if isinstance(element, bytes):
