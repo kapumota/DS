@@ -5,8 +5,7 @@ class MerkleTree:
     El árbol de Merkle es un árbol binario especial que permite prevenir la manipulación
     de la información y preservar su integridad utilizando funciones de hash criptográficas.
     Cada nivel del árbol se deriva del hash de sus nodos hijos, de modo que un cambio en un
-    archivo se propaga a través de la estructura, haciendo evidente cualquier intento de
-    manipulación.
+    archivo se propaga a través de la estructura, haciendo evidente cualquier intento de manipulación.
     """
 
     class __Node:
