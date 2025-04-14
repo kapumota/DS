@@ -20,7 +20,7 @@
 #   - Git debe estar instalado y en el PATH.
 #   - Ejecutar en un entorno de pruebas o en un repositorio de ejemplo.
 #
-# Uso: ./advanced_git_workflow.sh [URL_opcional_del_repo_a_clonar]
+# Uso: ./git_workflow.sh [URL_opcional_del_repo_a_clonar]
 #
 ###############################################################################
 
