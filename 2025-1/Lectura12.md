@@ -164,10 +164,21 @@ git bisect bad
 ```
 Este método es especialmente útil en repositorios con largos historiales donde resulta complejo identificar manualmente el origen de un error.
 
+#### **Integración práctica mediante un script en Bash**
+
+> Para ilustrar la integración de estos conceptos en un entorno práctico, se presenta a continuación un [script](https://github.com/kapumota/DS/blob/main/2025-1/git_mantenimiento.sh) en Bash que automatiza diversas tareas en un repositorio de Git. El script está diseñado para realizar las siguientes operaciones:
+
+- Clonar un repositorio de GitHub (se puede configurar mediante una variable de entorno o argumento).
+- Listar ramas y permitir la selección de una para trabajar.
+- Ejecutar un rebase interactivo sobre los últimos "n" commits.
+- Realizar operaciones avanzadas de merge, incluyendo la opción de merge sin fast-forward.
+- Emplear herramientas de diagnóstico, como la visualización avanzada del log y la utilización de git bisect para detectar un error en el repositorio.
+
+
+#### **Escenario de ejemplo** 
+
 > **Nota:** Este ejemplo asume que ya se tiene un repositorio con una historia de commits en el que se ha observado el fallo. También se debe contar con un entorno en el que se compilen y se puedan ejecutar las pruebas necesarias para determinar si un commit es "bueno" o "malo".  
-
-
-#### **Escenario de ejemplo**  
+ 
 Imagina que en el repositorio `project-autenticacion` se reporta que la función `autenticarUsuario()` no se comporta como se esperaba.  Sabes que versiones antiguas (por ejemplo, el commit `abcdef1`) funcionaban correctamente, mientras que en la versión actual (HEAD) el error está presente. 
 Se utilizarán las siguientes herramientas:  
 
@@ -250,17 +261,6 @@ git log -L :autenticarUsuario:auth.c
   
 Este comando examina la función (identificada por su nombre) y despliega, en forma de historial de diffs, todos los commits que han afectado a esa función. La salida mostrará, de forma secuencial y con los diffs de cada commit, cómo se ha modificado la función. Esto es especialmente útil para detectar en qué commit se introdujo una modificación que pudo haber causado el error.
 
-   
-#### Integración práctica mediante un script en Bash
-
-> Para ilustrar la integración de estos conceptos en un entorno práctico, se presenta a continuación un [script]() en Bash que automatiza diversas tareas en un repositorio de Git. El script está diseñado para realizar las siguientes operaciones:
-
-- Clonar un repositorio de GitHub (se puede configurar mediante una variable de entorno o argumento).
-- Listar ramas y permitir la selección de una para trabajar.
-- Ejecutar un rebase interactivo sobre los últimos "n" commits.
-- Realizar operaciones avanzadas de merge, incluyendo la opción de merge sin fast-forward.
-- Emplear herramientas de diagnóstico, como la visualización avanzada del log y la utilización de git bisect para detectar un error en el repositorio.
-
 ### 4. Uso de Reflog
 
 El comando `git reflog` es esencial para rastrear todos los cambios en los punteros de las ramas y movimientos internos de Git. Cada vez que se realiza una operación que afecta a HEAD, ya sea un rebase, reset, merge o cambio de rama, Git registra el movimiento en el reflog. Esto resulta especialmente útil en situaciones en las que se sobrescribe o se pierde parte de la historia. Por ejemplo, si ejecutas un `git reset --hard` accidentalmente y deseas recuperar un commit anterior, puedes listar el reflog con:
@@ -316,7 +316,7 @@ git subtree pull --prefix=libs/mylib https://github.com/usuario/mylib.git master
 
 Estos comandos incorporan y actualizan todo el contenido del repositorio externo dentro de un directorio específico, haciendo que la administración de dependencias sea más integral y menos dependiente de archivos de configuración externos.
 
-### Ejemplo
+### Ejemplo completo
 
 #### 1. Preparación del proyecto integrado
 
