@@ -47,7 +47,7 @@ fi
 echo "Compilación completada correctamente."
 
 # --------------------------------------------------------
-# PASO 2: Ejecución de Pruebas
+# PASO 2: Ejecución de pruebas
 # --------------------------------------------------------
 echo "[2/3] Ejecutando las pruebas..."
 ./"$BINARY" > "$TMP_OUTPUT_FILE" 2>&1
@@ -58,7 +58,7 @@ fi
 echo "Pruebas ejecutadas, salida almacenada en $TMP_OUTPUT_FILE."
 
 # --------------------------------------------------------
-# PASO 3: Validación de Salida
+# PASO 3: Validación de salida
 # --------------------------------------------------------
 echo "[3/3] Comparando la salida de pruebas con la salida esperada..."
 if diff -q "$TMP_OUTPUT_FILE" "$EXPECTED_OUTPUT_FILE" > /dev/null; then
