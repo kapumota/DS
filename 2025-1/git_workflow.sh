@@ -1,6 +1,6 @@
 #!/bin/bash
 ###############################################################################
-# advanced_git_workflow.sh
+# git_workflow.sh
 #
 # Script avanzado para la automatización y práctica de comandos Git.
 #
