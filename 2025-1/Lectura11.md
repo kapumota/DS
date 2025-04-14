@@ -57,6 +57,8 @@ Los árboles de Merkle son estructuras en las que cada nodo se identifica median
 - **Verificación recursiva:**  
   La estructura en árbol permite la verificación recursiva de la integridad de los datos. Al comparar los hashes almacenados, Git puede determinar si algún objeto ha sido alterado, lo que es fundamental para mantener la autenticidad y la coherencia del repositorio.
 
+  > Revisa el código fuente de los [árboles Merkle](https://github.com/kapumota/DS/tree/main/2025-1/Merkle_tree).
+
 #### **Ventajas de la organización en DAG y árboles de Merkle**
 
 - **Precisión en el seguimiento de cambios:**  
