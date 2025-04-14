@@ -316,3 +316,145 @@ git subtree pull --prefix=libs/mylib https://github.com/usuario/mylib.git master
 
 Estos comandos incorporan y actualizan todo el contenido del repositorio externo dentro de un directorio específico, haciendo que la administración de dependencias sea más integral y menos dependiente de archivos de configuración externos.
 
+### Ejemplo
+
+#### 1. Preparación del proyecto integrado
+
+Se crea el repositorio, se agrega un submódulo y se integra un subtree.
+
+```bash
+# Crear el directorio del proyecto y inicializar el repositorio Git.
+mkdir project-integrado
+cd project-integrado
+git init
+
+# Crear un README y realizar el primer commit.
+echo "# Proyecto Integrado" > README.md
+git add README.md
+git commit -m "Inicio del proyecto integrado"
+
+# Agregar un submódulo (por ejemplo, una biblioteca externa)
+git submodule add https://github.com/usuario/lib-external.git libs/lib-external
+git submodule update --init --recursive
+
+# Agregar un subtree (por ejemplo, para integrar una librería que se actualizará de forma independiente)
+git subtree add --prefix=libs/lib-subs https://github.com/usuario/lib-subs.git master --squash
+
+# Verificar la estructura de directorios
+tree .
+```
+
+
+#### 2. Creación de ramas de características y rebase interactivo
+
+Se crean dos ramas de funcionalidad (por ejemplo, para implementar el login y el dashboard) y se limpia la historia con rebase interactivo.
+
+##### **Rama feature/login**
+
+```bash
+# Crear la rama feature/login y cambiar a ella
+git checkout -b feature/login
+
+# Simular un commit inicial de implementación de login.
+echo "/* Implementa parte 1 del login */" > login.c
+git add login.c
+git commit -m "Implementa parte 1 de login"
+
+# Simular modificaciones adicionales.
+echo "/* Implementa parte 2 del login */" >> login.c
+git commit -m "Implementa parte 2 de login"
+
+# Usar rebase interactivo para combinar o reordenar commits en la rama feature/login.
+# (Se abrirá el editor con los últimos 2 commits)
+git rebase -i HEAD~2
+# En el editor, se pueden ajustar los comandos (por ejemplo, unir commits con squash o modificar mensajes).
+```
+
+#### **Rama feature/dashboard**
+
+```bash
+# Volver a master y crear otra rama para el dashboard
+git checkout master
+git checkout -b feature/dashboard
+
+# Simular implementación del dashboard.
+echo "/* Implementa funcionalidad del dashboard */" > dashboard.c
+git add dashboard.c
+git commit -m "Agrega funcionalidad del dashboard"
+```
+
+
+#### 3. Merge avanzado: Octopus Merge
+
+Una vez que las ramas feature/login y feature/dashboard tienen cambios validados, se realiza un merge octopus para integrarlas en master en un único commit.
+
+```bash
+# Cambiar a la rama master
+git checkout master
+
+# Realizar merge octopus de ambas ramas
+git merge --no-ff feature/login feature/dashboard -m "Octopus merge: integra feature/login y feature/dashboard"
+```
+
+#### 4. Uso de Reflog para recuperar estado
+
+Se simula un error (por ejemplo, un reset inadvertido) y se utiliza git reflog para recuperar un estado anterior.
+
+```bash
+# Supongamos que se ejecuta por error:
+git reset --hard HEAD~1
+
+# Visualizar el reflog para identificar el commit deseado.
+git reflog --date=iso
+
+# La salida podría mostrar:
+#   f3b8d1a (HEAD -> master) HEAD@{0}: reset: moving to f3b8d1a
+#   a8c9e7b HEAD@{1}: merge: Octopus merge: integra feature/login y feature/dashboard
+#   3d4e5f6 HEAD@{2}: commit: Agrega funcionalidad del dashboard
+
+# Restaurar el estado anterior (por ejemplo, HEAD@{1})
+git reset --hard HEAD@{1}
+```
+
+
+#### 5. Uso de git bisect con run_test.sh para aislar un error
+
+Supongamos que se detecta un fallo en la funcionalidad de login y se quiere aislar el commit problemático. Se crea un script de test [run_test.sh]() que compila y ejecuta tests sobre la función.
+
+##### **Ejemplo de uso de git bisect**
+
+Con el script listo y un commit conocido que funciona (por ejemplo, `abcdef1`), se inicia la búsqueda:
+
+```bash
+# Iniciar bisect
+git bisect start
+git bisect bad HEAD
+git bisect good abcdef1
+
+# Git cambiará al commit intermedio.
+# Se ejecuta el test:
+./run_test.sh
+
+# Según el resultado, se marca:
+# Si falla:
+git bisect bad
+# Si pasa:
+git bisect good
+
+# Repetir hasta identificar el commit que introdujo el error.
+# Al terminar, resetear bisect:
+git bisect reset
+```
+
+
+#### 6. Uso de git blame y git log para diagnóstico
+
+Para analizar quién introdujo cambios en la función de login y la evolución de la misma, se emplean `git blame` y `git log -L`.
+
+```bash
+# Analizar cambios en login.c (por ejemplo, las primeras 10 líneas)
+git blame login.c -L 1,10
+
+# Seguir la evolución de la función 'autenticarUsuario' en auth.c:
+git log -L :autenticarUsuario:auth.c
+```
