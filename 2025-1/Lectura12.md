@@ -226,8 +226,7 @@ El proceso de git bisect se inicia marcando el commit actual (con error) como "m
    ```bash
    git bisect reset
    ```
-   > Puedes revisar un ejemplo de scripts [aqui]().
-
+   
 ##### **2. Uso de git blame para profundizar en el cambio**
 
 Con el commit culpable identificado, se usa **git blame** para ver detalles de los cambios realizados en la sección del archivo donde se ubica la función problemática. Esto ayuda a determinar quién introdujo el cambio y en qué línea específica se modificó el código.  
@@ -260,6 +259,8 @@ git log -L :autenticarUsuario:auth.c
 ```
   
 Este comando examina la función (identificada por su nombre) y despliega, en forma de historial de diffs, todos los commits que han afectado a esa función. La salida mostrará, de forma secuencial y con los diffs de cada commit, cómo se ha modificado la función. Esto es especialmente útil para detectar en qué commit se introdujo una modificación que pudo haber causado el error.
+
+> Puedes revisar un ejemplo de scripts [aqui](https://github.com/kapumota/DS/tree/main/2025-1/depuracion_git).
 
 ### 4. Uso de Reflog
 
@@ -419,7 +420,7 @@ git reset --hard HEAD@{1}
 
 #### 5. Uso de git bisect con run_test.sh para aislar un error
 
-Supongamos que se detecta un fallo en la funcionalidad de login y se quiere aislar el commit problemático. Se crea un script de test [run_test.sh]() que compila y ejecuta tests sobre la función.
+Supongamos que se detecta un fallo en la funcionalidad de login y se quiere aislar el commit problemático. Se crea un script de [test](https://github.com/kapumota/DS/tree/main/2025-1/depuracion_git).) que compila y ejecuta tests sobre la función.
 
 ##### **Ejemplo de uso de git bisect**
 
@@ -458,3 +459,4 @@ git blame login.c -L 1,10
 # Seguir la evolución de la función 'autenticarUsuario' en auth.c:
 git log -L :autenticarUsuario:auth.c
 ```
+
