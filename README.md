@@ -10,6 +10,7 @@ Este curso intensivo está diseñado para proporcionar una visión integral de l
 - [Introducción a Git - conceptos básicos y operaciones esenciales](https://github.com/kapumota/DS/blob/main/2025-1/Actividad4-CC3S2.md)
 - [Explorando diferentes formas de fusionar en Git](https://github.com/kapumota/DS/blob/main/2025-1/Actividad5-CC3S2.md)
 - [Rebase, Cherry-Pick y CI/CD en un entorno ágil](https://github.com/kapumota/DS/blob/main/2025-1/Actividad6-CC3S2.md)
+- [Exploración avanzada de Git y estructuras de datos (árbol de Merkle)](https://github.com/kapumota/DS/blob/main/2025-1/PracticaDirigida1-CC3S2.md)
 - [Pruebas BDD con behave en español](https://github.com/kapumota/DS/blob/main/2025-1/Actividad7-CC3S2/Instrucciones.md)
 - [El patrón Arrange-Act-Assert](https://github.com/kapumota/DS/blob/main/2025-1/Actividad8-CC3S2/Instrucciones.md)
 - [Red-Green-Refactor](https://github.com/kapumota/DS/blob/main/2025-1/Actividad9-CC3S2/Instrucciones.md)
