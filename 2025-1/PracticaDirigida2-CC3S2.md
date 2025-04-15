@@ -6,7 +6,7 @@
 - Un repositorio Git (puede ser uno de prueba).
 - El script interactivo (por ejemplo, `git_avanzado.sh`).
 
-> Puedes revisar una versión del script interactivo {aquí](https://github.com/kapumota/DS/blob/main/2025-1/git_avanzado.sh).
+> Puedes revisar una versión del script interactivo [aquí](https://github.com/kapumota/DS/blob/main/2025-1/git_avanzado.sh).
 
 #### Instrucciones previas
 
