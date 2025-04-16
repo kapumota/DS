@@ -217,7 +217,7 @@ Veamos los siguientes factores para ver cómo deberías elegir:
 
 - **Limpieza deseada del historial de Git:**  Si un historial de Git limpio y lineal es de suma importancia para ti, entonces optar por fusiones fast-forward o rebase podría ser la mejor opción. Por otro lado, si valoras la documentación detallada del proceso de desarrollo de tu proyecto, una fusión non-fast-forward sería una mejor opción para mantener un registro completo de los cambios.
 
-### Navegando Conflictos en Git
+### Navegando conflictos en Git
 
 En un entorno de desarrollo colaborativo, los conflictos no solo son posibles, sino que son inevitables. Cuando varios desarrolladores están trabajando en la misma base de código, o incluso en los mismos archivos, hay una buena posibilidad de que los cambios se superpongan, lo que lleva a conflictos. Navegar y resolver estos conflictos es crucial para mantener un flujo de trabajo DevOps suave y eficiente.
 
