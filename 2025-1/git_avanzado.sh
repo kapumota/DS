@@ -93,7 +93,7 @@ function agregar_subtree() {
 function gestionar_ramas() {
     while true; do
         echo ""
-        echo "=== Gestión de Ramas ==="
+        echo "=== Gestión de ramas ==="
         echo "a) Listar ramas"
         echo "b) Crear nueva rama y cambiar a ella"
         echo "c) Cambiar a una rama existente"
@@ -138,7 +138,7 @@ function gestionar_ramas() {
 function gestionar_stash() {
     while true; do
         echo ""
-        echo "=== Gestión de Stash ==="
+        echo "=== Gestión de stash ==="
         echo "a) Listar stashes"
         echo "b) Crear un stash"
         echo "c) Aplicar un stash"
@@ -193,7 +193,7 @@ function mostrar_status_y_log() {
 function gestionar_tags() {
     while true; do
         echo ""
-        echo "=== Gestión de Tags ==="
+        echo "=== Gestión de tags ==="
         echo "a) Listar tags"
         echo "b) Crear un tag"
         echo "c) Borrar un tag"
@@ -294,7 +294,7 @@ function gestionar_diff() {
 function gestionar_hooks() {
     while true; do
         echo ""
-        echo "=== Gestión de Hooks ==="
+        echo "=== Gestión de hooks ==="
         echo "a) Listar hooks disponibles"
         echo "b) Crear/instalar un hook (ej. pre-commit)"
         echo "c) Editar un hook existente"
