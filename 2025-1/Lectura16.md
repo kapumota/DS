@@ -1,4 +1,4 @@
-### **Uso de Regex en BDD con Gherkin/Behave, historias de usuario y criterios de aceptación**  
+### **Uso de Regex para BDD**  
 
 ### Contexto y motivación  
 
