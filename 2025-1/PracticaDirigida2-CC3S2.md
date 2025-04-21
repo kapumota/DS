@@ -161,7 +161,7 @@ del menú. Recuerda que, al ejecutarlo, verás mensajes en tiempo real en la ter
        Hook 'pre-commit' instalado.
        ```
 
-6. **Finalizar la Sesión**
+6. **Finalizar la sesión**
 
    - **Usuario:** Cuando termine de utilizar las opciones deseadas, regresa al menú principal y selecciona `11` para salir:
      ```
