@@ -135,7 +135,7 @@ echo "${txt%.tar.gz}"        # quita sufijo
 # stdout a archivo
 ls -l > listado.txt
 # stderr
-grep foo *.log 2> errores.log
+grep f1 *.log 2> errores.log
 # ambos
 make &> build.log
 # pipe
