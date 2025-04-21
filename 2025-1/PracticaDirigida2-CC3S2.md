@@ -78,7 +78,7 @@ del menú. Recuerda que, al ejecutarlo, verás mensajes en tiempo real en la ter
    - **Usuario:** Regresa al menú principal y escoge la opción `4`.
    - El script despliega un submenú:
      ```
-     === Gestión de Ramas ===
+     === Gestión de ramas ===
      a) Listar ramas
      b) Crear nueva rama y cambiar a ella
      c) Cambiar a una rama existente
@@ -183,7 +183,7 @@ del menú. Recuerda que, al ejecutarlo, verás mensajes en tiempo real en la ter
 **Instrucciones:**
 
 1. **Investiga** el comando `git branch -m` que permite renombrar una rama.
-2. **Modifica** la función de “Gestión de Ramas” para agregar una nueva opción (por ejemplo, "f) Renombrar una rama").
+2. **Modifica** la función de "Gestión de ramas" para agregar una nueva opción (por ejemplo, "f) Renombrar una rama").
 3. **Implementa** la lógica para solicitar al usuario el nombre de la rama actual y el nuevo nombre.
 4. **Verifica** que, tras el cambio, la rama se renombre correctamente.  
    **Pista:** Considera cómo se comporta el cambio si la rama en uso es la que se desea renombrar.
