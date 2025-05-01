@@ -15,27 +15,27 @@ Para simplificar, llamaremos genéricamente:
 Como sólo empaquetamos los commits alcanzables desde C6, la rama incluida es:
 
 ```
-C1 ← C3 ← C6
+C1 <- C3 <- C6
 ```
 
-El Merkle‐DAG de objetos queda así (flechas "↓" son referencias internas, de commit→tree y commit→parent):
+El Merkle‐DAG de objetos queda así (flechas "↓" son referencias internas, de commit->tree y commit->parent):
 
 ```text
                     H(C6) [commit C6]
-                    ├── parent → H(C3)
-                    └── tree   → H(T6)
-                                   ├── B6₁  (blob, e.g. src/foo.c)
-                                   └── B6₂  (blob, e.g. README.md)
+                    ├── parent -> H(C3)
+                    └── tree   -> H(T6)
+                                   ├── B6₁  (blob, ejemplo. src/f1.c)
+                                   └── B6₂  (blob, ejemplo. README.md)
 
                     H(C3) [commit C3]
-                    ├── parent → H(C1)
-                    └── tree   → H(T3)
+                    ├── parent -> H(C1)
+                    └── tree   -> H(T3)
                                    ├── B3₁
                                    └── B3₂
 
                     H(C1) [commit C1]
-                    ├── parent → (ninguno)
-                    └── tree   → H(T1)
+                    ├── parent -> (ninguno)
+                    └── tree   -> H(T1)
                                    ├── B1₁
                                    └── B1₂
 ```
@@ -45,15 +45,15 @@ Más esquemático, como un "árbol":
 ```
                                 [H(C6)]  
                                  /   \
-                    parent→[H(C3)]  tree→[H(T6)]
+                    parent->[H(C3)]  tree->[H(T6)]
                                  |             \
-                          parent→[H(C1)]    blobs B6₁, B6₂
+                          parent->[H(C1)]    blobs B6₁, B6₂
                                  |
-                              tree→[H(T3)]
+                              tree->[H(T3)]
                                  |
                               blobs B3₁, B3₂
                                  |
-                              tree→[H(T1)]
+                              tree->[H(T1)]
                                  |
                               blobs B1₁, B1₂
 ```
@@ -98,18 +98,18 @@ Por ejemplo
 ```plaintext
 function verify_subgraph(root_hash):
     # Tomamos el commit inicial y lo ponemos en una pila para DFS
-    stack ← [root_hash]
+    stack <- [root_hash]
 
     # Mientras haya commits por procesar
     while stack no está vacío:
-        commit_hash ← stack.pop()
+        commit_hash <- stack.pop()
 
         # 1) Si ya lo validamos antes, lo saltamos
         if commit_hash está en trusted_cache:
             continue
 
         # 2) Leer el commit y comprobar su integridad
-        commit ← read_commit(commit_hash)
+        commit <- read_commit(commit_hash)
         # read_commit devuelve:
         #    commit.raw_bytes   (bytes crudos del objeto commit)
         #    commit.parent_hashes  (lista de hashes de commits padre)
@@ -136,7 +136,7 @@ function verify_tree(tree_hash):
     if tree_hash está en trusted_cache:
         return True
     # Leemos la lista de entradas: cada fila tiene modo, tipo (blob o tree), nombre, hash
-    entries ← read_tree(tree_hash)
+    entries <- read_tree(tree_hash)
     if hash(serialize(entries)) no coincide con tree_hash:
         return False
 
@@ -158,7 +158,7 @@ function verify_blob(blob_hash):
     if blob_hash está en trusted_cache:
         return True
 
-    data ← read_blob(blob_hash)
+    data <- read_blob(blob_hash)
     if hash(data) no coincide con blob_hash:
         return False
 
@@ -205,38 +205,38 @@ Usar la métrica de similitud de cadenas Jaro-Winkler sobre dos representaciones
 // Función principal: recibe dos referencias de commits A y B
 function detectarDivergencia(commitA, commitB):
     // Construir historial lineal de A
-    secuenciaA ← lista vacía
-    actual ← commitA
+    secuenciaA <- lista vacía
+    actual <- commitA
     // Recorremos hacia atrás hasta el primer commit (raíz del repositorio)
     while actual no es nulo:
         // Guardamos la versión corta del hash
         secuenciaA.append( abreviar(actual.hash, 12) )
         // Avanzamos al "first-parent" para seguir la historia principal
-        actual ← actual.primerPadre
+        actual <- actual.primerPadre
 
     // Construir historial lineal de B (igual que A)
-    secuenciaB ← lista vacía
-    actual ← commitB
+    secuenciaB <- lista vacía
+    actual <- commitB
     while actual no es nulo:
         secuenciaB.append( abreviar(actual.hash, 12) )
-        actual ← actual.primerPadre
+        actual <- actual.primerPadre
 
     // Crear las "cadenas" para comparar 
     // Ejemplo de cadenaA: "a1b2c3... d4e5f6...  g7h8i9..."
-    cadenaA ← unirCon(secuenciaA, '\x1F')
-    cadenaB ← unirCon(secuenciaB, '\x1F')
+    cadenaA <- unirCon(secuenciaA, '\x1F')
+    cadenaB <- unirCon(secuenciaB, '\x1F')
 
     // Medir similitud usando Jaro-Winkler
     // Esta función imita exactamente lo explicado en la definición operativa:
     //   - Ventana de comparación para encontrar caracteres coincidentes
     //   - Conteo de transposiciones
     //   - Bonus por prefijo común hasta 4 caracteres
-    puntuacion ← jaroWinkler(cadenaA, cadenaB)
+    puntuacion <- jaroWinkler(cadenaA, cadenaB)
 
     // Complejidad estimada
     // Recorrer commits: O(n + m)
     // Comparar cadenas (Jaro-Winkler): O((n + m)²)
-    complejidad ← "O((n + m)²)"
+    complejidad <- "O((n + m)²)"
 
     return (puntuacion, complejidad)
 
@@ -244,28 +244,28 @@ function detectarDivergencia(commitA, commitB):
 // Implementación conceptual de Jaro-Winkler
 function jaroWinkler(s, t):
     // 1. Definir hasta dónde "moverse" para buscar coincidencias
-    ventana ← (longitud máxima de s y t) ÷ 2 menos 1
+    ventana <- (longitud máxima de s y t) ÷ 2 menos 1
     // 2. Marcar qué posiciones de s y t coinciden
-    marcarS, marcarT ← arreglos de false
-    coincidencias ← 0
+    marcarS, marcarT <- arreglos de false
+    coincidencias <- 0
     for cada índice i en s:
         mirar desde (i – ventana) hasta (i + ventana) en t
         si s[i] == algún t[j] no marcado:
-            marcarS[i] ← true
-            marcarT[j] ← true
+            marcarS[i] <- true
+            marcarT[j] <- true
             coincidencias++
 
     // 3. Contar cuántas de esas coincidencias están "fuera de lugar"
-    transposiciones ← recuento de diferencias de orden en las posiciones marcadas
-    transposiciones ← transposiciones / 2  // según Jaro, cada par mal ordenado cuenta medio
+    transposiciones <- recuento de diferencias de orden en las posiciones marcadas
+    transposiciones <- transposiciones / 2  // según Jaro, cada par mal ordenado cuenta medio
 
     // 4. Calcular puntuación base
     //    • Entre más coincidencias y menos transposiciones, más alto cerca de 1.  
-    puntuacionBase ← combinarCoincidenciasYTransposiciones(coincidencias, transposiciones, tamaño de s, tamaño de t)
+    puntuacionBase <- combinarCoincidenciasYTransposiciones(coincidencias, transposiciones, tamaño de s, tamaño de t)
 
     // 5. Bonus por prefijo común (hasta 4 caracteres)
-    largoPrefijo ← cuantos primeros caracteres de s y t coinciden (máx. 4)
-    bonus ← largoPrefijo × constantePequeña
+    largoPrefijo <- cuantos primeros caracteres de s y t coinciden (máx. 4)
+    bonus <- largoPrefijo × constantePequeña
 
     return puntuacionBase + bonus
 ```
@@ -309,18 +309,18 @@ A continuación, un ejemplo de  esa lógica en pseudocódigo
 
 function estrategiaOctopusConFallback(ramas, baseBranch):
     // Inicializar el mapa de resultados
-    mapaDeMerges ← diccionario vacío
+    mapaDeMerges <- diccionario vacío
 
     // 1. Agrupar ramas que no solapan por sus directorios raíz
     //    Creamos un arreglo de "bloques" de integración octopus:
     //    cada bloque reúne ramas con carpetas disjuntas.
-    bloques ← lista vacía
+    bloques <- lista vacía
     while ramas no está vacía:
-        bloque ← lista vacía
-        directoriosUsados ← conjunto vacío
+        bloque <- lista vacía
+        directoriosUsados <- conjunto vacío
 
         for cada rama en copia(ramas):
-            dirRaiz ← extraerDirectorioRaiz(rama)  
+            dirRaiz <- extraerDirectorioRaiz(rama)  
             if dirRaiz ∉ directoriosUsados:
                 // No hay solapamiento: la puedo agregar al bloque
                 bloque.append(rama)
@@ -336,19 +336,19 @@ function estrategiaOctopusConFallback(ramas, baseBranch):
     for cada bloque en bloques:
         if tamaño(bloque) == 1:
             // Solo una rama: hacemos un merge binario normal
-            rama ← bloque[0]
-            commitMerge ← mergeBinario(baseBranch, rama)
-            mapaDeMerges[rama] ← commitMerge
+            rama <- bloque[0]
+            commitMerge <- mergeBinario(baseBranch, rama)
+            mapaDeMerges[rama] <- commitMerge
             // Actualizamos base para próximas fusiones
-            baseBranch ← commitMerge
+            baseBranch <- commitMerge
         else:
             // Varias ramas disjuntas: hacemos un octopus merge
-            commitOctopus ← mergeOctopus(baseBranch, bloque)
+            commitOctopus <- mergeOctopus(baseBranch, bloque)
             // Asignamos el mismo merge a cada rama del bloque
             for cada rama in bloque:
-                mapaDeMerges[rama] ← commitOctopus
+                mapaDeMerges[rama] <- commitOctopus
             end for
-            baseBranch ← commitOctopus
+            baseBranch <- commitOctopus
         end if
     end for
 
@@ -359,14 +359,14 @@ function estrategiaOctopusConFallback(ramas, baseBranch):
 // Devuelve la carpeta raíz (primer segmento) de los cambios de una rama
 function extraerDirectorioRaiz(rama):
     // Por convención, cada rama edita solo archivos en "auth/..." por ejemplo
-    archivosModificados ← git diff --name-only origin/main..rama
-    primerasCarpetas ← map( archivo → split(archivo, '/')[0], archivosModificados )
+    archivosModificados <- git diff --name-only origin/main..rama
+    primerasCarpetas <- map( archivo -> split(archivo, '/')[0], archivosModificados )
     return el valor más frecuente en primerasCarpetas
 
-// Merge binario clásico: baseBranch ←→ rama
+// Merge binario clásico: baseBranch <--> rama
 function mergeBinario(baseBranch, rama):
     git checkout baseBranch
-    resultado ← git merge --no-ff rama
+    resultado <- git merge --no-ff rama
     // aquí se asume que si hay conflictos, el desarrollador los resuelve
     git commit --no-edit
     return obtenerHashCommitActual()
@@ -375,7 +375,7 @@ function mergeBinario(baseBranch, rama):
 function mergeOctopus(baseBranch, listaRamas):
     git checkout baseBranch
     // e.g. git merge --no-ff auth billing catalog
-    resultado ← git merge --no-ff listaRamas...
+    resultado <- git merge --no-ff listaRamas...
     // como no hay solapamiento, no debería haber conflictos
     git commit --no-edit
     return obtenerHashCommitActual()
@@ -462,7 +462,7 @@ git push --force-with-lease origin feature/mfa-otp
 
 # Creación de Pull Request y fusión
 gh pr create --base develop --title "MFA OTP" --fill
-# En la plataforma se aplica "Squash & Merge → no-ff"
+# En la plataforma se aplica "Squash & Merge -> no-ff"
 # Estrategia acordada: merge-commit explícito para conservar el hash del feature:
 #   git merge --no-ff --log -m "Merge feature/mfa-otp" feature/mfa-otp
 
@@ -524,8 +524,8 @@ fi
 
 **Mensajes inválidos**
 
-* `feature(auth): agrega logout`  → prefijo erróneo  
-* `fix: no muestra errores`                  → falta área
+* `feature(auth): agrega logout`  -> prefijo erróneo  
+* `fix: no muestra errores`                  -> falta área
 
 **Gherkin para probar el hook**
 
@@ -614,7 +614,7 @@ git merge --no-ff release/v1.2                 # crea C_merge
 
 # C) Rebase + FF
 git checkout release/v1.2
-git rebase main                                # re-escribe commits R1...Rn → R1'...Rn'
+git rebase main                                # re-escribe commits R1...Rn -> R1'...Rn'
 git checkout main && git merge --ff-only release/v1.2
 # objetos: n nuevos commits + árboles; puntero main avanza sin nodo de merge
 ```
@@ -631,7 +631,7 @@ Algoritmo *three-way merge* (resumen interno)
    Depth-first search sobre el DAG hasta encontrar el "lowest common ancestor"; Git utiliza el *Lowest Common Ancestor* más cercano mediante heurística de *minimal merge base*.
 
 2. **Comparación de árboles**  
-   - `diff-tree` compara *base → HEAD* y *base → MERGING* para cada ruta.  
+   - `diff-tree` compara *base -> HEAD* y *base -> MERGING* para cada ruta.  
    - Se obtienen tres valores `(O, A, B)` por archivo (O = versión base, A = main, B = release).
 
 3. **Fusión por ruta**  
@@ -731,7 +731,7 @@ print(f"Sub-gráfos colgantes: {len(colgantes)}")
 ```
 
 *Interpretación*  
-- **Raíz** = commit sin padre → posible inicio de historia.  
+- **Raíz** = commit sin padre -> posible inicio de historia.  
 - **Rama colgante** = sub-grafo sin convergencia al resto (pudo quedar sin merge).  
 
 Con estos pasos se dispone de un mapa mínimo para reconstruir *refs* manualmente (`git update-ref refs/heads/recovered <hash>`) o generar un `reflog` sintético antes de re-empaquetar.
@@ -753,7 +753,7 @@ Con estos pasos se dispone de un mapa mínimo para reconstruir *refs* manualment
   - Aísla claramente cada flujo: no contaminas develop con hotfix, ni comprometes producción con código inestable.  
   - Permite preparar releases con calma en su propia rama.  
 - **Inconvenientes**  
-  - Mucha complejidad de merges entre ramas (release→develop, hotfix→release→develop).  
+  - Mucha complejidad de merges entre ramas (release->develop, hotfix->release->develop).  
   - Riesgo de olvidarse de fusionar un hotfix en todas las ramas necesarias.  
 
 **Mainline (trunk-based development)**  
@@ -776,7 +776,7 @@ Con estos pasos se dispone de un mapa mínimo para reconstruir *refs* manualment
   - Combina aislamiento de trabajo largo con mínimos conflictos, porque la integras frecuentemente.  
   - Minimiza "integration hell" al sincronizarse con main cada poco.  
 - **Inconvenientes**  
-  - Aún hay merges frecuentes (main→feature), requiere disciplina.  
+  - Aún hay merges frecuentes (main->feature), requiere disciplina.  
   - No es tan simple como puro trunk-based; tienes dos ramas "vivas".  
 
 **Pseudocódigo de flujo ante un bug crítico**
@@ -854,10 +854,10 @@ when detect_bug_critical_in_production():
 **Source branching**
 
 ```
-Time →
+Time ->
         o───o───o───o          develop
        /                   \
-  o───o───o───o───o───o      release/X.Y───o───o   ← merges de hotfix
+  o───o───o───o───o───o      release/X.Y───o───o   <- merges de hotfix
        \                           ↑
         \                          |
          feature/A                └─ hotfix/123
@@ -870,10 +870,10 @@ Time →
 **Mainline**
 
 ```
-Time →
+Time ->
  o───o───o───o───o───o───o    main
          \
-          bugfix/123          ← rama breve para el fix
+          bugfix/123          <- rama breve para el fix
 ```
 
 - Todas las correcciones y nuevas features pasan por ramas de vida muy corta y de vuelta a `main` con un único merge.
@@ -881,14 +881,14 @@ Time →
 **Healthy branch**
 
 ```
-Time →
+Time ->
        o───o───o───o───o───o        main
       /              ↑   \
      /               |    \
-    /                |     merge main→feature-epic
+    /                |     merge main->feature-epic
    o───o───o───o───o─/      feature-epic
                 \
-                 hotfix/123  ← corrección crítica en main
+                 hotfix/123  <- corrección crítica en main
 ```
 
 1. La rama `feature-epic` parte de `main`.
@@ -969,13 +969,13 @@ Time →
 **Integración continua (varias integraciones al día)**
 
 ```
-Time →
+Time ->
 Dev1    ──╲            ╱──  ╲            ╱──       main
             ╲          ╱        ╲        ╱
 Dev2     ────╲       ╱──────    ╲    ╱─────
                ╲    ╱            ╲  ╱
-Dev3    ──╲      ╲╱               ╳        ← múltiples rebasados 
-             ╲    ╱              ╱╲        ← y merges fast-forward
+Dev3    ──╲      ╲╱               ╳        <- múltiples rebasados 
+             ╲    ╱              ╱╲        <- y merges fast-forward
 ...         ────╲╱────────────────╱───
 ```
 
@@ -985,12 +985,12 @@ Dev3    ──╲      ╲╱               ╳        ← múltiples rebasados
 **Feature branching (integraciones puntuales)**
 
 ```
-Time →
+Time ->
           o───o───o───o            main
          /                       \
-Dev1-A ───/                         \─M1    ← merge de feature A (al final)
+Dev1-A ───/                         \─M1    <- merge de feature A (al final)
          \
-Dev2─────\──B───B───B             \─M2    ← merge de feature B
+Dev2─────\──B───B───B             \─M2    <- merge de feature B
           \
 Dev3──────\───C───C───C───C       \─M3
 ```
@@ -1074,7 +1074,7 @@ git branch -d hotfix/${HOTFIX_ID}
 
 ```
                         ┌──────────────────────────┐
-                        │      env/test           │←── QA tests
+                        │      env/test           │<-── QA tests
                         │     (integration)        │
                         └──────────────────────────┘
                                  ▲     │
@@ -1146,7 +1146,7 @@ exit 0
                         tag v1.2.0   │      │  hotfix/1.2.1
                                      │      │
                         ┌─────────┐  │      │ ┌────────┐
- develop ──o───o───o─────┤release/1.3├──────┤hotfix/1.2.1├───o  ← merges back
+ develop ──o───o───o─────┤release/1.3├──────┤hotfix/1.2.1├───o  <- merges back
            \            └─────────┘      └────────┘
             \                ▲               |
              \               │ merge         |
@@ -1156,9 +1156,9 @@ exit 0
                                             
               
  feature/B ──o───o───o───┐
-                        ▼ merge→ develop
+                        ▼ merge-> develop
                            o───o───────────┐
-                                         ▼ merge→ master (via release)
+                                         ▼ merge-> master (via release)
 ```
 
 - **Flujo básico**:  
