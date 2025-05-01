@@ -735,3 +735,434 @@ print(f"Sub-gráfos colgantes: {len(colgantes)}")
 - **Rama colgante** = sub-grafo sin convergencia al resto (pudo quedar sin merge).  
 
 Con estos pasos se dispone de un mapa mínimo para reconstruir *refs* manualmente (`git update-ref refs/heads/recovered <hash>`) o generar un `reflog` sintético antes de re-empaquetar.
+
+
+**Patterns for Managing Source Code Branches de Martin Fowler** 
+
+**Patrones base - source branching, mainline y healthy branch**
+
+**Source branching**
+
+- **¿Qué es?**  
+  Cada tipo de trabajo (features, correcciones, releases) vive en su propia rama de larga vida. Hay típicamente al menos:  
+  - Una rama `main` o `master` que refleja la última producción.  
+  - Una rama `develop` donde se integran las nuevas funcionalidades.  
+  - Ramas de "feature/*" para cada gran funcionalidad.  
+  - Ramas de "release/*" y "hotfix/*" para preparar lanzamientos o corregir producción.  
+- **Ventajas**  
+  - Aísla claramente cada flujo: no contaminas develop con hotfix, ni comprometes producción con código inestable.  
+  - Permite preparar releases con calma en su propia rama.  
+- **Inconvenientes**  
+  - Mucha complejidad de merges entre ramas (release→develop, hotfix→release→develop).  
+  - Riesgo de olvidarse de fusionar un hotfix en todas las ramas necesarias.  
+
+**Mainline (trunk-based development)**  
+- **¿Qué es?**  
+  Sólo existe una rama "main" (o "trunk"). Todas las correcciones y nuevas funcionalidades se desarrollan en ramas muy cortas (a menudo de vida horas o días) y se integran enseguida en main.  
+- **Ventajas**  
+  - Flujo sencillo: pocos merges, casi todo va a main.  
+  - Menos riesgo de divergencia histórica, siempre se trabaja cerca de production-ready.  
+- **Inconvenientes**  
+  - Requiere disciplina de commits muy pequeños y tests automáticos robustos.  
+  - Las ramas de larga duración (features grandes) pueden estorbar si no se fragmentan en partes pequeñas.  
+
+**Healthy branch**  
+- **¿Qué es?**  
+  Variante de trunk-based pensada para grandes "epics" o experimentos de larga vida. Tienes:  
+  - Una rama principal (`main` o `trunk`) que siempre está deployable.  
+  - Una rama "feature-epic" de vida más larga, a la que periódicamente "jalas" (`merge` o `rebase`) desde `main` para mantenerla actualizada ("healthy").  
+  - Al final, fusionas esa rama de vuelta a `main`.  
+- **Ventajas**  
+  - Combina aislamiento de trabajo largo con mínimos conflictos, porque la integras frecuentemente.  
+  - Minimiza "integration hell" al sincronizarse con main cada poco.  
+- **Inconvenientes**  
+  - Aún hay merges frecuentes (main→feature), requiere disciplina.  
+  - No es tan simple como puro trunk-based; tienes dos ramas "vivas".  
+
+**Pseudocódigo de flujo ante un bug crítico**
+
+**Source branching**
+
+```plaintext
+// Contexto: hay ramas main, develop, release/X.Y, feature/*
+when detect_bug_critical_in_production():
+    // 1. Basarse en la última rama de release
+    checkout("release/X.Y")
+    // 2. Crear rama de hotfix
+    create_branch("hotfix/bug-123", from="release/X.Y")
+    checkout("hotfix/bug-123")
+    // 3. Aplicar corrección y commit
+    fix_bug_in_code()
+    git_add_and_commit("Critical bug 123")
+    // 4. Mergear de vuelta en release
+    checkout("release/X.Y")
+    merge("hotfix/bug-123")
+    // 5. Tag de nueva versión
+    create_tag("release-1.Y.Z")
+    // 6. Mergear hotfix también en develop para no perderlo
+    checkout("develop")
+    merge("hotfix/bug-123")
+    // 7. Limpiar rama temporal
+    delete_branch("hotfix/bug-123")
+    // 8. Desplegar desde release/X.Y
+    deploy_from("release/X.Y")
+```
+**Mainline (trunk-based)**
+
+Ejemplo de propuesta
+
+```plaintext
+when detect_bug_critical_in_production():
+    // 1. Crear rama efímera desde main
+    checkout("main")
+    create_branch("bugfix/123", from="main")
+    checkout("bugfix/123")
+    // 2. Corregir y hacer commit
+    fix_bug_in_code()
+    git_add_and_commit("Critical bug 123")
+    // 3. Integrar inmediatamente en main
+    checkout("main")
+    merge("bugfix/123")
+    // 4. Desplegar y eliminar la rama breve
+    deploy_from("main")
+    delete_branch("bugfix/123")
+```
+
+**Healthy branch**
+
+```plaintext
+// Contexto: existe main y feature-epic de larga duración
+when detect_bug_critical_in_production():
+    // 1. Corregir en main (flujo trunk-based)
+    checkout("main")
+    create_branch("hotfix/123", from="main")
+    checkout("hotfix/123")
+    fix_bug_in_code()
+    git_add_and_commit("Critical bug 123")
+    checkout("main")
+    merge("hotfix/123")
+    deploy_from("main")
+    delete_branch("hotfix/123")
+    // 2. Mantener sana la rama epic
+    checkout("feature-epic")
+    merge("main")        // incorporar fix y demás cambios recientes
+    // 3. Continuar desarrollo en feature-epic
+```
+
+**Diagramas ASCII de evolución de ramas**
+
+**Source branching**
+
+```
+Time →
+        o───o───o───o          develop
+       /                   \
+  o───o───o───o───o───o      release/X.Y───o───o   ← merges de hotfix
+       \                           ↑
+        \                          |
+         feature/A                └─ hotfix/123
+```
+
+- La rama `release/X.Y` se bifurca de `develop`.
+- Al aparecer un hotfix, se crea `hotfix/123` desde `release/X.Y`, luego se mergea de vuelta a `release/X.Y` y después a `develop`.
+
+
+**Mainline**
+
+```
+Time →
+ o───o───o───o───o───o───o    main
+         \
+          bugfix/123          ← rama breve para el fix
+```
+
+- Todas las correcciones y nuevas features pasan por ramas de vida muy corta y de vuelta a `main` con un único merge.
+
+**Healthy branch**
+
+```
+Time →
+       o───o───o───o───o───o        main
+      /              ↑   \
+     /               |    \
+    /                |     merge main→feature-epic
+   o───o───o───o───o─/      feature-epic
+                \
+                 hotfix/123  ← corrección crítica en main
+```
+
+1. La rama `feature-epic` parte de `main`.
+2. Con frecuencia, `main` se mergea hacia `feature-epic` para mantenerla actualizada.
+3. Ante un bug crítico, se crea `hotfix/123` desde `main`, se aplica fix y se vuelve a integrar en `main`, luego se lleva ese `main` recién corregido a `feature-epic`.
+
+**Patrones de Integración – feature branching vs. continuous integration**  
+
+**Feature branching**  
+- **Qué es**  
+  Cada desarrollador trabaja en su propia rama de "feature" de duración indeterminada (semanas o meses), y sólo al terminar el feature hace merge a la rama principal (`main` o `develop`).  
+- **Ventajas**  
+  - Aísla cambios grandes: no interrumpes a otros equipos con trabajo en curso.  
+  - Facilita revisiones de código en grupo antes de integrar.  
+- **Inconvenientes**  
+  - Riesgo de "integration hell": al acumularse commits entre `main` y la rama de feature, los merges pueden volverse muy conflictivos.  
+  - Builds rotos en la principal cuando se integra todo de golpe.  
+- **Cuándo elegirlo**  
+  - Features muy grandes o experimentales que no pueden partirse en trozos pequeños.  
+  - Cuando necesitas revisiones formales o aprobación de producto antes de integrar.
+
+**Continuous Integration (CI)**  
+- **Qué es**  
+  Flujo en el que todos los desarrolladores integran cambios pequeños y frecuentes (varias veces al día) directamente en la rama principal, con builds y tests automáticos tras cada push.  
+- **Ventajas**  
+  - Feedback rápido: detectas conflictos y errores en cuanto surgen.  
+  - Mantienes la rama principal siempre en estado "deployable".  
+  - Minimiza el coste de los merges: trabajas con diferencias muy pequeñas.  
+- **Inconvenientes**  
+  - Requiere test suite muy robusta y cultura de commits pequeños.  
+  - Puede resultar incómodo si el equipo no está disciplinado con integraciones frecuentes.  
+- **Cuándo elegirlo**  
+  - Equipos que necesitan velocidad y alta calidad en integraciones.  
+  - Proyectos en los que la rama principal debe estar siempre libre de errores.  
+  - Cuando los cambios se pueden fragmentar en unidades independientes y de alcance reducido.
+
+**Pseudocódigo para una integración diaria típica bajo CI**
+
+```plaintext
+// Cada desarrollador, al iniciar su jornada o al tener un bloque de trabajo listo:
+
+1. git checkout main
+2. git pull origin main                // Traer los últimos cambios
+
+3. // [Opcional] crear una rama corta para el bloque de trabajo
+   git checkout -b feature/episodio123
+
+4. // Trabajar: añadir, modificar archivos...
+   editar_archivos()
+   git add .
+   git commit -m "chore: avance en episodio123"
+
+5. // Antes de enviar, volver a sincronizar con main
+   git fetch origin
+   git checkout main
+   git pull origin main
+
+6. // Rebase de la rama de trabajo sobre la punta de main
+   git checkout feature/episodio123
+   git rebase main
+
+7. // Volver a main y hacer merge rápido (fast-forward)
+   git checkout main
+   git merge --ff-only feature/episodio123
+
+8. // Enviar a repositorio central
+   git push origin main
+
+9. // [Opcional] borrar la rama local corta si ya no sirve
+   git branch -d feature/episodio123
+
+10. // Esperar a que el pipeline de CI ejecute tests y build
+    // Si falla, arreglar inmediatamente repitiendo pasos 1–8
+```
+
+**Diagramas ASCII de evolución de ramas**
+
+**Integración continua (varias integraciones al día)**
+
+```
+Time →
+Dev1    ──╲            ╱──  ╲            ╱──       main
+            ╲          ╱        ╲        ╱
+Dev2     ────╲       ╱──────    ╲    ╱─────
+               ╲    ╱            ╲  ╱
+Dev3    ──╲      ╲╱               ╳        ← múltiples rebasados 
+             ╲    ╱              ╱╲        ← y merges fast-forward
+...         ────╲╱────────────────╱───
+```
+
+- Cada flecha "╲...╱" representa un bloque de trabajo integrado inmediatamente.
+- El cruce "╳" son breves rebases antes de merge.
+
+**Feature branching (integraciones puntuales)**
+
+```
+Time →
+          o───o───o───o            main
+         /                       \
+Dev1-A ───/                         \─M1    ← merge de feature A (al final)
+         \
+Dev2─────\──B───B───B             \─M2    ← merge de feature B
+          \
+Dev3──────\───C───C───C───C       \─M3
+```
+
+- Las ramas A, B, C crecen aisladas y sólo al terminar hacen merge (M1, M2, M3), provocando potenciales conflictos y builds rotos si no se coordinan.
+
+**Environment branch y Hotfix branch**
+
+- **Environment branch**  
+  - Es una rama dedicada a un entorno concreto (por ejemplo `env/test` o `staging`), donde se integran cambios desde `develop` para ejecutar pruebas de integración y validación de QA.  
+  - Permite aislar el código que va al entorno de pruebas, de modo que los desarrollos locales (feature branches) no rompan ese sandbox.  
+  - Ventajas:  
+    - Aísla fallos de integración en un espacio controlado.  
+    - Facilita automatizar despliegues y tests específicos de entorno.  
+  - Inconvenientes:  
+    - Riesgo de "drift" si no sincronizas con frecuencia con `develop`.  
+    - Posible duplicación de merges si convives con hotfixes.
+
+- **Hotfix branch**  
+  - Rama corta y urgente creada a partir de `main` (o `master`) para corregir bugs críticos en producción.  
+  - Una vez corregido, se fusiona de vuelta a `main` y también a `develop` (y a veces `env/test`) para que la corrección no se pierda en futuras releases.  
+  - Ventajas:  
+    - Permite desplegar la corrección en caliente sin esperar al próximo release.  
+    - Mantiene el historial de producción limpio y trazable.  
+  - Inconvenientes:  
+    - Si no se organiza bien, pueden surgir conflictos al llevar la misma corrección a `develop` o `env/test`.
+
+- **Coordinación típica**  
+  1. Se detecta un fallo en `env/test`:  
+     - Se actualiza `env/test` con los últimos cambios de `develop`.  
+     - Se corrige el error allí si es un problema de integración.  
+  2. Simultáneamente, surge un bug en producción:  
+     - Se crea `hotfix/...` desde `main`, se parchea, se despliega y se mergea de vuelta a `main`.  
+     - Luego se lleva ese mismo commit de hotfix a `develop` (y opcionalmente a `env/test`) para no perder la corrección.
+
+**Pseudocódigo (bash)**
+
+```bash
+#!/usr/bin/env bash
+set -e
+
+HOTFIX_ID="1234-fix-critical"
+PATCH_FILE="fix_bug.patch"   # o aplicar directamente cambios en código
+
+# 1. Crear y preparar la rama de hotfix desde main
+git checkout main
+git pull origin main
+git checkout -b hotfix/${HOTFIX_ID}
+
+# 2. Aplicar el parche o cambios
+git apply ../patches/${PATCH_FILE}
+git add .
+git commit -m "hotfix(${HOTFIX_ID}): fix critical production bug"
+
+# 3. Enviar hotfix y desplegar
+git push origin hotfix/${HOTFIX_ID}
+# Aquí va el comando de despliegue a producción
+# deploy_to_production hotfix/${HOTFIX_ID}
+
+# 4. Fusionar de vuelta a main
+git checkout main
+git merge --no-ff hotfix/${HOTFIX_ID} -m "Merge hotfix/${HOTFIX_ID} into main"
+git push origin main
+
+# 5. Fusionar la corrección en develop para futuro trabajo
+git checkout develop
+git pull origin develop
+git merge --no-ff hotfix/${HOTFIX_ID} -m "Merge hotfix/${HOTFIX_ID} into develop"
+git push origin develop
+
+# 6. Opcional: llevar hotfix a env/test
+git checkout env/test
+git pull origin env/test
+git merge --no-ff hotfix/${HOTFIX_ID} -m "Merge hotfix/${HOTFIX_ID} into env/test"
+git push origin env/test
+
+# 7. Limpiar rama local
+git branch -d hotfix/${HOTFIX_ID}
+```
+**Diagrama ASCII**
+
+```
+                        ┌──────────────────────────┐
+                        │      env/test           │←── QA tests
+                        │     (integration)        │
+                        └──────────────────────────┘
+                                 ▲     │
+                                 │     │ merge from develop
+                                 │     ▼
+         develop ────o───o───o───o───────────o───o
+                      \                     │   │
+                       \                    │   │ merge hotfix
+                        \                   ▼   ▼
+                         \──────────── hotfix/123 ──o── fix & deploy
+                        /                     ▲
+                       /                      │ merge back
+      main ────o───o───o───────────────────────┘
+              ▲   ▲     \
+              │   │      \ merge hotfix into develop
+     (prod)───┘   └── merge hotfix into main
+```
+
+**Políticas de branching – Gitflow**
+
+- **`feature/*`**  
+  - Ramas de corta o media duración que salen de `develop`.  
+  - Sirven para desarrollar funcionalidades aisladas.  
+  - Se fusionan de vuelta a `develop` cuando están listas.
+
+- **`release/*`**  
+  - Ramas que parten de `develop` al preparar una nueva versión.  
+  - Permiten pruebas de pre-producción y ajustes menores (versionado, documentación).  
+  - Se mergean a `master` (con tag) y a `develop` (para incorporar hotfixes hechos durante la etapa).
+
+- **`hotfix/*`**  
+  - Ramas urgentes que parten de `master` tras detectar un bug en producción.  
+  - Se aplican correcciones críticas.  
+  - Se fusionan a `master` (con tag) y a `develop` para no perder las correcciones.
+
+- **`develop`**  
+  - Línea principal de integración de nuevas funcionalidades.  
+  - Siempre debe compilar y pasar tests automáticos.  
+  - Periodicamente se crea una rama `release/*` desde aquí.
+
+- **`master`**  
+  - Refleja el código en producción.  
+  - Sólo recibe merges desde `release/*` o `hotfix/*`.  
+  - Cada merge a `master` suele acompañarse de un tag con el número de versión.
+
+**Pseudocódigo Git Hook (pre-push)**
+
+```plaintext
+# Archivo: .git/hooks/pre-push  (o pre-commit con lógica similar)
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+if branch == "master" or branch == "develop":
+    echo "ERROR: No puedes hacer push directo a '${branch}'."
+    echo "Usa feature, release o hotfix según corresponda."
+    exit 1
+fi
+
+# Permitir push en otras ramas
+exit 0
+```
+**Diagrama ASCII de flujo Git-flow**
+
+```
+                          ┌─────────────────────────────────┐
+                          │           master (prod)        │
+                          └─────────────────────────────────┘
+                                     ▲      ▲
+                        tag v1.2.0   │      │  hotfix/1.2.1
+                                     │      │
+                        ┌─────────┐  │      │ ┌────────┐
+ develop ──o───o───o─────┤release/1.3├──────┤hotfix/1.2.1├───o  ← merges back
+           \            └─────────┘      └────────┘
+            \                ▲               |
+             \               │ merge         |
+            feature/A        │               ▼
+             └───────────────┘              master
+                                            (con tag)
+                                            
+              
+ feature/B ──o───o───o───┐
+                        ▼ merge→ develop
+                           o───o───────────┐
+                                         ▼ merge→ master (via release)
+```
+
+- **Flujo básico**:  
+  1. Se crean `feature/*` desde `develop`.  
+  2. Cuando llegan a un hito, se fusionan a `develop`.  
+  3. Para preparar release, se crea `release/*`, se prueba, se ajusta y se fusiona a `master` con tag y de vuelta a `develop`.  
+  4. Para hotfix, se crea `hotfix/*` desde `master`, se corrige, se fusiona a `master` (tag) y a `develop`.
