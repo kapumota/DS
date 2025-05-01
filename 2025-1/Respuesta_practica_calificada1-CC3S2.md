@@ -1,5 +1,7 @@
 ### **Respuestas de la práctica calificada 1 CC3S2**
 
+Estas notas presentan las respuestas detalladas de la primera práctica calificada del curso en su versión teorica.
+
 **DAG de commits y árboles de Merkle**
    
 Para simplificar, llamaremos genéricamente:
@@ -66,7 +68,7 @@ Más esquemático, como un "árbol":
    - Para C3: raíz `H(T3)`  
    - Para C1: raíz `H(T1)`  
 3. **Sub-árboles de blobs**  
-   - En cada tree H(Tn), sus hojas son los blobs Bn₁, Bn₂,…  
+   - En cada tree H(Tn), sus hojas son los blobs Bn₁, Bn₂,...  
 
 > **Nota:** en Git cada objeto (commit, tree, blob) es un nodo en el Merkle DAG, y su hash actúa como "raíz" de su propio sub-árbol de dependencias.
 
@@ -79,7 +81,7 @@ Más esquemático, como un "árbol":
 > 
 > - El **blob** que contenía `src/main.c` (B4)  
 > - El **tree** de C4 (H(T4))  
-> - El **commit** C4 (H(C4)), y recursivamente…  
+> - El **commit** C4 (H(C4)), y recursivamente...  
 > - El tree y commit de su padre C2,  
 > - ...y así hasta la raíz C1.
 
@@ -392,3 +394,344 @@ Que hace la propuesta del algoritmo:
 
 Con esta estrategia se garantiza la máxima eficacia al integrar ramas de microservicios independientes y a la vez conservas un mecanismo seguro para resolver conflictos cuando dos equipos modifican el mismo dominio de código.
 
+**Diseño de historias de usuario y criterios de aceptación con Git Flow**
+
+**Historia de usuario (formato Connextra)**  
+> *Como* usuario que ya posee credenciales válidas,  
+> *quiero* que la aplicación me solicite un código OTP de seis dígitos generado por mi autenticador,  
+> *para* reforzar la seguridad de mi cuenta con un segundo factor.
+
+**Criterios de aceptación (Gherkin)**  
+
+```gherkin
+Feature: Autenticación MFA mediante OTP
+
+  Scenario: Solicitud automática de código OTP tras login correcto
+    Given que el usuario ingresa usuario y contraseña válidos
+    When la credencial es verificada
+    Then el sistema muestra un campo para ingresar el código OTP
+    And el usuario no accede al dashboard mientras el OTP no sea válido
+
+  Scenario: Código OTP correcto concede acceso
+    Given que el usuario visualiza el campo de OTP
+    When introduce un código válido dentro de los 30 s de ventana
+    Then el sistema desbloquea el dashboard
+    And registra el evento de autenticación MFA exitosa
+
+  Scenario: Código OTP incorrecto
+    Given que el usuario visualiza el campo de OTP
+    When introduce un código inválido
+    Then el sistema rechaza el intento
+    And muestra el mensaje "OTP incorrecto, vuelva a intentarlo"
+
+  Scenario: Tres fallos consecutivos bloquean la sesión
+    Given que el usuario ha fallado 2 intentos de OTP
+    When falla un tercer intento
+    Then la sesión se invalida
+    And se envía un correo de alerta al usuario
+```
+
+**Workflow Git (pseudocódigo comentado)**  
+
+```bash
+# Preparación del feature branch 
+git checkout develop
+git pull --ff-only origin develop
+git checkout -b feature/mfa-otp
+
+# Ciclo de desarrollo (commits semánticos) 
+# ... trabajo, commits etiquetados con Gherkin: "@given", "@when", "@then"
+git add .
+git commit -m "feat(auth): @given usuario con credenciales válidas"
+
+# Limpieza con rebase interactivo
+git fetch origin develop            # asegura último estado remoto
+git rebase -i --rebase-merges develop
+#    squash de WIP
+#    re-order commits lógicos
+#    edición de mensajes para respetar patrón Conventional Commits
+
+#  Verificación local
+pytest -m "not e2e"
+behave features/auth_mfa.feature
+pre-commit run --all-files           # linters, husky, etc.
+
+# Push protegido por hook pre-push
+git push --force-with-lease origin feature/mfa-otp
+# (si el hook falla, no se enviará; ver script más abajo)
+
+# Creación de Pull Request y fusión
+gh pr create --base develop --title "MFA OTP" --fill
+# En la plataforma se aplica "Squash & Merge → no-ff"
+# Estrategia acordada: merge-commit explícito para conservar el hash del feature:
+#   git merge --no-ff --log -m "Merge feature/mfa-otp" feature/mfa-otp
+
+# Limpieza posterior
+git branch -d feature/mfa-otp        # local
+git push origin --delete feature/mfa-otp
+```
+
+**Hook `pre-push` (Bash simplificado)**  
+
+```bash
+#!/usr/bin/env bash
+# .git/hooks/pre-push
+set -euo pipefail
+
+while read -r _local_sha _local_ref _remote_sha remote_ref; do
+  # Sólo filtra pushes a ramas feature/*
+  [[ "$remote_ref" =~ refs/heads/feature/.* ]] || continue
+
+  # Revisa cambios que saldrán en el push
+  commits=$(git rev-list "${_remote_sha}..${_local_sha}")
+
+  for c in $commits; do
+    if ! git show -s --format=%B "$c" | grep -qE '@(given|when|then)'; then
+      echo "Commit $c carece de etiquetas Gherkin (@given/@when/@then)."
+      exit 1
+    fi
+  done
+done
+```
+
+**Pseudocódigo de hook de commit-msg y regex en Gherkin**
+Por ejemplo podriamos hacer
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+msg_file="$1"
+pattern='^(feat|fix|chore)\((auth|ui|api)\): .{1,72}$'
+
+commit_msg=$(<"$msg_file")
+if [[ ! $commit_msg =~ $pattern ]]; then
+  cat >&2 <<EOF
+Convención de mensaje inválida.
+Debe cumplir: <tipo>(<área>): <descripción corta>
+  tipo  ∈  feat | fix | chore
+  área  ∈  auth | ui | api
+Ejemplo:  feat(auth): permite login con Google
+EOF
+  exit 1
+fi
+```
+
+**Mensajes válidos**
+
+1. `feat(auth): soporte de MFA por OTP`
+2. `fix(ui): corrige alineación del botón Login`
+3. `chore(api): actualiza versión de OpenAPI`
+
+**Mensajes inválidos**
+
+* `feature(auth): agrega logout`  → prefijo erróneo  
+* `fix: no muestra errores`                  → falta área
+
+**Gherkin para probar el hook**
+
+```gherkin
+Feature: Validación de commit messages
+
+  Scenario Outline: mensaje <estado>
+    Given un archivo COMMIT_EDITMSG con "<mensaje>"
+    When se ejecuta el hook commit-msg
+    Then el resultado debe ser "<resultado>"
+
+    Examples:
+      | mensaje                                  | estado   | resultado |
+      | feat(auth): soporte de MFA               | valido   | 0         |
+      | fix(ui): corrige bug nulo                | valido   | 0         |
+      | chore(api): refactoriza controladores    | valido   | 0         |
+      | feature(auth): agrega logout             | invalido | 1         |
+      | fix: sin área                            | invalido | 1         |
+```
+
+(Step definitions capturan con `r'^(feat|fix|chore)\((auth|ui|api)\):'` y evalúan el exit-code).
+
+**Four-Test Pattern en step definitions de Behave**
+
+Una propuesta completa puede ser:
+
+```python
+# features/steps/registro_steps.py (pseudocódigo)
+from behave import given, when, then, use_step_matcher
+import subprocess, json, os, tempfile
+
+use_step_matcher("re")
+
+@given(r"que An(a|o) se registra con datos válidos")
+def setup_context(context, genero):
+    # SETUP
+    context.branch = f"test/reg-ana-{os.getpid()}"
+    subprocess.run(["git", "checkout", "-b", context.branch], check=True)
+
+    context.payload = {"email": "ana@test.io", "pass": "S3guro!"}
+    context.api = context.world.app.test_client()
+
+@when("envía el formulario de registro")
+def action(context):
+    #ACTION
+    context.resp = context.api.post("/signup", data=json.dumps(context.payload),
+                                    headers={"Content-Type": "application/json"})
+    subprocess.run(["git", "add", "-A"])
+    subprocess.run(["git", "commit", "-m",
+                    "test(registro): @when envio formulario"], check=True)
+
+@then("el sistema devuelve.*201.*y crea el usuario")
+def assert_outcome(context):
+    # ASSERT
+    assert context.resp.status_code == 201
+
+@then("se limpia el entorno")
+def teardown(context):
+    # TEARDOWN 
+    subprocess.run(["git", "checkout", "-"], check=True)
+    subprocess.run(["git", "branch", "-D", context.branch], check=True)
+```
+
+**Objetos internos creados por Git**
+
+| Paso | Objeto(s) | Descripción interna |
+|------|-----------|---------------------|
+| `checkout -b` | *ref* | Se crea un archivo `refs/heads/test/reg-ana-PID` que apunta al commit actual,  no genera nuevos objetos. |
+| `git add` | *blob* | Cada archivo modificado se comprime (zlib) y almacena como blob identificado por su SHA-1, el árbol de directorio se reorganiza. |
+| `git commit` | *tree*, *commit* | Se genera un `tree` que referencia blobs; luego un objeto `commit` con puntero a dicho árbol y al padre (HEAD). |
+| `branch -D` | - | Sólo se elimina la referencia; los objetos permanecen como basura recuperable hasta GC. |
+
+**Estrategias de fusión y algoritmo de Git**
+
+Se puede proponer pseudocódigo de los tres flujos
+
+```text
+# A) Fast-Forward
+if      merge_base == release/v1.2              # rama adelantada
+then    main_ref = release/v1.2                # ↗ mueve puntero, sin commit nuevo
+
+# B) Merge-commit
+git checkout main
+git merge --no-ff release/v1.2                 # crea C_merge
+# objetos: 1 commit C_merge (+1 tree si hubo cambios de contenido)
+
+# C) Rebase + FF
+git checkout release/v1.2
+git rebase main                                # re-escribe commits R1...Rn → R1'...Rn'
+git checkout main && git merge --ff-only release/v1.2
+# objetos: n nuevos commits + árboles; puntero main avanza sin nodo de merge
+```
+
+| Estrategia | Objetos añadidos | Efecto visual en el DAG |
+|------------|-----------------|-------------------------|
+| Fast-Forward | ninguno | Línea recta, la historia parece lineal. |
+| Merge commit | 1 commit (2 padres) | Crea un nodo en forma de diamante que preserva ramas. |
+| Rebase + FF | *n* commits re-generados | Historia lineal, pero con hashes diferentes (re-escritura). |
+
+Algoritmo *three-way merge* (resumen interno)
+
+1. **Cálculo de base común (LCA)**  
+   Depth-first search sobre el DAG hasta encontrar el "lowest common ancestor"; Git utiliza el *Lowest Common Ancestor* más cercano mediante heurística de *minimal merge base*.
+
+2. **Comparación de árboles**  
+   - `diff-tree` compara *base → HEAD* y *base → MERGING* para cada ruta.  
+   - Se obtienen tres valores `(O, A, B)` por archivo (O = versión base, A = main, B = release).
+
+3. **Fusión por ruta**  
+   - Casos triviales (A==O) ⇒ usa B; (B==O) ⇒ usa A.  
+   - Conflictos: si A ≠ B ≠ O, Git llama al *merge driver* ("text", "binary"...).  
+   - Si el driver resuelve, se escribe archivo resultante y marca en el árbol final.
+
+4. **Creación de commit de merge**  
+   - Serializa árbol resultante como objeto `tree`.  
+   - Crea objeto `commit` con dos padres (HEAD, MERGING) y este árbol.
+
+#### Hook `post-merge` (Bash)
+
+```bash
+#!/usr/bin/env bash
+# env: POST_MERGE_OK=1 si merge sin conflictos
+if [[ "$POST_MERGE_OK" != "1" ]]; then
+  echo "Merge con conflictos; no se envía reporte."
+  exit 0
+fi
+
+last_merge=$(git rev-parse HEAD)
+json=$(jq -n --arg m "$last_merge" --arg u "$GIT_AUTHOR_NAME" \
+      '{merge: $m, user: $u, timestamp: (now|strftime("%FT%TZ"))}')
+
+curl -X POST -H "Content-Type: application/json" \
+     -d "$json" https://hooks.example.dev/git/merge-report
+```
+
+**Anatomía del object database (solo objetos sueltos): validación de integridad y reconstrucción del DAG**
+
+Posibles respuestas
+
+**a) Desempacado y verificación de hashes**
+
+```python
+import hashlib, zlib, pathlib, sys
+
+root = pathlib.Path("repo/.git/objects")
+for obj in root.glob("[0-9a-f][0-9a-f]/*"):
+    raw = zlib.decompress(obj.read_bytes())
+    header, _, body = raw.partition(b"\x00")
+    algo = "sha1" if b"sha1" in header else "sha256"
+    h = hashlib.new(algo, raw).hexdigest()
+    status = "OK" if h == obj.parent.name + obj.name else "CORRUPTO"
+    print(f"{h[:10]} {header.decode()} {status}")
+```
+
+*Marca como corrupto* todo fichero cuyo digest no coincida con su ruta.
+
+**b) Clasificación y extracción mínima**
+
+```python
+from collections import defaultdict, namedtuple
+Commit = namedtuple("Commit", "author ts parents")
+
+trees, commits, blobs, tags = {}, {}, {}, {}
+
+def parse_commit(buf):
+    lines = buf.splitlines()
+    meta = {k:v for k,v in
+            (l.decode().split(" ",1) for l in lines if b":" in l)}
+    parents = [l.decode().split(" ")[1]
+               for l in lines if l.startswith(b"parent")]
+    return Commit(meta["author"], meta["committer"].split()[-2], parents)
+
+for obj_path in root.glob("[0-9a-f][0-9a-f]/*"):
+    raw = zlib.decompress(obj_path.read_bytes())
+    typ, _ = raw.split(b" ",1)[0].decode(), _
+    if typ == "commit": commits[obj_path.name] = parse_commit(raw)
+    elif typ == "tree":  trees[obj_path.name]   = raw
+    elif typ == "blob":  blobs[obj_path.name]   = None
+    elif typ == "tag":   tags[obj_path.name]    = None
+```
+
+(Para los árboles se podrían mapear las entradas `<modo> <nombre>\0<SHA>` si fuera necesario reconstruir rutas).
+
+**c) Reconstrucción del DAG**
+
+```python
+import networkx as nx
+G = nx.DiGraph()
+for h, c in commits.items():
+    G.add_node(h, author=c.author, ts=c.ts)
+    for p in c.parents:
+        if p in commits:
+            G.add_edge(h, p)
+
+raices = [n for n in G if G.out_degree(n) == 0]
+colgantes = [c for c in nx.connected_components(G.to_undirected())
+             if len({n for n in c if G.in_degree(n)==0})==len(c)]
+
+print(f"Commits válidos: {len(commits)}")
+print("Raíces:")
+for r in raices: print("  ", r)
+print(f"Sub-gráfos colgantes: {len(colgantes)}")
+```
+
+*Interpretación*  
+- **Raíz** = commit sin padre → posible inicio de historia.  
+- **Rama colgante** = sub-grafo sin convergencia al resto (pudo quedar sin merge).  
+
+Con estos pasos se dispone de un mapa mínimo para reconstruir *refs* manualmente (`git update-ref refs/heads/recovered <hash>`) o generar un `reflog` sintético antes de re-empaquetar.
