@@ -197,7 +197,6 @@ Usar la métrica de similitud de cadenas Jaro-Winkler sobre dos representaciones
 4. **Separador único**  
    Entre cada hash insertamos un carácter que nunca aparezca en ellos (por ejemplo, U+001F). Así garantizamos que Jaro-Winkler no confunda la concatenación con coincidencias accidentales.
 
-
 **Pseudocódigo con comentarios de contexto (propuesta completa)**
 
 ```
@@ -281,7 +280,7 @@ function jaroWinkler(s, t):
 **Respuestas a las preguntas de análisis**
 
 **a) ¿Por qué un rebase completo arroja puntuación intermedia y no baja?**  
-Cuando haces un rebase de toda la rama, todos los hashes cambian, pero la estructura de la cadena (número de commits y la posición de cada separador) se mantiene idéntica. Jaro-Winkler detecta que los separadores coinciden en casi las mismas posiciones y eso aporta muchas "coincidencias estructurales"  incluso si los caracteres de los hashes no lo son. El resultado es un valor intermedio (por ejemplo, 0,7 - 0,8) en lugar de caer por debajo de 0,65.
+Cuando haces un rebase de toda la rama, todos los hashes cambian, pero la estructura de la cadena (número de commits y la posición de cada separador) se mantiene idéntica. Jaro-Winkler detecta que los separadores coinciden en casi las mismas posiciones y eso aporta muchas "coincidencias estructurales"  incluso si los caracteres de los hashes no lo son. El resultado es un valor intermedio (por ejemplo, 0,7-0,8) en lugar de caer por debajo de 0.65.
 
 **b) ¿Qué pasa si usamos hashes SHA-256 completos (64 caracteres) en vez de 12 abreviados?**  
 La longitud de cada token crece más de cinco veces, por lo que los separadores representan una proporción mucho menor de la cadena total. Como consecuencia, la similitud "estructural" pierde peso y la puntuación baja, incluso cuando los historiales sean prácticamente idénticos. Esto haría necesaria una recalibración de umbrales o bien mantener siempre abreviaturas de tamaño fijo.
@@ -289,5 +288,107 @@ La longitud de cada token crece más de cinco veces, por lo que los separadores 
 **c) Propuestas de umbral para repositorios muy grandes**  
 1. **Ventana recortada de commits recientes**: comparar solo los últimos 1 000–5 000 commits para centrarse en la divergencia reciente.  
 2. **Muestreo aleatorio**: tomar un subconjunto representativo de commits en cada lado, de modo que la comparación sea más eficiente y menos sensible al tamaño total.  
-3. **Umbral adaptativo**: incrementar el punto de corte conforme crece el repositorio (por ejemplo, de 0,65 a 0,70 en historias de más de 100 000 commits).  
+3. **Umbral adaptativo**: incrementar el punto de corte conforme crece el repositorio (por ejemplo, de 0.65 a 0.70 en historias de más de 100 000 commits).  
 4. **Medida directa de coincidencia de hashes**: en lugar de comparar cadenas largas, contar el porcentaje de hashes abreviados que coinciden en la misma posición. Esto escala linealmente en lugar de cuadrático.
+
+**Estrategias de fusión y resolución de conflictos**
+
+Cuando trabajas con un conjunto de microservicios aislados (por ejemplo, uno por carpeta raíz: `auth/`, `billing/`, `catalog/`, `cart/`, `ui/`, `infra/`), tener una estrategia de _octopus merge_ te permite integrar varias ramas a la vez siempre que no haya solapamientos. Si dos ramas modifican el mismo servicio (es decir, la misma carpeta raíz), conviene revertir al clásico _merge_ binario para resolver conflictos de forma controlada.
+
+A continuación, un ejemplo de  esa lógica en pseudocódigo
+```
+// Contexto:
+//   - Cada rama de microservicio vive en su propio directorio raíz.
+//   - Queremos un único commit de integración (octopus) cuando no haya
+//     solapamientos de carpetas.
+//   - Si hay solapamiento, mezclamos esas ramas en parejas (merge binario)
+//     para resolver conflictos uno a uno.
+//   - Al final guardamos un mapa { rama: SHA_del_merge }.
+
+function estrategiaOctopusConFallback(ramas, baseBranch):
+    // Inicializar el mapa de resultados
+    mapaDeMerges ← diccionario vacío
+
+    // 1. Agrupar ramas que no solapan por sus directorios raíz
+    //    Creamos un arreglo de "bloques" de integración octopus:
+    //    cada bloque reúne ramas con carpetas disjuntas.
+    bloques ← lista vacía
+    while ramas no está vacía:
+        bloque ← lista vacía
+        directoriosUsados ← conjunto vacío
+
+        for cada rama en copia(ramas):
+            dirRaiz ← extraerDirectorioRaiz(rama)  
+            if dirRaiz ∉ directoriosUsados:
+                // No hay solapamiento: la puedo agregar al bloque
+                bloque.append(rama)
+                directoriosUsados.add(dirRaiz)
+                ramas.remove(rama)
+            end if
+        end for
+
+        bloques.append(bloque)
+    end while
+
+    // 2. Para cada bloque, intentamos un octopus merge
+    for cada bloque en bloques:
+        if tamaño(bloque) == 1:
+            // Solo una rama: hacemos un merge binario normal
+            rama ← bloque[0]
+            commitMerge ← mergeBinario(baseBranch, rama)
+            mapaDeMerges[rama] ← commitMerge
+            // Actualizamos base para próximas fusiones
+            baseBranch ← commitMerge
+        else:
+            // Varias ramas disjuntas: hacemos un octopus merge
+            commitOctopus ← mergeOctopus(baseBranch, bloque)
+            // Asignamos el mismo merge a cada rama del bloque
+            for cada rama in bloque:
+                mapaDeMerges[rama] ← commitOctopus
+            end for
+            baseBranch ← commitOctopus
+        end if
+    end for
+
+    return mapaDeMerges
+
+// Funciones auxiliares (conceptuales)
+
+// Devuelve la carpeta raíz (primer segmento) de los cambios de una rama
+function extraerDirectorioRaiz(rama):
+    // Por convención, cada rama edita solo archivos en "auth/..." por ejemplo
+    archivosModificados ← git diff --name-only origin/main..rama
+    primerasCarpetas ← map( archivo → split(archivo, '/')[0], archivosModificados )
+    return el valor más frecuente en primerasCarpetas
+
+// Merge binario clásico: baseBranch ←→ rama
+function mergeBinario(baseBranch, rama):
+    git checkout baseBranch
+    resultado ← git merge --no-ff rama
+    // aquí se asume que si hay conflictos, el desarrollador los resuelve
+    git commit --no-edit
+    return obtenerHashCommitActual()
+
+// Octopus merge de varias ramas a la vez
+function mergeOctopus(baseBranch, listaRamas):
+    git checkout baseBranch
+    // e.g. git merge --no-ff auth billing catalog
+    resultado ← git merge --no-ff listaRamas...
+    // como no hay solapamiento, no debería haber conflictos
+    git commit --no-edit
+    return obtenerHashCommitActual()
+
+// Obtener el hash del commit HEAD actual
+function obtenerHashCommitActual():
+    return git rev-parse --short=12 HEAD
+```
+
+Que hace la propuesta del algoritmo: 
+
+- Recorre las seis ramas y las agrupa en "bloques" tales que ninguna comparte carpeta raíz con otra. Por ejemplo, si `auth` y `billing` están en disjunto, pueden ir juntas en un bloque; si `catalog` y `cart` también, forman otro.
+- Si un bloque tiene más de una rama, lanza un único `git merge auth billing catalog ...` (octopus). Al no tocarse carpetas comunes, no hay conflictos.
+- Si solo queda una rama en el bloque (o en caso de solapamiento detectado), se comporta como un merge tradicional, de a dos.
+- Cada vez que se crea un commit de integración (ya sea binario u octopus), guardamos su SHA abreviado asociado a la rama que hemos fusionado. Esto permite, por ejemplo, auditar quién entró en qué merge, deshacer puntualmente o buscar en el historial de merges posteriores.
+
+Con esta estrategia se garantiza la máxima eficacia al integrar ramas de microservicios independientes y a la vez conservas un mecanismo seguro para resolver conflictos cuando dos equipos modifican el mismo dominio de código.
+
