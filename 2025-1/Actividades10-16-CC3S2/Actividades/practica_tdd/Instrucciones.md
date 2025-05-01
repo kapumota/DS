@@ -147,7 +147,6 @@ def delete_counter(name):
     return "", status.HTTP_204_NO_CONTENT
 ```
 
-
 #### 3. Ejercicios adicionales
 
 ##### 3.1. Incrementar un contador (ruta dedicada)
