@@ -325,7 +325,7 @@ Con esta técnica, la mock no solo verifica la invocación sino que ejecuta lóg
 
 El patching es la técnica de sustitución de funciones, clases o módulos enteros para redirigir llamadas a implementaciones simuladas. En pytest y `unittest.mock` existen varias formas de aplicar parches, que van desde ámbitos muy concretos hasta toda la sesión de pruebas.
 
-#### 6.4 Patching localizado
+#### 6.4.1 Patching localizado
 
 **Context manager**
 Se utiliza para encapsular un bloque de código en el cual una función o método queda parcheado:
@@ -359,7 +359,7 @@ def test_aislado(mock_serv):
 * Facilita la comprensión del contexto: al leer el test queda claro qué se está simulando.
 * Mantiene la configuración de fixtures y mocks limpia y específica.
 
-#### 6.5 Patching holístico
+#### 6.4.2 Patching holístico
 
 En pruebas de integración parcial o en escenarios donde múltiples tests requieren el mismo parche, se pueden emplear fixtures con alcance amplio:
 
@@ -386,7 +386,7 @@ def parche_db(monkeypatch):
 * Para tests unitarios sucios, es preferible el patching localizado, reservando el enfoque holístico para pruebas de integración ligera.
 
 
-#### 6.6. Parametrización y principio Open/Closed
+#### 6.5. Parametrización y principio Open/Closed
 
 La parametrización de tests es fundamental para cubrir múltiples escenarios con un único bloque de código, respetando el **Principio Open/Closed** (abierto a extensión, cerrado a modificación). pytest facilita dicha técnica mediante el marcador `@pytest.mark.parametrize`, lo que redunda en:
 
@@ -430,7 +430,7 @@ def test_reintento_variado(monkeypatch, side_effect, resultado_esperado):
 
 Aquí la parametrización abarca tanto la simulación de errores como el comportamiento exitoso, respetando OCP al no alterar el cuerpo del test.
 
-#### 6.7 Autospec: garantizar adherencia a la interfaz real
+#### 6.6 Autospec: garantizar adherencia a la interfaz real
 
 Con el envejecimiento de la base de código, las firmas de funciones o métodos pueden cambiar, induciendo desincronizaciones silenciosas en los mocks clásicos. La técnica **autospec** crea mocks que respetan exactamente la firma de la implementación real, detectando llamadas con parámetros inválidos en tiempo de prueba:
 
@@ -452,7 +452,7 @@ def test_autospec():
 
 Se recomienda aplicar autospec en bibliotecas internas críticas y en aquellas piezas de código con alta rotación de parámetros.
 
-#### 6.8 Inspección de historial de llamadas y verificaciones avanzadas
+#### 6.7 Inspección de historial de llamadas y verificaciones avanzadas
 
 Los mocks no solo registran si fueron llamados, sino que almacenan un historiales detallado de todas las invocaciones, sus argumentos y orden. Esta capacidad es esencial en arquitecturas de eventos y pipelines de datos, donde el orden y la frecuencia de llamadas puede afectar la integridad del sistema.
 
@@ -469,7 +469,7 @@ mock.b(2, x=3)
 assert mock.call_args_list == [call.a(1), call.b(2, x=3)]
 ```
 
-#### 6.9 Verificaciones específicas
+#### 6.8 Verificaciones específicas
 
 * **`assert_called_once_with(...)`**: garantiza que la llamada se hizo exactamente una vez con los argumentos dados.
 * **`assert_any_call(...)`**: comprueba que al menos una de las llamadas coincide con los parámetros.
@@ -483,11 +483,11 @@ mock_serv.assert_any_call('param1')
 Estas técnicas permiten asegurar que, por ejemplo, un pipeline de procesamiento de mensajes invoque primero la etapa de deserialización, luego la validación y finalmente la persistencia, en el orden correcto.
 
 
-#### 6.10 Gestión de marcas `skip` y `xfail` en flujos CI/CD
+#### 6.9 Gestión de marcas `skip` y `xfail` en flujos CI/CD
 
 En desarrollos ágiles y en continuo movimiento, es habitual que ciertos tests dependan de condiciones temporales o entornos específicos. pytest ofrece marcadores para gestionar estos casos sin comprometer la estabilidad del pipeline completo.
 
-#### 6.11 `@pytest.mark.skip`
+#### 6.9.1 `@pytest.mark.skip`
 
 Se utiliza cuando un test no aplica en determinadas circunstancias. Por ejemplo, si una funcionalidad solo existe en versiones recientes de Python o requiere un servicio externo no disponible:
 
@@ -502,7 +502,7 @@ def test_solo_linux():
 
 Los tests marcados como `skip` no se ejecutan, pero quedan registrados en el informe.
 
-#### 6.12 `@pytest.mark.xfail`
+#### 6.9.2 `@pytest.mark.xfail`
 
 Se emplea para tests que actualmente fallan por un bug conocido o dependencia en desarrollo. El fallo se considera "esperado" y no detiene la suite, aunque se informa para seguimiento:
 
@@ -516,7 +516,7 @@ def test_fecha_limite():
 * **`strict=True`**: si el test pasa inesperadamente, se considera un error, forzando la revisión de la marca.
 * **Informe JUnit XML**: los pipelines de CI en GitHub Actions, Azure Pipelines o Jenkins pueden procesar estos informes para diferenciar tests exitosos, fallidos, xfailed y skip.
 
-#### 6.13 Estrategias de mantenimiento
+#### 6.10 Estrategias de mantenimiento
 
 * **Revisión periódica**: acumular muchos `xfail` o `skip` sin resolver incrementa la deuda técnica. Se recomienda agendar tareas trimestrales para limpiar marcas obsoletas.
 * **Integración con alertas**: configurar que, si el ratio de tests marcados supera un umbral (por ejemplo, 5 % del total), se dispare una alerta en Slack o correo.
