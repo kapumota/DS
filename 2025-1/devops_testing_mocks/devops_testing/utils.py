@@ -1,4 +1,3 @@
-
 """Utilidades genéricas"""
 import time, functools, logging
 
