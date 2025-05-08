@@ -1,4 +1,3 @@
-
 """Modelos de dominio"""
 from dataclasses import dataclass, field
 from uuid import uuid4
