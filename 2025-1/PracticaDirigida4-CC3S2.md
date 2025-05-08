@@ -1,6 +1,8 @@
 
 
-### Sobre la actividad de mocks
+### Stubs & Mocks y configuraciones avanzadas
+
+> Puedes revisar aquí el proyecto desarrollado en clase: [devops_testings_2](https://github.com/kapumota/DS/tree/main/2025-1/devops_testing_mocks)
 
 #### Afinar la comprensión de conceptos
 
