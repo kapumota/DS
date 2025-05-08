@@ -1,3 +1,125 @@
+### Ejemplo sobre testing y DevOps con SOLID
+
+> Puedes revisar aquí el proyecto desarrollado en clase: [devops_testings_1](https://github.com/kapumota/DS/tree/main/2025-1/devops-testing-proyecto)
+
+####  Nivel teórico (SRP -> DIP)
+
+1. **Clasifica responsabilidades**
+   - *Contexto:* El módulo `services.py` concentra orquestación de pagos.
+   - *Enunciado:* Señala cuatro responsabilidades concretas de `PaymentService`. Indica cuáles serían candidatas a extraerse a nuevos "policies" u "object collaborators" para reforzar SRP sin romper LSP.
+   - *Aceptación:* ensayo de 400 palabras; menciona qué fixtures habría que crear para las nuevas clases.
+
+2. **Mapa de dependencias**
+   - *Contexto:* El grafo actual de paquetes es lineal (`models -> repositories -> services`).
+   - *Enunciado:* Dibuja (texto o diagrama) la versión ideal tras aplicar DIP para introducir un `NotificationService` y un `RetryPolicy`.
+   - *Aceptación:* el grafo no debe contener ciclos; se justifica cada flecha.
+
+3. **Análisis de sustitución**
+   - *Contexto:* `DummyGateway` y `Mock` cumplen la interfaz de pasarela.
+   - *Enunciado:* Escribe un argumento formal sobre por qué `Mock` **sí** cumple LSP aunque acepte métodos inexistentes y cómo mitigarlo con `spec`.
+   - *Aceptación:* referencia a `unittest.mock.create_autospec` y ejemplos de fallo.
+
+4. **Cobertura ≠ calidad**
+   - *Contexto:* el pipeline actual solo desarrolla pruebas funcionales.
+   - *Enunciado:* describe al menos tres defectos que una cobertura del 100 % no detectaría y qué tipo de prueba los revelaría.
+   - *Aceptación:* se citan tipos (property-based, fuzzing, contract tests…).
+
+5. **Ventajas y riesgos de monkeypatch**
+   - *Enunciado:* contrapón en 300 palabras setter-like vs constructor-like.
+   - *Aceptación:* lista de "casos de uso apropiados" y "smells" para cada estilo.
+
+#### Nivel implementación, código y fixtures
+
+6. **Fixture condicional por entorno**
+   *Objetivo:* permitir que los mismos tests usen `DummyGateway` localmente y un gateway real en integración.
+   *Tareas:*
+
+    - Leer la variable de entorno `USE_REAL_GATEWAY`.
+    - Si está activa, crear el gateway real (puede ser un stub que simule latencia).
+    - Ajustar `conftest.py` para registrar la nueva fixture con prioridad.
+      *Aceptación:* `pytest -m "not slow"` corre en < 1 s; `pytest -m slow` tarda ≥ 0.5 s por la latencia simulada.
+
+7. **Custom marker `@pytest.mark.contract`**
+   *Objetivo:* señalar tests que verifiquen invariantes de dominio (p. ej. "no se persiste un `Payment` sin usuario").
+   *Tareas:*
+
+   - Definir marcador en `pytest.ini`.
+   -  Etiquetar dos casos.
+   -  Añadir a CI un paso "contract" que solo ejecute esos tests.
+      *Aceptación:* salida de `pytest -m contract` muestra exactamente 2 tests.
+
+8. **Policy de reintentos**
+   *Objetivo:* implementar `RetryPolicy` configurado con `Config.retries`.
+   *Tareas:*
+
+   - Nueva clase en `src/devops_testing/retry.py`.
+   - Integrar en `PaymentService.process_payment`.
+   - Escribir tests parametrizados donde el gateway falla n-1 veces y triunfa en el intento n.
+      *Aceptación:* todos los escenarios con `retries` {1, 2, 3} pasan; el tiempo total no debe exceder 0.2 s.
+
+9. **Property-based testing con Hypothesis**
+   *Objetivo:* generar montos aleatorios positivos y verificar que siempre se persiste el pago.
+   *Tareas:*
+
+    - Añadir `hypothesis` a `requirements.txt` (sin romper velocidad de suite).
+    - Crear `test_payment_property.py`.
+      *Aceptación:* la prueba se ejecuta en < 1 s con 100 ejemplos.
+
+10. **Observabilidad: logging configurable**
+    *Objetivo:* permitir inyectar un logger en `PaymentService`.
+    *Tareas:*
+
+    - Añadir parámetro opcional `logger` al constructor.
+    - Fixture `capsys` verifica que se registran dos mensajes INFO.
+       *Aceptación:* prueba `test_logging_emitted` debe capturar texto "start-payment" y "payment-ok".
+
+#### Nivel proyecto - extensiones completas
+
+11. **Gateway de terceros simulado (FASTAPI)**
+    *Contexto:* reemplazar el Mock por un microservicio HTTP local.
+    *Tareas:*
+
+    - Crear `src/external_gateway/app.py` con FastAPI y endpoint `/charge`.
+    - Fixture `gateway_server` levanta Uvicorn en un hilo usando puerto libre.
+    - Implementar `HttpPaymentGateway` que haga `requests.post`.
+    - Añadir pruebas de integración con la app corriendo.
+       *Aceptación:* los tests etiquetados `@pytest.mark.http` deben pasar y cerrarse limpiamente.
+
+12. **Persistencia en SQLite**
+    *Objetivo:* sustituir `InMemoryPaymentRepository` por `SQLitePaymentRepository`.
+    *Tareas:*
+
+    - Crear nuevo módulo `persistence/sqlite_repo.py`.
+    - Añadir migración automática en `__init__`.
+    - Fixture `tmp_path` genera BD temporal; los tests reaprovechan casos existentes vía parametrización.
+       *Aceptación:* suite corre con ambos repos sin duplicar lógica; cobertura se mantiene.
+
+13. **Pipeline local con Make + tox**
+    *Objetivo:* simular la matriz del CI en equipos de los estudiantes.
+    *Tareas:*
+
+    - Definir `tox.ini` con entornos `py310`, `py311`, `lint`, `type`.
+    - Agregar Makefile con targets `test`, `ci`, `coverage`, `format`.
+    - Documentar en README la invocación `make ci`.
+       *Aceptación:* comando `tox -q` finaliza verde en los entornos instalados.
+
+14. **Mutación guiada (mutmut o cosmic-ray)**
+    *Objetivo:* demostrar que la suite detecta mutaciones.
+    *Tareas:*
+
+    - Configurar mutmut para limitarse a `src/devops_testing/services.py`.
+    - Script `run_mutation.sh` para ejecutar y mostrar resumen.
+    - Ajustar test si algún mutante sobrevive.
+       *Aceptación:* score final ≥ 95 %.
+
+15. **Informe de reporte de pruebas en Markdown**
+    *Objetivo:* generar reporte automático post-pytest.
+    *Tareas:*
+
+    - Usar `pytest-markdown-report` o plugin casero.
+    - Guardar `reports/latest.md` con lista de tests y duración.
+    - Añadir step opcional en Makefile.
+       *Aceptación:* archivo contiene sección "Slowest tests" con top 3.
 
 
 ### Stubs & Mocks y configuraciones avanzadas
