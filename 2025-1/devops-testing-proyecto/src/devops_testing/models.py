@@ -1,5 +1,4 @@
 """Modelos de dominio.
-
 Este módulo define las entidades centrales del sistema siguiendo SRP: cada clase
 modela un concepto único del dominio.
 """
