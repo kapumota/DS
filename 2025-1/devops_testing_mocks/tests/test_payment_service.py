@@ -1,4 +1,3 @@
-
 """Tests que demuestran uso de stub, mock y side_effect"""
 import pytest
 from unittest.mock import Mock, call
