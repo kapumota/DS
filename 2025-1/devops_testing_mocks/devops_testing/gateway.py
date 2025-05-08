@@ -1,4 +1,3 @@
-
 """Simulación de gateway de pagos"""
 from decimal import Decimal
 from types import SimpleNamespace
