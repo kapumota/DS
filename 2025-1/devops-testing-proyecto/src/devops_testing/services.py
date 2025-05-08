@@ -1,5 +1,4 @@
 """Servicios de dominio.
-
 SRP: cada servicio aborda un caso de uso. DIP: dependen de repositorios abstractos.
 """
 
