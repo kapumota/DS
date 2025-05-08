@@ -1,4 +1,3 @@
-
 """Uso de autospec para validar interfaz real"""
 from unittest.mock import create_autospec
 from devops_testing.gateway import PaymentGatewayInterface
