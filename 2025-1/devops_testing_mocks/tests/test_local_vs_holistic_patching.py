@@ -3,7 +3,7 @@ from decimal import Decimal
 import pytest
 from devops_testing.gateway import DummyGateway
 
-# ── Patching holístico ────────────────────────────────────────────────────────
+# Patching holístico 
 _gateway_patch = patch("devops_testing.gateway.DummyGateway.charge",
                        return_value=Mock(success=True))
 _gateway_patch.start()
@@ -14,7 +14,7 @@ def test_holistic_patch(user_repo, payment_repo, fake_gateway_success, test_user
     svc = PaymentService(fake_gateway_success, payment_repo, user_repo)
     assert svc.process_payment("kapumota", Decimal("1"))
 
-# ── Patching localizado ───────────────────────────────────────────────────────
+# Patching localizado 
 def test_local_patch(user_repo, payment_repo, fake_gateway_fail, test_user):
     from devops_testing.services import PaymentService
     with patch.object(fake_gateway_fail, "charge",
