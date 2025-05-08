@@ -1,4 +1,3 @@
-
 """Configuración global y helpers de entorno"""
 import os
 
