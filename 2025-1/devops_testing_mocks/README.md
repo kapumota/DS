@@ -1,4 +1,4 @@
-### DevOps Testing - Stubs & Mocks
+### DevOps Testing - Stubs & Mocks y configuraciones avanzadas
 
 Proyecto simple que ejemplifica los conceptos de *stub*, *mock*, `side_effect`, `autospec`, `parametrize`, `skip`, `xfail` y estrategias de *patching* local y holístico dentro de un pipeline DevOps.
 
