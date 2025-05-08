@@ -11,7 +11,7 @@ from devops_testing.utils import retry
 FAIL_BEFORE_OK = 2          # numero fallos antes de éxito
 REPEAT = 500                # repeticiones para timeit (rapidez ≈ 0.1 s)
 
-# ---------- helpers deterministas -----------------------------------------
+# helpers deterministas 
 def mk_unstable():
     _attempt = count()
     def unstable():
