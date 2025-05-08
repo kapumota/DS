@@ -1,4 +1,3 @@
-
 import pytest, sys
 
 @pytest.mark.skipif(sys.platform.startswith("win"), reason="Inestable en Windows")
