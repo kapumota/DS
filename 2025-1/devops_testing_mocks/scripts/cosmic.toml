@@ -1,0 +1,3 @@
+[run]
+module-path = "devops_testing"
+baseline = "pytest"
