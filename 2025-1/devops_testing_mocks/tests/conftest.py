@@ -6,7 +6,7 @@ from devops_testing.repositories import InMemoryUserRepository, InMemoryPaymentR
 from devops_testing.gateway import DummyGateway
 from devops_testing.services import PaymentService
 
-# ---- Fixtures ----
+# Fixtures 
 @pytest.fixture
 def user_repo():
     return InMemoryUserRepository()
