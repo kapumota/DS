@@ -1,7 +1,6 @@
-#### Ejemplo sobre testing y  DevOps  con SOLID
+### Ejemplo sobre testing y  DevOps  con SOLID
 
-Este ejemplo demuestra la aplicación de los principios SOLID en suites de pruebas
-automatizadas dentro de pipelines DevOps sin depender de workflows de GitHub Actions.
+Este ejemplo demuestra la aplicación de los principios SOLID en suites de pruebas automatizadas dentro de pipelines DevOps sin depender de workflows de GitHub Actions.
 Incluye:
 
 * Implementación de lógica de negocio sencilla (gestión de usuarios y pagos).
@@ -21,12 +20,8 @@ src/devops_testing/        # Código de producción
 tests/                     # Pruebas unitarias
 tests/integration/         # Pruebas de integración
 ```
----
 
-
-
-
-####  Principios SOLID aplicados al testing**
+####  Principios SOLID aplicados al testing
 La filosofía SOLID, originaria del desarrollo orientado a objetos, se extiende al diseño de suites de pruebas:
 
 **Single Responsibility Principle (SRP)**
