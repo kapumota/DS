@@ -12,4 +12,4 @@ def test_gateway_contract(dummy_gateway, payment_repo, user_repo, test_user):
 
     service.process_payment(test_user.username, Decimal("15"), "USD")
 
-    assert len(dummy_gateway.calls) == 1  # LSP: se respetó la “interfaz” mínima
+    assert len(dummy_gateway.calls) == 1  # LSP: se respetó la "interfaz" mínima
