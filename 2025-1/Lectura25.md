@@ -270,3 +270,85 @@ Cuando cambies la sintaxis de un módulo (p. ej., cambies el nombre de una varia
      ```
    * Internamente, siempre se usa la misma versión de Terraform, Python y de tus scripts.
 
+### ¿Por qué usar Infrastructure as Code?
+
+Adoptar IaC no es solo una moda: aporta beneficios concretos en control, velocidad, colaboración y seguridad. A continuación profundizamos en cada uno de estos aspectos, con ejemplos prácticos que ilustran su impacto en un flujo DevOps.
+
+#### 1. Gestión de cambios
+
+* **Rastro de auditoría (Audit trail)**
+  Cada modificación en tu infraestructura queda registrada como un commit en Git. Por ejemplo, si cambias `instance_type` de `t2.micro` a `t3.small` en tu `main.tf.json`, el diff de Git mostrará exactamente qué atributo cambió y cuándo. Esto facilita responder a "¿quién cambió esto?" y "¿por qué?", gracias a mensajes de commit descriptivos y al historial de pull requests.
+
+* **Revisión por pares**
+  Antes de aplicar un cambio, se abre un *pull request* que incluye un `terraform plan`. En la pipeline, un job ejecuta:
+
+  ```bash
+  terraform init
+  terraform plan -var-file=staging.tfvars
+  ```
+
+  Si al revisar el plan los compañeros detectan que vas a eliminar sin querer un recurso de producción, pueden comentar directamente en la línea del plan. Solo cuando todos aprueban, el job de `apply` se dispara, garantizando un control de calidad colaborativo.
+
+* **Rollback instantáneo**
+  Si un despliegue automático introduce un error, basta con revertir el commit en Git (`git revert <SHA>`) y volver a ejecutar la pipeline. Terraform detectará que el archivo ha vuelto a la versión anterior y deshará cualquier cambio no deseado. Este proceso toma minutos, en lugar de horas de reconstrucción manual.
+
+#### 2. Retorno de inversión (ROI) de tiempo
+
+* **Despliegues exprés**
+  Un entorno completo, una red local simulada con `null_resource`, servidor de pruebas, balanceador se crea en segundos con:
+
+  ```bash
+  terraform apply -auto-approve
+  ```
+
+  Frente a ello, configurar manualmente implicaría decenas de clicks en consolas web, SSHs y validaciones de estado.
+
+* **Pipelines automatizados**
+  Integrar IaC en GitHub Actions, GitLab CI o Jenkins permite que, al hacer merge a `main`, se ejecute automáticamente:
+
+  1. `terraform fmt && tflint` (asegura estilo y buenas prácticas)
+  2. `terraform plan` y generación de artefacto JSON con el plan
+  3. `terraform apply -auto-approve` si el plan pasa todas las validaciones
+
+  De este modo, el equipo dedica menos tiempo a tareas repetitivas y puede enfocarse en diseñar arquitecturas más eficientes.
+
+* **Escalado horizontal instantáneo**
+  ¿Necesitas 5 instancias nuevas para un pico de tráfico? Solo modifica una variable (`count = 5`) y reaplica. Terraform crea exactamente las instancias adicionales necesarias, sin intervención manual.
+
+
+#### 3. Compartir conocimiento
+
+* **Documentación viva en el código**
+  Las variables con nombres claros (`var.network_name`, `var.server_count`), los comentarios en módulos y los ejemplos en `README.md` actúan como guía para nuevos miembros. No hay que leer manuales externos: la propia definición de `module "compute"` o los ejemplos de uso de `main.py` muestran cómo parametrizar y extender la infraestructura.
+
+* **Onboarding acelerado**
+  Al clonar el repositorio y ejecutar `docker-compose up --build`, un desarrollador novato levanta un entorno de pruebas idéntico al de producción local. Esto reduce drásticamente la curva de aprendizaje y evita "works on my machine" gracias a la contenerización de todo el flujo.
+
+* **Bibliotecas de módulos reutilizables**
+  Almacenando módulos genéricos (por ejemplo, un módulo `security_group` que acepte puertos y descripciones), el equipo crea un **catálogo interno** de bloques IaC. Esto fomenta la consistencia entre proyectos y evita reinventar la rueda.
+
+
+#### 4. Seguridad
+
+* **Gestión centralizada de secretos**
+  Nunca hardcodees credenciales. En lugar de ello, integra Vault, AWS SSM o Azure Key Vault. Por ejemplo, tu pipeline podría inyectar un token con:
+
+  ```yaml
+  - name: Login to Vault
+    run: vault login -method=github token=${{ secrets.VAULT_TOKEN }}
+
+  - name: Fetch DB password
+    run: vault kv get -field=password secret/databases/prod > db_pass.txt
+
+  - name: Apply Terraform
+    run: terraform apply -var="db_password=$(cat db_pass.txt)" -auto-approve
+  ```
+
+* **Revisión de políticas**
+  Al definir roles y permisos de IAM como código, puedes usar herramientas como `terraform-compliance` o `checkov` para escanear malas configuraciones (por ejemplo, "¡no 0.0.0.0/0 en reglas de SSH!") antes de aplicar. Esto introduce validaciones de seguridad en cada *merge request*.
+
+* **Principio de menor privilegio**
+  Al versionar los `aws_iam_policy` o sus equivalentes locales, documentas qué permisos exactos necesita cada componente. Si mañana una función lambda reclama permisos excesivos, el diff del código muestra exactamente qué añadió y por qué, evitando que un servicio tenga más privilegios de los necesarios.
+
+
+En conjunto, estos beneficios transforman la forma de operar de los equipos DevOps, convirtiendo tareas manuales y propensas a errores en flujos reproducibles, veloces y auditables. Infrastructure as Code es, hoy en día, la base indiscutible de cualquier estrategia de despliegue automatizado y resiliente.
