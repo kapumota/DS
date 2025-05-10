@@ -352,3 +352,434 @@ Adoptar IaC no es solo una moda: aporta beneficios concretos en control, velocid
 
 
 En conjunto, estos beneficios transforman la forma de operar de los equipos DevOps, convirtiendo tareas manuales y propensas a errores en flujos reproducibles, veloces y auditables. Infrastructure as Code es, hoy en día, la base indiscutible de cualquier estrategia de despliegue automatizado y resiliente.
+
+### Herramientas
+
+A continuación profundizamos en las tres grandes categorías de herramientas en un flujo DevOps: **Aprovisionamiento**, **Gestión de configuración** e **Construcción de imágenes**, mostrando cómo se encajan entre sí y ejemplos concretos.
+
+#### 1. Aprovisionamiento
+
+El **aprovisionamiento** es la etapa de "orquestar" o crear los recursos de infraestructura (VMs, redes, balanceadores, bases de datos). En DevOps:
+
+* **Herramientas declarativas** definidas en archivos de texto, versionadas y revisables.
+* **Idempotencia**: ejecutar varias veces no genera duplicados.
+* **Multi-proveedor**: mismo lenguaje para AWS, GCP, Azure o incluso entornos on-premises.
+
+#### Ejemplos
+
+#### Terraform
+
+```hcl
+# variables.tf
+variable "region" { type = string, default = "us-east-1" }
+variable "vm_count" { type = number, default = 2 }
+
+# main.tf
+provider "aws" {
+  region = var.region
+}
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_instance" "app" {
+  count         = var.vm_count
+  ami           = "ami-0abcdef1234567890"
+  instance_type = "t3.micro"
+  subnet_id     = aws_subnet.main.id
+  tags = {
+    Name = "app-${count.index}"
+  }
+}
+```
+
+* `terraform init`
+* `terraform plan`
+* `terraform apply`
+
+#### Pulumi (IaC con código)
+
+```
+import * as aws from "@pulumi/aws";
+
+const vpc = new aws.ec2.Vpc("main", { cidrBlock: "10.0.0.0/16" });
+const subnet = new aws.ec2.Subnet("app-subnet", {
+    vpcId: vpc.id,
+    cidrBlock: "10.0.1.0/24",
+});
+
+for (let i = 0; i < 2; i++) {
+  new aws.ec2.Instance(`app-${i}`, {
+    ami: "ami-0abcdef1234567890",
+    instanceType: "t3.micro",
+    subnetId: subnet.id,
+  });
+}
+```
+
+* `pulumi up` crea o actualiza los recursos.
+* Ideal si tu equipo prefiere TypeScript/Python/Go sobre HCL.
+
+#### 2. Gestión de configuración
+
+Mientras el aprovisionamiento crea la máquina, la **gestión de configuración** se encarga de dejarla en el estado deseado: instalar paquetes, copiar archivos de configuración, gestionar servicios.
+
+#### Características clave
+
+* **Estado deseado**: cada "playbook" o "recipe" describe el estado final.
+* **Agentes vs "agentless"**: Chef/Puppet usan agentes; Ansible y SaltStack suelen funcionar por SSH.
+* **Idempotencia**: aplicable tanto en la máquina recién creada como en aquellas recreadas tras un reprovisioning.
+
+#### Ejemplos
+
+#### Ansible (agentless, YAML)
+
+```yaml
+# playbook.yml
+- hosts: all
+  become: true
+  vars:
+    app_user: deploy
+  tasks:
+    - name: Crear usuario de la aplicación
+      user:
+        name: "{{ app_user }}"
+        shell: /bin/bash
+
+    - name: Instalar dependencias
+      apt:
+        name:
+          - nginx
+          - git
+        state: present
+
+    - name: Desplegar código
+      git:
+        repo: "https://github.com/mi-org/mi-app.git"
+        dest: "/home/{{ app_user }}/app"
+        version: "main"
+
+    - name: Configurar servicio systemd
+      template:
+        src: service.j2
+        dest: /etc/systemd/system/mi-app.service
+
+    - name: Habilitar y arrancar servicio
+      systemd:
+        name: mi-app
+        enabled: yes
+        state: started
+```
+
+* `ansible-playbook -i inventory playbook.yml`
+* Ideal para configurar tanto servidores nuevos como corregir drift en los ya existentes.
+
+#### Chef (con agentes, Ruby DSL)
+
+```ruby
+# recipes/default.rb
+package %w(nginx git) do
+  action :install
+end
+
+user 'deploy' do
+  shell '/bin/bash'
+end
+
+git '/home/deploy/app' do
+  repository 'https://github.com/mi-org/mi-app.git'
+  revision 'main'
+  user 'deploy'
+end
+
+template '/etc/systemd/system/mi-app.service' do
+  source 'mi-app.service.erb'
+  mode '0644'
+end
+
+service 'mi-app' do
+  action [:enable, :start]
+end
+```
+
+* `chef-client` en cada nodo aplica el cookbook.
+
+#### 3. Construcción de imágenes
+
+La **construcción de imágenes** busca crear artefactos inmutables —contenedores Docker o imágenes VM, con todo preinstalado. Así minimizas pasos en tiempo de arranque y garantizas entornos idénticos.
+
+#### Beneficios
+
+* **Arranque rápido**: la máquina o contenedor ya incluye dependencias y configuraciones.
+* **Reproducibilidad**: la imagen corresponde a un *snapshot* exacto de tu stack.
+* **Inmutabilidad**: si falla un nodo, descartas la imagen y lanzas otra idéntica.
+
+#### Ejemplos
+
+#### Docker
+
+```dockerfile
+FROM python:3.10-slim
+
+# 1. Instala dependencias del sistema
+RUN apt-get update && apt-get install -y git
+
+# 2. Crea usuario y directorio de trabajo
+RUN useradd -ms /bin/bash deploy
+WORKDIR /home/deploy
+
+# 3. Copia código y dependencias de Python
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+
+# 4. Define comando por defecto
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:8000"]
+```
+
+* `docker build -t mi-app:latest .`
+* `docker run -d -p 8000:8000 mi-app:latest`
+
+#### Packer (imágenes VM)
+
+```json
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-0abcdef1234567890",
+      "instance_type": "t3.micro",
+      "ssh_username": "ubuntu",
+      "ami_name": "app-{{timestamp}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo apt-get update",
+        "sudo apt-get install -y nginx git python3-pip",
+        "git clone https://github.com/mi-org/mi-app.git /opt/mi-app",
+        "pip3 install -r /opt/mi-app/requirements.txt"
+      ]
+    }
+  ]
+}
+```
+
+* `packer build packer.json` crea una AMI (o imagen en GCP/Azure) ya configurada.
+* Luego, Terraform o tu orquestador puede instanciar esa imagen rápidamente.
+
+
+#### Cómo encajan estas capas en un pipeline DevOps
+
+1. **Desarrollo y pruebas locales**
+
+   * Construyes tu contenedor Docker o imagen Packer.
+   * Ejecutas playbooks de Ansible sobre un entorno local (Vagrant, Docker Compose).
+
+2. **Control de calidad**
+
+   * En CI, cada *pull request* dispara:
+
+     * Linting/formateo de Terraform (`terraform fmt`, `tflint`)
+     * Validación de playbooks Ansible (`ansible-lint`)
+     * Build de imagen Docker (`docker build --no-cache`)
+     * Pruebas de integración contra un "entorno staging" provisiónado con Terraform local (`null_resource`) o real.
+
+3. **Despliegue**
+
+   * Terraform crea/redimensiona infraestructura en la nube.
+   * Ansible aplica configuraciones de último milla (si no usas contenedores).
+   * El orquestador (Kubernetes, ECS) arranca contenedores basados en la imagen construida.
+
+4. **Monitoreo y feedback**
+
+   * Herramientas de observabilidad (Prometheus, Grafana) validan que todo esté en "verde".
+   * Cualquier cambio manual dispara drift, detectado por `terraform plan` o inventarios Ansible.
+
+
+En un entorno DevOps estas herramientas forman un **flujo continuo** que va desde la definición de recursos hasta el despliegue de aplicaciones en un recorrido íntegramente versionado, revisado y automatizado. Cada capa aporta idempotencia, reproducibilidad y velocidad, pilares indispensables para escalar de forma ágil y fiable.
+
+
+### Escribiendo IaC
+
+Al escribir Infrastructure as Code (IaC) buscamos capturar en texto plano todo el ciclo de vida de nuestros recursos, desde su creación hasta su actualización o destrucción, de modo que cualquier cambio sea visible, revisable y reproducible. A continuación profundizamos de manera fluida en cómo expresar cambios, trabajar con entornos inmutables y, finalmente, compartir pautas para mantener el código IaC limpio y sostenible.
+
+#### Expresando cambios en infraestructura
+
+1. **Edición declarativa de archivos**
+   Cada vez que quieres cambiar algo , por ejemplo el tipo de instancia o el número de servidores, modificas el `.tf` o `.tf.json`. No ejecutas comandos imperativos, sino que ajustas la **declaración** de lo que deseas.
+
+   ```hcl
+   # Antes: usábamos una sola instancia
+   resource "null_resource" "app" {
+     triggers = { count = "1" }
+   }
+
+   # Ahora: escalamos a tres instancias
+   resource "null_resource" "app" {
+     triggers = { count = "3" }
+   }
+   ```
+
+2. **Flujo clásico: `init`, `plan`, `apply`**
+
+   * `terraform init` descarga proveedores, inicializa el módulo local y prepara el estado.
+
+   * `terraform plan` muestra un reporte línea a línea de lo que va a crear, modificar o destruir.
+
+   * `terraform apply` ejecuta esos cambios solo si has validado el plan.
+
+   > **Tip:** siempre ejecuta `plan` en tu CI antes de aprobar un merge. Así ves en tu pipeline exactamente qué va a pasar, y puedes bloquear cambios peligrosos (por ejemplo, destrucción accidental de datos).
+
+3. **Plan como contrato**
+   Piensa en `terraform plan` como un **contrato** entre tu equipo y la infraestructura: una vez aceptado, `apply` cumple con lo pactado. Si alguien cambia manualmente un recurso "por fuera" (un drift), el siguiente `plan` lo detectará:
+
+   ```
+   # Terraform detecta un cambio "out-of-band"
+     ~ null_resource.app
+         triggers.count: "3" => "1"
+   ```
+
+   De inmediato puedes decidir si remediar (revertir el cambio manual) o actualizar tu código.
+
+#### Comprendiendo la inmutabilidad
+
+La inmutabilidad es un paradigma clave para entornos de producción robustos:
+
+1. **Nunca parchear en caliente**
+   Evita `ssh` directo a producción para instalar parches. En su lugar, consolida todos los cambios en una **imagen nueva**.
+
+2. **Construcción de imágenes como paso previo**
+   Con herramientas como Docker o Packer:
+
+   ```dockerfile
+   FROM ubuntu:20.04
+   RUN apt-get update && apt-get install -y nginx=1.18.*
+   COPY ./app /srv/app
+   CMD ["nginx", "-g", "daemon off;"]
+   ```
+
+   Cada vez que cambies la versión de Nginx o tu aplicación, produces una nueva etiqueta (tag) de imagen, por ejemplo `registry/myapp:20250515-v2`.
+
+3. **Despliegue de blue/green o rolling**
+
+   * **Blue/Green**: despliegas la versión nueva (`green`), pruebas salud, y rediriges el tráfico. Luego descartas la antigua (`blue`).
+   * **Rolling**: reemplazas los nodos uno a uno, manteniendo siempre capacidad de servir.
+
+4. **Remediación de drifts ("out-of-band" changes)**
+   Cualquier cambio manual queda fuera del control de IaC. Al detectar drift con `terraform plan`, puedes:
+
+   * **Revertir** el cambio manual en consola.
+   * **Actualizar** tu código para que refleje la nueva configuración deseada.
+
+5. **Migración desde entornos legados**
+
+   * **Importación**: usa `terraform import null_resource.app <id>` para traer recursos existentes al estado.
+   * **Definición**: codifica en `.tf` cada recurso importado, p. ej.:
+
+     ```hcl
+     resource "aws_s3_bucket" "logs" {
+       bucket = "mi-bucket-logs"
+       acl    = "private"
+     }
+     ```
+   * **Verificación**: `terraform plan` debe reportar "no changes" cuando ya coincida el estado con el código.
+
+
+#### Escribiendo código limpio de Infrastructure as Code
+
+1. **Control de versiones como fuente de verdad**
+
+   * Incluye un `README.md` que explique el flujo completo (`init`, `plan`, `apply`, `destroy`).
+   * Trabaja con **ramas de feature** y usa pull requests para revisar cambios.
+   * Etiqueta (tags) versiones estables de tu infraestructura, p. ej. `v1.0.0`.
+
+2. **Linting y formateo automático**
+
+   * Ejecuta en tu CI y local:
+
+     ```bash
+     terraform fmt -recursive   # da formato estándar
+     tflint                     # detecta malas prácticas
+     ```
+   * Configura un hook de Git (`pre-commit`) que bloquee commits que no pasen estos chequeos.
+
+3. **Convenciones de nombrado**
+   Sigue un patrón uniforme que refleje proyecto, entorno y tipo de recurso:
+
+   ```
+   project-env-type-name
+   └─ myapp-prod-sg-web
+   └─ myapp-dev-nullserver
+   ```
+
+   Así, al listar recursos, sabes de un vistazo a qué entorno y componente pertenecen.
+
+4. **Variables bien estructuradas**
+
+   * Agrupa variables en archivos:
+
+     * `variables.network.tf.json` para red
+     * `variables.compute.tf.json` para cómputo
+   * Define descripciones claras y valores por defecto:
+
+     ```jsonc
+     {
+       "variable": [
+         {
+           "name": [
+             {
+               "type": "string",
+               "default": "hello-world",
+               "description": "Nombre del servidor principal"
+             }
+           ]
+         },
+         {
+           "network": [
+             {
+               "type": "string",
+               "default": "local-network",
+               "description": "Identificador de la red local"
+             }
+           ]
+         }
+       ]
+     }
+     ```
+
+5. **Parametrizar dependencias con código**
+   Si tienes un script Python (`main.py`) o un módulo de Terraform, hazlo genérico:
+
+   ```python
+   def hello_server(name, network, count=1):
+       # Genera un bloque JSON que Terraform puede consumir
+       ...
+   ```
+
+   Al cambiar `name` o `network`, no replicas plantillas, solo llamas a la función con distintos argumentos.
+
+6. **Manejo seguro de secretos**
+
+   * **Jamás** codifiques credenciales en texto plano.
+   * En Docker Compose o tu pipeline, monta secretos:
+
+     ```yaml
+     services:
+       infra:
+         environment:
+           VAULT_ADDR: https://vault.example.com
+         secrets:
+           - vault_token
+     secrets:
+       vault_token:
+         file: ./vault_token.txt
+     ```
+   * Dentro de Terraform, usa providers como `vault` o `external` para recuperar valores en tiempo de ejecución.
+
+Al dominar estos patrones, desde el simple `init/plan/apply` hasta la creación de imágenes inmutables y el linteo automático, conviertes IaC en un proceso confiable, colaborativo y seguro. Cada cambio queda documentado, revisado y probado antes de entrar en producción, asegurando la calidad y agilidad propia de una cultura DevOps madura.
+
