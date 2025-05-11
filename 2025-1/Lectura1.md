@@ -37,7 +37,7 @@ Para minimizar el impacto de las actualizaciones en el entorno de producción, s
 
 La observabilidad es fundamental en este proceso. Se refiere a la capacidad de monitorear en tiempo real el rendimiento, los errores y otros indicadores críticos del sistema. La integración de herramientas de logging, métricas y trazabilidad permite a los equipos detectar anomalías de forma proactiva y reaccionar rápidamente, lo cual es esencial en un entorno de despliegues continuos.
 
---- 
+
 ### Computación en la nube
 
 La computación en la nube ha transformado radicalmente la forma en que se gestionan y despliegan las aplicaciones. Los entornos en la nube proporcionan recursos escalables, flexibles y de fácil aprovisionamiento, lo que los convierte en el complemento natural para las prácticas DevOps.
@@ -60,7 +60,6 @@ El despliegue de aplicaciones en la nube se ve facilitado por una serie de herra
 
 Además, los servicios en la nube ofrecen soluciones de monitorización y logging integradas, lo que posibilita la creación de dashboards personalizados para supervisar el rendimiento, detectar anomalías y optimizar el uso de recursos. La orquestación de estos servicios y herramientas es crucial para mantener una alta disponibilidad y resiliencia en aplicaciones críticas.
 
----
 
 ### Visión cultural de DevOps: comunicación y colaboración
 
@@ -79,8 +78,6 @@ La capacitación y el desarrollo profesional son también componentes críticos 
 #### Impacto en la innovación y el entorno laboral
 
 Una cultura orientada a la colaboración y a la responsabilidad compartida no solo mejora la eficiencia operativa, sino que también crea un ambiente de trabajo más motivador e innovador. La eliminación de barreras entre departamentos permite que las ideas fluyan de manera más libre, lo que resulta en soluciones creativas y en una mayor capacidad para adaptarse a cambios en el mercado o en la tecnología.
-
----
 
 ### Evolución hacia DevSecOps: integrar la seguridad desde el inicio
 
