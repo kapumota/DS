@@ -456,7 +456,7 @@ Se recomienda aplicar autospec en bibliotecas internas críticas y en aquellas p
 
 Los mocks no solo registran si fueron llamados, sino que almacenan un historiales detallado de todas las invocaciones, sus argumentos y orden. Esta capacidad es esencial en arquitecturas de eventos y pipelines de datos, donde el orden y la frecuencia de llamadas puede afectar la integridad del sistema.
 
-#### 6.9 Uso de `call_args_list`
+#### 6.7.1 Uso de `call_args_list`
 
 ```python
 from unittest.mock import Mock, call
@@ -469,7 +469,7 @@ mock.b(2, x=3)
 assert mock.call_args_list == [call.a(1), call.b(2, x=3)]
 ```
 
-#### 6.8 Verificaciones específicas
+#### 6.7.2 Verificaciones específicas
 
 * **`assert_called_once_with(...)`**: garantiza que la llamada se hizo exactamente una vez con los argumentos dados.
 * **`assert_any_call(...)`**: comprueba que al menos una de las llamadas coincide con los parámetros.
@@ -483,11 +483,11 @@ mock_serv.assert_any_call('param1')
 Estas técnicas permiten asegurar que, por ejemplo, un pipeline de procesamiento de mensajes invoque primero la etapa de deserialización, luego la validación y finalmente la persistencia, en el orden correcto.
 
 
-#### 6.9 Gestión de marcas `skip` y `xfail` en flujos CI/CD
+#### 6.8 Gestión de marcas `skip` y `xfail` en flujos CI/CD
 
 En desarrollos ágiles y en continuo movimiento, es habitual que ciertos tests dependan de condiciones temporales o entornos específicos. pytest ofrece marcadores para gestionar estos casos sin comprometer la estabilidad del pipeline completo.
 
-#### 6.9.1 `@pytest.mark.skip`
+#### 6.8.1 `@pytest.mark.skip`
 
 Se utiliza cuando un test no aplica en determinadas circunstancias. Por ejemplo, si una funcionalidad solo existe en versiones recientes de Python o requiere un servicio externo no disponible:
 
@@ -502,7 +502,7 @@ def test_solo_linux():
 
 Los tests marcados como `skip` no se ejecutan, pero quedan registrados en el informe.
 
-#### 6.9.2 `@pytest.mark.xfail`
+#### 6.8.2 `@pytest.mark.xfail`
 
 Se emplea para tests que actualmente fallan por un bug conocido o dependencia en desarrollo. El fallo se considera "esperado" y no detiene la suite, aunque se informa para seguimiento:
 
@@ -516,7 +516,7 @@ def test_fecha_limite():
 * **`strict=True`**: si el test pasa inesperadamente, se considera un error, forzando la revisión de la marca.
 * **Informe JUnit XML**: los pipelines de CI en GitHub Actions, Azure Pipelines o Jenkins pueden procesar estos informes para diferenciar tests exitosos, fallidos, xfailed y skip.
 
-#### 6.10 Estrategias de mantenimiento
+#### 6.9 Estrategias de mantenimiento
 
 * **Revisión periódica**: acumular muchos `xfail` o `skip` sin resolver incrementa la deuda técnica. Se recomienda agendar tareas trimestrales para limpiar marcas obsoletas.
 * **Integración con alertas**: configurar que, si el ratio de tests marcados supera un umbral (por ejemplo, 5 % del total), se dispare una alerta en Slack o correo.
