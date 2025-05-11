@@ -31,7 +31,7 @@ El patrón **Singleton** asegura que una clase tenga una única instancia durant
 
 #### Implementación avanzada
 
-Nuestra clase `VpcSingleton` trabaja así:
+La clase `VpcSingleton` trabaja así:
 
 1. **Chequeo estático**: la variable `_instance` es `None` hasta la primera creación.
 2. **Sobrescritura de `__new__`**: si `_instance` es `None`, creamos la instancia y almacenamos propiedades (por ejemplo, el CIDR de la VPC).
