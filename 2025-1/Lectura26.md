@@ -5,7 +5,7 @@ provisioners locales para simular la provisión de recursos sin depender de prov
 
 #### 1. Contextualización y objetivos
 
-La IaC transforma la gestión de infraestructura en un problema de desarrollo: describir estados deseados, versionarlos, probarlos y desplegarlos de forma automática. Sin embargo, conforme crecen la cantidad de entornos, se multiplican los recursos y se diversifican las configuraciones, el código tenderá al desorden si no aplicamos metodologías sólidas de diseño. Nuestra implementación de ejemplo utiliza:
+La IaC transforma la gestión de infraestructura en un problema de desarrollo: describir estados deseados, versionarlos, probarlos y desplegarlos de forma automática. Sin embargo, conforme crecen la cantidad de entornos, se multiplican los recursos y se diversifican las configuraciones, el código tenderá al desorden si no aplicamos metodologías sólidas de diseño. La implementación de ejemplo utiliza:
 
 - **Terraform JSON** con proveedor `null`, simulando el aprovisionamiento local mediante `local-exec`.
 - **Clases Python** que generan los bloques JSON de recursos: fábricas, prototipos y builders.
@@ -183,7 +183,7 @@ El **Prototype** permite crear nuevos objetos copiando ("clonando") una instanci
 
 #### Implementación avanzada
 
-Nuestra clase `ResourcePrototype` guarda una plantilla y ofrece `clone(overrides)`:
+La clase `ResourcePrototype` guarda una plantilla y ofrece `clone(overrides)`:
 
 ```python
 class ResourcePrototype:
