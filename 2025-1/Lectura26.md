@@ -21,7 +21,7 @@ El objetivo es ilustrar cómo cada patrón de diseño facilita tareas concretas:
 
 #### 2. Patrón Singleton: instancia única garantizada
 
-##### Principio y utilidad
+#### Principio y utilidad
 
 El patrón **Singleton** asegura que una clase tenga una única instancia durante el ciclo de vida de la aplicación y provee un punto de acceso global. En IaC, es útil para recursos que deben existir una sola vez, como:
 
