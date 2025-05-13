@@ -68,12 +68,12 @@ En este ejercicio, crearás un sprint plan. Asignaremos puntos de historia estim
 
 3. Haz clic en **Choose an iteration** junto a **Sprints** y selecciona el primer sprint de la lista desplegable para asignar la historia a ese sprint. Puedes asignar una historia a más de un sprint, pero esto no es muy ágil. Si tu historia es más grande que un sprint, entonces es demasiado grande y debe dividirse en historias más pequeñas **del tamaño de un sprint**.
 
-4. Tu historia debería verse como la siguiente. Haz clic en la **X** para cerrar la ventana de la historia y volver al Kanban board.
+4. Haz clic en la **X** para cerrar la ventana de la historia y volver al Kanban board.
 
 5. El equipo de desarrollo ha determinado que agregar una historia de 8 puntos al sprint es aceptable. Arrastra la historia del Product Backlog al **Sprint Backlog**.  
    **Nota**: Puedes ver las fechas de inicio y fin de la historia de usuario pasando el ratón sobre el Sprint que se muestra en la tarjeta.
 
-6. Tu Kanban board debería verse ahora como el siguiente. Observa que la estimación de puntos de historia y las fechas del sprint son anotaciones en la historia.
+6. Observa que la estimación de puntos de historia y las fechas del sprint son anotaciones en la historia.
 
 7. La reunión de planificación del sprint ha avanzado bien. En las discusiones con el equipo de desarrollo, han estimado las siguientes dos historias en el Product Backlog y han determinado que ambas pueden caber en el sprint actual. Selecciona cada una de las siguientes historias en el Product Backlog, asígnales los puntos de historia correspondientes y el mismo Sprint, y arrástralas al Sprint Backlog en el mismo orden.
 
@@ -105,7 +105,7 @@ En este ejercicio, seguirás el flujo de trabajo diario de mover historias del s
 
 ##### Estado inicial
 
-Después de completar el laboratorio de planificación del sprint, presenta tu Kanban board.
+Después de completar esta actividad de planificación del sprint, presenta tu Kanban board.
 
 **New Issues:**
 
@@ -142,7 +142,7 @@ En este ejercicio, simularás el flujo de trabajo diario de un desarrollador en 
 
 5. De vuelta en el Kanban board, mueve la historia que acabas de asignarte del Sprint Backlog arrastrándola a la columna **In Progress**.
 
-6. Ahora, todos saben que estás trabajando en esta historia. Normalmente, crearías una rama en GitHub para comenzar a trabajar en tu código. Para este laboratorio, solo asegúrate de que tu Kanban board se vea como el siguiente.
+6. Ahora, todos saben que estás trabajando en esta historia. Normalmente, crearías una rama en GitHub para comenzar a trabajar en tu código. Para esta actividad, solo asegúrate de que tu Kanban board se vea como el siguiente.
 
 7. Una vez que termines de trabajar en la historia, es momento de solicitar una revisión. Siempre es buena idea que al menos otra persona revise todos los productos de trabajo. Si registraste código en GitHub, este es el paso donde harías un pull request para fusionar tu código en la rama main. Mueve tu historia de In Progress a **Review/QA**.
 
@@ -168,7 +168,7 @@ En este ejercicio, configurarás un burndown chart para tu sprint plan usando Gi
 
 ##### Objetivos
 
-Después de completar este laboratorio, podrás:
+Después de completar esta actividad, podrás:
 
 - Entender cómo configurar tu burndown chart  
 - Ver los datos que contiene un burndown chart  
