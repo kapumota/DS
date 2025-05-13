@@ -178,8 +178,6 @@ Después de completar este ejercicio, podrás:
 
 ##### Estado inicial
 
-Al completar el ejercicio anterior tu Kanban board debería verse así:
-
 **New Issues:**
 - Deploy service to the cloud
 - Need the ability to remove a counter
