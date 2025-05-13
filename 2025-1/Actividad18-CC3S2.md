@@ -86,8 +86,8 @@ En este ejercicio, crearás un sprint plan. Asignaremos puntos de historia estim
 
 9. Basado en la velocidad del equipo, el equipo de desarrollo ha decidido que hay suficientes historias en el sprint, pero queda algo de tiempo en la reunión de planificación del sprint para estimar más historias. Añade las siguientes estimaciones a las historias en el Product Backlog.
 
-   - Counters can be reset → 3  
-   - Need ability to update a counter to new value → 5  
+   - Counters can be reset -> 3  
+   - Need ability to update a counter to new value -> 5  
 
 10. Al final de este ejercicio, muestra tu Kanban board.
 
