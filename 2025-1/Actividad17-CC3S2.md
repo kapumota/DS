@@ -44,7 +44,6 @@ En este ejercicio, aprenderás cómo configurar un Kanban board usando GitHub Pr
 13. De manera similar, crea la columna **Sprint Backlogs**, y luego reorganízala para que se asemeje al Kanban board mostrado a continuación.
     [Ejemplo de tablero kanban](https://github.com/users/kapumota/projects/5)
 
----
 
 #### Parte 2
 
@@ -78,7 +77,6 @@ Ahora deberías tener una nueva carpeta en tu repositorio llamada `.github/ISSUE
 
 Ahora tienes una issue template que puedes usar para todos tus repositorios de GitHub en los que necesites escribir historias para usar en el Kanban board. Cuando creemos issues en los laboratorios futuros, esta template te guiará sobre qué información es necesaria para crear tu historia de usuario.
 
----
 
 ####  Parte 3
 
@@ -86,7 +84,7 @@ En este ejercicio crearás siete historias de usuario basadas en los requisitos 
 
 #### Objetivos
 
-Después de completar este laboratorio, podrás:
+Después de completar esta actividad podrás:
 
 - Crear nuevas historias de usuario usando GitHub issues.
 - Priorizar el product backlog.
@@ -164,7 +162,6 @@ En este ejercicio, moverás issues entre columnas para recrear el Kanban board d
 5. Deja las historias restantes en la columna **New Issues** por ahora. Las moveremos en un laboratorio posterior.
 
 
----
 
 #### Parte 4
 
@@ -285,7 +282,6 @@ En este ejercicio, añadirás labels a las historias en el **Product Backlog** p
 
 Al final de este ejercicio, tu Kanban board debería verse así: [Ejemplo de tablero de Kanban ](https://github.com/users/kapumota/projects/5/views/1)
 
----
 ### Ejercicios
 
 ##### Ejercicio 1: Crear un Epic y vincular historias de usuario
