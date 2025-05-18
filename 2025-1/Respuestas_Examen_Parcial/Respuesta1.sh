@@ -87,8 +87,9 @@ ANALISIS – Git, worktreeorktrees y estructuras de datos
      - $MAIN_WT         -> $MAIN_COMMIT  (main)
      - $EXP_WT          -> $EXP_COMMIT  (feature/experiment)
 
-   Un worktree es un checkout secundario que comparte la base de datos de objetos del repositorio pero tiene su propio directorio de trabajo y su HEAD.  Podemos compilar o probar
-   ambas ramas en paralelo sin coste extra de clon ni riesgo de ensuciar el índice: ideal para servidores CI que necesitan varias versiones simultáneas.
+   Un worktree es un checkout secundario que comparte la base de datos de objetos del repositorio pero tiene su propio directorio de trabajo y su HEAD.  
+   Podemos compilar o probar ambas ramas en paralelo sin coste extra de clon ni riesgo de ensuciar el índice: ideal para servidores CI que
+   necesitan varias versiones simultáneas.
 
 2.  OBJETOS, HASHING Y TABLAS HASH
    -------------------------------------------------------------
@@ -119,9 +120,9 @@ ANALISIS – Git, worktreeorktrees y estructuras de datos
         => nuevo blob => el SHA almacenado en esa entrada cambia => el contenido del tree cambia => nuevo SHA-1 del tree.
 
    3.2  **Cadena de confianza hasta el commit**  
-        El commit contiene el SHA-1 del tree raíz y de sus padres,  así se forma un **árbol de Merkle**.  Al hacer  `git checkout <commit>`, Git descomprime los blobs cuyos
-        SHA coinciden con los del árbol.  Si se alteró un bit en disco, la verificación de hash fallaría.  Esta garantía de integridad es crucial en DevOps: asegura que el código que
-        compila el pipeline es idéntico al aprobado en revisión.
+        El commit contiene el SHA-1 del tree raíz y de sus padres,  así se forma un **árbol de Merkle**.  Al hacer  `git checkout <commit>`, Git
+        descomprime los blobs cuyos SHA coinciden con los del árbol.  Si se alteró un bit en disco, la verificación de hash fallaría.  
+        Esta garantía de integridad es crucial en DevOps: asegura que el código que compila el pipeline es idéntico al aprobado en revisión.
 
 4.  COLAS / PILAS Y RECORRIDO DEL HISTORIAL
    -------------------------------------------------------------
