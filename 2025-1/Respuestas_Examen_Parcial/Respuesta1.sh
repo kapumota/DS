@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------
-# setup_git_internals_challenge.sh
-# ------------------------------------------------------------
 set -euo pipefail
 
 # Función auxiliar 
@@ -10,7 +8,7 @@ get_blob_hash () {
   local tree_sha="$1" file="$2" hash
   # git ls-tree format: "<mode> <type> <hash>\t<filename>"
   while IFS=$'\t' read -r meta name; do
-    set -- $meta          # meta → $1=mode  $2=type  $3=hash
+    set -- $meta          # meta -> $1=mode  $2=type  $3=hash
     hash="$3"
     [[ "$name" == "$file" ]] && { echo "$hash"; return; }
   done < <(git ls-tree "$tree_sha" "$file")
@@ -47,7 +45,7 @@ sed -i 's/\["A", "B", "C"]/["A", "B", "C", "D"]/' data_config.py
 git add data_config.py
 git commit -q -m "Actualiza el umbral y agrega un item en el experimento"
 
-echo 'print("Processing data...")' > process_script.py
+echo 'print("Procesando datos...")' > process_script.py
 git add process_script.py
 git commit -q -m "Agrega un script de procesamiento"
 
@@ -89,12 +87,8 @@ ANALISIS – Git, worktreeorktrees y estructuras de datos
      - $MAIN_WT         -> $MAIN_COMMIT  (main)
      - $EXP_WT          -> $EXP_COMMIT  (feature/experiment)
 
-   Un worktree es un checkout secundario que comparte la base
-   de datos de objetos del repositorio pero tiene su propio
-   directorio de trabajo y su HEAD.  Podemos compilar o probar
-   ambas ramas en paralelo sin coste extra de clon ni riesgo de
-   ensuciar el índice: ideal para servidores CI que necesitan
-   varias versiones simultáneas.
+   Un worktree es un checkout secundario que comparte la base de datos de objetos del repositorio pero tiene su propio directorio de trabajo y su HEAD.  Podemos compilar o probar
+   ambas ramas en paralelo sin coste extra de clon ni riesgo de ensuciar el índice: ideal para servidores CI que necesitan varias versiones simultáneas.
 
 2.  OBJETOS, HASHING Y TABLAS HASH
    -------------------------------------------------------------
@@ -103,21 +97,16 @@ ANALISIS – Git, worktreeorktrees y estructuras de datos
    * Blob process_script.py en experiment:  $EXP_PROC
 
    2.1  **Por qué los blobs difieren**  
-        El SHA-1 de un blob se calcula sobre el contenido exacto,
-        precedido por un encabezado ("blob <bytes>\\0").  Al cambiar
-        el threshold y añadir "D", los bytes son distintos => nuevo
-        hash ($EXP_BLOB).
+        El SHA-1 de un blob se calcula sobre el contenido exacto, precedido por un encabezado ("blob <bytes>\\0").  Al cambiar 
+        el threshold y añadir "D", los bytes son distintos => nuevo hash ($EXP_BLOB).
 
    2.2  **Reutilización con contenido idéntico**  
-        Si un archivo es idéntico en dos ramas, el SHA-1 coincide
-        y Git guarda una sola copia física; los árboles de cada
+        Si un archivo es idéntico en dos ramas, el SHA-1 coincide y Git guarda una sola copia física; los árboles de cada
         commit apuntan a ese mismo objeto: deduplicación perfecta.
 
    2.3  **Git como tabla hash**  
-        Conceptualmente, `.git/objects` es un gran diccionario
-        inmutable: clave = SHA-1, valor = objeto zipeado.  Para
-        resolver una referencia Git recorre la ruta
-        `objects/aa/bb…` (primeros 2 y 38 caracteres del hash),
+        Conceptualmente, `.git/objects` es un gran diccionario inmutable: clave = SHA-1, valor = objeto zipeado.  Para
+        resolver una referencia Git recorre la ruta `objects/aa/bb…` (primeros 2 y 38 caracteres del hash),
         logrando búsquedas O(1) como en un `dict`/`HashMap`.
 
 3.  ÁRBOLES DE MERKLE E INTEGRIDAD
@@ -126,28 +115,19 @@ ANALISIS – Git, worktreeorktrees y estructuras de datos
    * Tree experiment:     $EXP_TREE
 
    3.1  **Qué representa el hash de un tree**  
-        Un *tree object* serializa: modo, nombre y SHA-1 de cada
-        entrada (blobs o sub-trees).  Cambiar 1 byte en un archivo
-        => nuevo blob => el SHA almacenado en esa entrada cambia =>
-        el contenido del tree cambia => nuevo SHA-1 del tree.
+        Un *tree object* serializa: modo, nombre y SHA-1 de cada entrada (blobs o sub-trees).  Cambiar 1 byte en un archivo
+        => nuevo blob => el SHA almacenado en esa entrada cambia => el contenido del tree cambia => nuevo SHA-1 del tree.
 
    3.2  **Cadena de confianza hasta el commit**  
-        El commit contiene el SHA-1 del tree raíz y de sus padres;
-        así se forma un **árbol de Merkle**.  Al hacer
-        `git checkout <commit>`, Git descomprime los blobs cuyos
-        SHA coinciden con los del árbol.  Si se alteró un bit en
-        disco, la verificación de hash fallaría.  Esta garantía de
-        integridad es crucial en DevOps: asegura que el código que
+        El commit contiene el SHA-1 del tree raíz y de sus padres,  así se forma un **árbol de Merkle**.  Al hacer  `git checkout <commit>`, Git descomprime los blobs cuyos
+        SHA coinciden con los del árbol.  Si se alteró un bit en disco, la verificación de hash fallaría.  Esta garantía de integridad es crucial en DevOps: asegura que el código que
         compila el pipeline es idéntico al aprobado en revisión.
 
 4.  COLAS / PILAS Y RECORRIDO DEL HISTORIAL
    -------------------------------------------------------------
-   - `git log --graph` realiza un *BFS* con cola de prioridad por
-     fecha para dibujar ramas entrelazadas.  
-   - `git rebase` extrae commits en una **pila** (LIFO): los
-     "pop-replay" sobre un nuevo padre.  
-   - `git bisect` navega el DAG con búsqueda binaria, análoga a
-     una cola que reduce rangos.
+   - `git log --graph` realiza un *BFS* con cola de prioridad por fecha para dibujar ramas entrelazadas.  
+   - `git rebase` extrae commits en una **pila** (LIFO): los "pop-replay" sobre un nuevo padre.  
+   - `git bisect` navega el DAG con búsqueda binaria, análoga a una cola que reduce rangos.
 
 EOF
 
