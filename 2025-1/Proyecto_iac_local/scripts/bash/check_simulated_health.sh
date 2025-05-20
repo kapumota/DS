@@ -10,7 +10,6 @@ PID_FILE="$SERVICE_PATH/${SERVICE_NAME}.pid" # Nombre del servicio sin _vX.Y.Z
 BASE_SERVICE_NAME=$(echo "$SERVICE_NAME" | cut -d'_' -f1)
 PID_FILE_ACTUAL="$SERVICE_PATH/${BASE_SERVICE_NAME}.pid"
 
-
 echo "Comprobación iniciada a $(date)" > "$LOG_FILE"
 # Simular más líneas de operaciones y logging
 for i in {1..20}; do
