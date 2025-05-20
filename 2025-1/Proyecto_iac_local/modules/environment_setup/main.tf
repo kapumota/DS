@@ -33,7 +33,7 @@ resource "random_id" "entorno_id_modulo" {
 resource "null_resource" "ejecutar_setup_inicial" {
   depends_on = [local_file.readme_entorno]
   triggers = {
-    readme_md5 = local_file.readme_entorno.content_md5 # Se re-ejecuta si el README cambia
+    readme_md5 = local_file.readme_entorno.content_md5 # Se reejecuta si el README cambia
   }
   provisioner "local-exec" {
     command     = "bash ${path.module}/scripts/initial_setup.sh '${var.nombre_entorno_modulo}' '${local_file.readme_entorno.filename}'"
