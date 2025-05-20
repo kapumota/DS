@@ -14,7 +14,7 @@ def perform_complex_validations(config_data, file_path):
     elif not (1024 < config_data.get("listenPort", 0) < 65535):
         warnings.append(f"[{file_path}] 'listenPort' {config_data.get('listenPort')} está fuera del rango común.")
 
-    # Más validaciones simuladas (20+ líneas)
+    # Más validaciones simuladas
     for i in range(10):
         if f"setting_{i}" not in config_data.get("settings", {}):
              warnings.append(f"[{file_path}] Falta 'settings.setting_{i}'.")
@@ -38,7 +38,7 @@ def main():
     all_warnings = []
     files_processed = 0
 
-    # Simulación de lógica de recorrido y validación (30 líneas)
+    # Simulación de lógica de recorrido y validación 
     for root, _, files in os.walk(config_dir_path):
         for file in files:
             if file == "config.json": # Solo valida los config.json
@@ -55,7 +55,7 @@ def main():
                 except Exception as e:
                     all_errors.append(f"[{file_path}] Error inesperado: {str(e)}")
 
-    # Simulación de más líneas de código de reporte (20 líneas)
+    # Simulación de más líneas de código de reporte 
     report_summary = [f"Archivo de resumen de validación generado el {datetime.datetime.now()}"]
     for i in range(19):
         report_summary.append(f"Línea de sumario {i}")
