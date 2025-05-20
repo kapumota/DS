@@ -1,0 +1,25 @@
+{
+  "resource": [
+    {
+      "null_resource": [
+        {
+          "hello-server": [
+            {
+              "triggers": {
+                "name": "${var.name}",
+                "network": "${var.network}"
+              },
+              "provisioner": [
+                {
+                  "local-exec": {
+                    "command": "echo 'Arrancando servidor ${var.name} en red ${var.network}'"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
