@@ -19,7 +19,7 @@ echo "Simulando inicio de $APP_NAME a las $(date)" >> "$LOG_FILE"
 # Simular más líneas de logging y operaciones
 for i in {1..25}; do
     echo "Paso de arranque $i: verificando sub-componente $i..." >> "$LOG_FILE"
-    # sleep 0.01 # Descomentar para simular tiempo
+    # sleep 0.01 # Descomenta para simular tiempo
 done
 
 # Crear un archivo PID simulado
