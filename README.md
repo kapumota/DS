@@ -23,6 +23,7 @@ Este curso intensivo está diseñado para proporcionar una visión integral de l
 - [Práctica del ciclo TDD](https://github.com/kapumota/DS/blob/main/2025-1/Actividades10-16-CC3S2/Actividades/practica_tdd/Instrucciones.md)
 - [Gestión ágil de proyectos con GitHub Projects, configuración de Kanban Board y creación de historias de usuario](https://github.com/kapumota/DS/blob/main/2025-1/Actividad17-CC3S2.md)
 - [ Gestión ágil de sprints con GitHub, planificación, ejecución y cierre de Sprints](https://github.com/kapumota/DS/blob/main/2025-1/Actividad18-CC3S2.md)
+- [Orquestador local de entornos de desarrollo simulados con Terraform](https://github.com/kapumota/DS/blob/main/2025-1/Actividad19-CC3S2.md)
 
 ### Índice
 
