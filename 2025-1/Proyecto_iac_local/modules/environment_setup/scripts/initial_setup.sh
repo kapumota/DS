@@ -11,5 +11,5 @@ echo "Setup inicial completado."
 # Simular más líneas de código
 for i in {1..20}; do
     echo "Paso de configuración simulado $i..." >> setup_log.txt
-    # sleep 0.01 # Descomentar para simular trabajo
+    # sleep 0.01 # Descomenta para simular trabajo
 done
