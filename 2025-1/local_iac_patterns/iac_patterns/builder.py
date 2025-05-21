@@ -21,7 +21,7 @@ class InfrastructureBuilder:
         self.env_name = env_name
         self._module = CompositeModule()
 
-    # ---------- Métodos de construcción (steps) ----------
+    #  Métodos de construcción (steps) 
 
     def build_null_fleet(self, count: int = 5) -> "InfrastructureBuilder":
         """
@@ -69,7 +69,7 @@ class InfrastructureBuilder:
         self._module.add(NullResourceFactory.create(name, triggers))
         return self
 
-    # ---------- Método final (exportación) ----------
+    #  Método final (exportación) 
 
     def export(self, path: str) -> None:
         """
