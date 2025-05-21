@@ -1,4 +1,4 @@
-### Actividad: Escribiendo infraestructura como código en un entorno local
+### Actividad: Escribiendo infraestructura como código en un entorno local con Terraform
 
 ####  Contexto
 
