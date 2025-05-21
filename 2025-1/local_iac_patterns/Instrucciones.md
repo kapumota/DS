@@ -1,4 +1,4 @@
-### Patrones de IaC local (Python + Terraform)
+### Patrones para módulos de infraestructura(Python + Terraform)
 
 Este proyecto demuestra el uso de los patrones de diseño **Singleton, Factory, Prototype, Builder y Composite**
 para generar configuraciones de Terraform **exclusivamente locales** (`null_resource` + `local_file`), sin depender
