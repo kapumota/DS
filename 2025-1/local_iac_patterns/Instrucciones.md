@@ -19,19 +19,3 @@ terraform init
 terraform apply
 ````
 
-#### Estructura del proyecto
-
-```
-local_iac_patterns/
-├── generate_infra.py      # Script principal de entrada
-├── iac_patterns/          # Implementaciones de los patrones de diseño
-│   ├── __init__.py
-│   ├── singleton.py
-│   ├── factory.py
-│   ├── prototype.py
-│   ├── composite.py
-│   └── builder.py
-└── terraform/
-    └── main.tf.json       # Archivo generado por el script
-```
-
