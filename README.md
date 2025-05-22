@@ -113,7 +113,7 @@ Este curso intensivo está diseñado para proporcionar una visión integral de l
   - Pods, deployments y servicios.
 - **Despliegue y pruebas de una aplicación simple.**
 
-#### Automatización del Despliegue de Código  
+#### Automatización del despliegue de código  
 
 - **CI/CD en pilas de aplicaciones.**
 - **Construcción, pruebas y despliegue de contenedores en Kubernetes.**
