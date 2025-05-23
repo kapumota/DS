@@ -1,0 +1,27 @@
+{
+  "resource": {
+    "null_resource": {
+      "bucket_access": {
+        "triggers": {
+          "bucket": "hello-world-storage-bucket",
+          "entity": "allAuthenticatedUsers",
+          "role": "READER"
+        },
+        "depends_on": [
+          "null_resource.storage_bucket"
+        ],
+        "provisioner": [
+          {
+            "local-exec": {
+              "interpreter": [
+                "python",
+                "-c"
+              ],
+              "command": "print('Acceso aplicado al bucket hello-world-storage-bucket')"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
