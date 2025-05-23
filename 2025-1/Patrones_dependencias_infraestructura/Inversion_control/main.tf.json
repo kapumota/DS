@@ -1,0 +1,21 @@
+{
+    "resource": {
+        "null_resource": {
+            "hello-world": {
+                "provisioner": [
+                    {
+                        "local-exec": {
+                            "command": "echo Creando servidor hello-world en subred hello-world-subnet (CIDR 10.0.0.0/16, zona local)"
+                        }
+                    }
+                ],
+                "triggers": {
+                    "server_name": "hello-world",
+                    "subnet_cidr": "10.0.0.0/16",
+                    "subnet_name": "hello-world-subnet",
+                    "zone": "local"
+                }
+            }
+        }
+    }
+}
