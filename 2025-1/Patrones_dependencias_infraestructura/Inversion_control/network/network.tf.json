@@ -1,0 +1,26 @@
+{
+  "terraform": {
+    "required_providers": {
+      "null":  { "source": "hashicorp/null",  "version": "~> 3.2" },
+      "local": { "source": "hashicorp/local", "version": "~> 2.5" }
+    }
+  },
+
+  "resource": {
+    "null_resource": {
+      "network": {
+        "triggers": {
+          "render_time": "${timestamp()}"
+        }
+      }
+    },
+
+    "local_file": {
+      "network_state": {
+        "filename": "network_outputs.json",
+        "content": "${jsonencode({\"outputs\":{\"name\":{\"value\":\"hello-world-subnet\",\"type\":\"string\"},\"cidr\":{\"value\":\"10.0.0.0/16\",\"type\":\"string\"}}})}",
+        "depends_on": ["null_resource.network"]
+      }
+    }
+  }
+}
