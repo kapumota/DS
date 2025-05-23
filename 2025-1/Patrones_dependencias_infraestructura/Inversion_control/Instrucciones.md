@@ -101,15 +101,14 @@ Configuración Terraform generada para crear el recurso de servidor con sus trig
 Automatiza los pasos anteriores, encapsulando variables de entorno y comandos Terraform + Python.
 
 
-#### Ejercicios para reforzar **inversión de control**
-
+#### Ejercicios 
 #### Teóricos
 
 1. Relaciona la **Inversión de Control** con el principio de `D` (Dependecy Inversion) en SOLID. Describe un ejemplo en IaC.
 2. Explica las diferencias entre IoC y un enfoque tradicional (referencia directa), indicando ventajas y limitaciones.
 3. Discute cómo IoC facilita la introducción de nuevos atributos (`gateway`, `tags`, etc.) en el módulo de red sin tocar el módulo de servidor.
 
-### Prácticos
+#### Prácticos
 
 1. Extiende `network.tf.json` para exponer un output `gateway_ip`, y modifica `main.py` para leerlo y añadirlo como trigger en `main.tf.json`.
 2. Crea un nuevo script (`queue.py`) que genere un `null_resource` de tipo `queue`, leyendo `cidr` y calculando una IP disponible.
