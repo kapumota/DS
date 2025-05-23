@@ -1,0 +1,22 @@
+{
+  "resource": {
+    "null_resource": {
+      "storage_bucket": {
+        "triggers": {
+          "name": "hello-world-storage-bucket"
+        },
+        "provisioner": [
+          {
+            "local-exec": {
+              "interpreter": [
+                "python",
+                "-c"
+              ],
+              "command": "import pathlib; pathlib.Path(r'./buckets/hello-world-storage-bucket').mkdir(parents=True, exist_ok=True)"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
