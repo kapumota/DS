@@ -1,0 +1,26 @@
+{
+  "terraform": {
+    "required_providers": {}
+  },
+  "resource": {
+    "null_resource": {
+      "network": {
+        "triggers": {
+          "name": "hello-world-network"
+        }
+      },
+      "server": {
+        "triggers": {
+          "name": "hello-world-server",
+          "depends_on": "null_resource.network"
+        }
+      },
+      "firewall": {
+        "triggers": {
+          "port": "22",
+          "depends_on": "null_resource.server"
+        }
+      }
+    }
+  }
+}
