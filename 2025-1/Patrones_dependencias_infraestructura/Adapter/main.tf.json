@@ -1,0 +1,81 @@
+{
+    "resource": [
+        {
+            "null_resource": {
+                "identity_audit_team_read": {
+                    "triggers": {
+                        "identity": "audit-team",
+                        "role": "read",
+                        "user": "audit-team"
+                    }
+                }
+            }
+        },
+        {
+            "null_resource": {
+                "identity_user_01_read": {
+                    "triggers": {
+                        "identity": "user-01",
+                        "role": "read",
+                        "user": "user-01"
+                    }
+                }
+            }
+        },
+        {
+            "null_resource": {
+                "identity_user_02_read": {
+                    "triggers": {
+                        "identity": "user-02",
+                        "role": "read",
+                        "user": "user-02"
+                    }
+                }
+            }
+        },
+        {
+            "null_resource": {
+                "identity_infrastructure_team_write": {
+                    "triggers": {
+                        "identity": "infrastructure-team",
+                        "role": "write",
+                        "user": "infrastructure-team"
+                    }
+                }
+            }
+        },
+        {
+            "null_resource": {
+                "identity_user_03_write": {
+                    "triggers": {
+                        "identity": "user-03",
+                        "role": "write",
+                        "user": "user-03"
+                    }
+                }
+            }
+        },
+        {
+            "null_resource": {
+                "identity_automation_01_write": {
+                    "triggers": {
+                        "identity": "automation-01",
+                        "role": "write",
+                        "user": "automation-01"
+                    }
+                }
+            }
+        },
+        {
+            "null_resource": {
+                "identity_manager_team_admin": {
+                    "triggers": {
+                        "identity": "manager-team",
+                        "role": "admin",
+                        "user": "manager-team"
+                    }
+                }
+            }
+        }
+    ]
+}
