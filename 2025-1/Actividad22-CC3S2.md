@@ -1,6 +1,6 @@
 ### Actividad: Patrones de dependencias y módulos en IaC con Terraform y Python
 
-### Objetivos
+#### Objetivos
 
 1. Comprender y aplicar patrones de dependencia (unidireccional, inyección de dependencias, facade, adaptador, mediador).
 2. Explorar distintos esquemas de organización de repositorios (mono-repositorio vs multi-repositorio).
@@ -80,7 +80,7 @@
    * El adaptador "envuelve" una interfaz incompatible para satisfacer otra.
 2. **Ejercicio práctico**
 
-   * Simula un módulo de "identidad" que en local usa `null_resource`, y crea un adaptador (`adapter.tf.json`) que convierta su output en formato Terraform estándar (por ejemplo, lista de usuarios → JSON).
+   * Simula un módulo de "identidad" que en local usa `null_resource`, y crea un adaptador (`adapter.tf.json`) que convierta su output en formato Terraform estándar (por ejemplo, lista de usuarios -> JSON).
 3. **Entrega**
 
    * `adapter/adapter.tf.json` y ejemplo de uso.
@@ -170,7 +170,7 @@
 10. Describe cómo implementarías un mecanismo de autenticación y control de acceso para tu registro de módulos en un entorno corporativo.
 11. Toma el módulo de red y rediseña su interfaz para que admita un nuevo recurso (por ejemplo, balanceador de carga) inyectado por un patrón Mediator. Indica qué cambios harías en la generación de la configuración y en la orquestación Python.
 12. Crea un módulo "unificado" que agrupe red, servidor y monitorización bajo un único facade. Describe detalladamente las entradas y salidas de ese módulo y cómo garantizarías que las dependencias internas no se expongan al consumidor.
-13 (Opcional). Diseña un adaptador que permita usar, de forma transparente, recursos de un proveedor ficticio (p. ej., "localmock") con la misma interfaz que tus módulos actuales de GCP. Explica cómo transformarías los outputs para encajar en los consumidores existentes.
+13. (Opcional) Diseña un adaptador que permita usar, de forma transparente, recursos de un proveedor ficticio (p. ej., "localmock") con la misma interfaz que tus módulos actuales de GCP. Explica cómo transformarías los outputs para encajar en los consumidores existentes.
 14. Refactoriza el proyecto original a un esquema multi-repositorio. Detalla en un documento los pasos de migración de cada módulo, la configuración de los pipelines CI/CD y los cambios en los pipelines de integración.
 15. Implementa en tu Makefile o en tu sistema de CI un proceso automatizado que, tras cada merge a la rama principal, actualice la versión semántica de uno de los módulos, genere un tag Git y publique el módulo en un registro local.
 16. Monta un registro privado (puede ser un simple servidor HTTP o un artefacto de Git) y publica al menos dos versiones de un módulo. Luego, desde otro proyecto, configura el `source` para consumirlo por versión fija y por rango de versiones, y demuestra la actualización controlada.
