@@ -25,6 +25,8 @@ Este curso intensivo está diseñado para proporcionar una visión integral de l
 - [ Gestión ágil de sprints con GitHub, planificación, ejecución y cierre de Sprints](https://github.com/kapumota/DS/blob/main/2025-1/Actividad18-CC3S2.md)
 - [Orquestador local de entornos de desarrollo simulados con Terraform](https://github.com/kapumota/DS/blob/main/2025-1/Actividad19-CC3S2.md)
 - [Escribiendo infraestructura como código en un entorno local](https://github.com/kapumota/DS/blob/main/2025-1/Actividad20-CC3S2.md)
+- [Patrones para módulos de infraestructura en IaC con Terraform y Python](https://github.com/kapumota/DS/blob/main/2025-1/Actividad21-CC3S2.md)
+- [Patrones de dependencias en IaC con Terraform y Python](https://github.com/kapumota/DS/blob/main/2025-1/Actividad22-CC3S2.md)
 
 ### Índice
 
