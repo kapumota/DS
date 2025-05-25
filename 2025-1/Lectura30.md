@@ -1,3 +1,84 @@
+## Pruebas para IaC
+
+La infraestructura como código implica un proceso completo para promover un cambio en un sistema: actualizas scripts o configuraciones con los cambios de infraestructura, los envías a un sistema de control de versiones y, a continuación, aplicas esos cambios de forma automatizada. Sin embargo, aunque utilices todos los módulos y patrones de dependencia, ¡podrías seguir experimentando fallos en los cambios! ¿Cómo detectar un cambio fallido antes de aplicarlo en producción?
+
+Puedes resolver este problema implementando pruebas para IaC. Las pruebas son un proceso que evalúa si un sistema funciona según lo esperado. Esta lectura repasa algunas consideraciones y conceptos relacionados con las pruebas de IaC, con el fin de reducir la tasa de fallos en los cambios y generar confianza en las modificaciones de infraestructura.
+
+> Probar IaC es un proceso que verifica si la infraestructura funciona correctamente.
+
+Imagina que configuras un switch de red con un nuevo segmento. Para comprobar manualmente las redes existentes, haces ping a cada servidor de cada segmento y verificas su conectividad. Para asegurarte de que la nueva red está bien configurada, creas un servidor en ella y compruebas que responde al conectarte. Esta prueba manual puede llevar horas cuando hay dos o tres redes.
+
+A medida que creas más redes, puedes tardar días en verificar toda la conectividad. Con cada actualización de segmento, debes comprobar manualmente la conectividad de la red y de los recursos asociados (servidores, colas, bases de datos, etc.). Como no es viable probarlo todo, sueles elegir solo algunos recursos, lo que deja espacio para errores ocultos que podrían manifestarse semanas o meses después.
+
+Para aligerar la carga de las pruebas manuales, automatiza tus tests mediante scripting. Un script puede crear un servidor en la nueva red, verificar su conectividad y probar las conexiones a las redes existentes. Aunque escribir estos scripts requiere un esfuerzo inicial, te ahorra horas de verificación manual cada vez que aplicas cambios posteriores.
+
+Cuando realizas pruebas manuales, el tiempo dedicado crece a medida que aumenta el número de recursos. En cambio, aunque las pruebas automatizadas exigen un esfuerzo inicial de implementación, el coste de mantenimiento suele reducirse con el crecimiento del sistema. Además, puedes ejecutar los tests en paralelo para disminuir aún más el tiempo total de validación.
+
+Obviamente, las pruebas no detectan todos los problemas ni eliminan por completo los fallos. No obstante, sirven como documentación viva de lo que debe verificarse tras cada cambio. Si aparece un error inesperado, solo necesitas escribir una prueba adicional que garantice que no vuelva a ocurrir. Con el tiempo, este enfoque reduce el esfuerzo operativo global.
+
+Puedes utilizar frameworks de pruebas específicos de tu proveedor o herramienta de infraestructura, así como bibliotecas nativas de testing en distintos lenguajes de programación. En los ejemplos de código se emplea pytest (un framework de Python) y Apache Libcloud (una biblioteca de Python para conectar con GCP), pero el enfoque es aplicable a cualquier herramienta o framework.
+
+No conviene escribir tests para cada pequeño fragmento de IaC, ya que podrían volverse difíciles de mantener y generar redundancias. En su lugar, es fundamental evaluar cuándo merece la pena crear una prueba y qué tipo aplica a cada recurso modificado. Las **pruebas de infraestructura son una heurística**: nunca podrás predecir ni simular completamente un cambio en producción. Una buena prueba aporta claridad sobre cómo configurar la infraestructura y cómo un cambio impactará el sistema. Por último, distinguiremos qué tests resultan adecuados para módulos (fábricas, prototipos o constructores) frente a la configuración general de patrones composite o singleton en un entorno de producción.
+
+#### El ciclo de pruebas de infraestructura
+
+Las pruebas te ayudan a ganar confianza y evaluar el impacto de los cambios en los sistemas de infraestructura. Sin embargo, ¿cómo puedes probar un sistema sin crearlo primero? Además, ¿cómo sabes que tu sistema funciona después de aplicar los cambios?
+
+Después de definir una configuración de infraestructura, ejecutas pruebas iniciales para comprobarla. Si pasan, puedes aplicar los cambios a la infraestructura activa y probar el sistema.
+
+En este flujo de trabajo, ejecutas dos tipos de pruebas. Unas analizan estáticamente la configuración **antes** de desplegar los cambios en la infraestructura, y otras analizan dinámicamente los recursos de infraestructura **después** de aplicarlos, para asegurarse de que todo sigue funcionando. La mayoría de tus pruebas sigue este patrón: pruebas antes y después del despliegue de cambios.
+
+#### Análisis estático
+
+¿Cómo aplicarías el ciclo de pruebas de infraestructura a nuestro ejemplo de red? Imagina que analizas tu script de red para verificar que el nuevo segmento tiene el rango de direcciones IP correcto. No necesitas desplegar los cambios en la red; en su lugar, examinas el script, un archivo estático.
+
+Las pruebas que evalúan la configuración de infraestructura antes de desplegar cambios en los recursos realizan **análisis estático**.
+
+> El análisis estático para IaC verifica la configuración de infraestructura en texto plano antes de desplegar cambios en los recursos en vivo.
+
+Las pruebas de análisis estático no requieren recursos de infraestructura, ya que normalmente parséan la configuración. No corren el riesgo de afectar sistemas activos. Si las pruebas de análisis estático pasan, tenemos más confianza de poder aplicar el cambio.
+
+A menudo uso pruebas de análisis estático para comprobar normas de nombrado y dependencias en la infraestructura. Se ejecutan antes de aplicar los cambios y, en cuestión de segundos, señalan cualquier inconsistencia en nombres o configuraciones. Puedo corregir, volver a ejecutar las pruebas hasta que pasen y luego aplicar los cambios a los recursos. Como las pruebas de análisis estático no modifican infraestructura activa, la reversión es más sencilla. Si fallan, regresas a la configuración, corriges los problemas y vuelves a hacer commit. Si no consigues que pase el análisis estático, puedes revertir el commit a una versión anterior que sí lo haga.
+
+#### Análisis dinámico
+
+Si el análisis estático pasa, puedes desplegar los cambios en la red. Sin embargo, no sabes si el segmento funciona realmente: un servidor necesita conectarse. Para probar la conectividad, creas un servidor en la red y ejecutas un script de prueba que comprueba la conectividad entrante y saliente. Una vez aplicados los cambios al entorno de infraestructura en vivo, ejecutas pruebas para verificar la funcionalidad del sistema. Si el script falla y muestra que el servidor no se conecta, vuelves a la configuración para corregirla.
+
+Ten en cuenta que tu script de pruebas necesita una red en vivo para crear el servidor y testear su conectividad. Las pruebas que verifican la funcionalidad tras aplicar cambios a recursos en vivo realizan **análisis dinámico**.
+
+> El análisis dinámico para IaC verifica la funcionalidad del sistema después de aplicar cambios a recursos de infraestructura en vivo.
+
+Cuando estas pruebas pasan, tenemos más confianza en que la actualización tuvo éxito. Si fallan, identifican un problema en el sistema; sabes que debes depurar, corregir la configuración o los scripts y volver a ejecutar las pruebas. Funcionan como un sistema de alerta temprana para cambios que podrían romper recursos o funcionalidades.
+
+Solo puedes analizar dinámicamente un entorno en vivo. Pero, ¿y si no sabes si la actualización funcionará? ¿Puedes aislar estas pruebas del entorno de producción? En lugar de aplicar todos los cambios directamente a producción, puedes usar un entorno de pruebas intermedio para separarlos y testearlos.
+
+#### Entornos de prueba de infraestructura
+
+Algunas organizaciones duplican redes completas en un entorno separado para probar cambios de gran envergadura. Aplicar cambios en un entorno de pruebas facilita detectar y corregir errores, actualizar la configuración y confirmar los cambios sin afectar sistemas críticos.
+
+Cuando ejecutas tus pruebas en un entorno separado antes de promoverlas al activo, añades una capa al ciclo de pruebas de infraestructura. Primero aplicas el cambio en pruebas y ejecutas el análisis dinámico. Si pasa, lo aplicas a producción y vuelves a ejecutar el análisis dinámico allí.
+
+Un entorno de pruebas aisla cambios y pruebas del entorno de producción.
+
+> Un entorno de pruebas es distinto de producción y se usa para testear cambios de infraestructura.
+
+Un entorno de pruebas antes de producción te ayuda a practicar y verificar cambios antes de desplegarlos en producción. Te permite entender mejor su efecto sobre sistemas existentes. Si no puedes corregir una actualización, puedes restaurar el entorno de pruebas a una versión previa que funcione. Puedes usar entornos de pruebas para:
+
+* Examinar el efecto de un cambio de infraestructura antes de aplicarlo en producción.
+* Aislar pruebas de módulos de infraestructura.
+
+No obstante, ten en cuenta que debes mantener los entornos de prueba como los de producción. Cuando sea posible, un entorno de pruebas debe:
+
+* Tener una configuración lo más similar posible a la de producción.
+* Ser distinto del entorno de desarrollo de la aplicación.
+* Ser persistente (no crearse y destruirse en cada prueba).
+
+Es de importancia reducir la deriva entre entornos. Si tu entorno de pruebas duplica producción, tendrás pruebas más fiables. Además, quieres aislar las pruebas de infraestructura de un entorno de desarrollo dedicado a la aplicación. Una vez confirmes que los cambios no rompen nada, puedes enviarlos al entorno de desarrollo de la aplicación.
+
+Mantener un entorno de pruebas persistente te permite comprobar si las actualizaciones impactarán sistemas críticos en funcionamiento. Desafortunadamente, mantenerlo puede no ser práctico por costes o recursos. 
+
+
+
 ### Pruebas de contrato
 
 Las pruebas unitarias verifican la configuración o los módulos de forma aislada, ¿pero qué pasa con las dependencias entre módulos? Se ha mencionado la idea de un contrato entre dependencias. La salida de un módulo debe coincidir con la entrada esperada de otro. Puedes usar pruebas para reforzar ese acuerdo.
