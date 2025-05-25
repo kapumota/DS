@@ -93,7 +93,7 @@ Acabamos de ejecutar pruebas unitarias sobre la IaC de la red. Una prueba unitar
 
 Ten en cuenta que las pruebas unitarias pueden analizar metadatos en archivos de conción o estado de infraestructura. Algunas herramientas proporcionan información directamente en la conción, mientras que otras exponen valores a través del estado. 
 
-#### Probando la conción de infraestructura
+#### Probando la configuración de infraestructura
 
 Comenzaremos escribiendo pruebas unitarias para módulos que usan plantillas para generar la conción de infraestructura. El módulo factory de red utiliza una función para crear un objeto con la conción de red. Necesitas saber si la función `_network_contion` genera la conción correcta.
 
@@ -408,7 +408,6 @@ Un entorno de prueba de módulos está separado de producción y se usa para pro
 
 > Probar módulos en un entorno diferente al de prueba o producción ayuda a aislar los módulos fallidos de un entorno activo con aplicaciones. También puedes medir y controlar el costo de infraestructura de las pruebas de módulos. 
 
-
 #### Probando la configuración de entornos
 
 Las pruebas de integración para módulos de infraestructura pueden crear y eliminar recursos en un entorno de prueba, pero las pruebas de integración para configuraciones de entorno no pueden hacerlo. Imagina que necesitas añadir un registro A a tu nombre de dominio actual configurado por una configuración composite o singleton. ¿Cómo escribes pruebas de integración para comprobar que añadiste correctamente el registro?
@@ -462,7 +461,6 @@ La prueba de extremo a extremo de ejemplo verifica el flujo de trabajo completo 
 
 > **Importancia**
 > Las pruebas de extremo a extremo se vuelven vitales para garantizar que tus cambios no rompan la funcionalidad upstream. Por ejemplo, podrías actualizar accidentalmente una configuración que permite a los usuarios autenticados acceder a la URL del servicio de Cloud Run. Si tu prueba de extremo a extremo falla después de aplicar el cambio, sabes que alguien podría dejar de tener acceso al servicio.
-
 
 #### Implementación en Python
 
@@ -552,3 +550,4 @@ Como variante de extremo a extremo, una **prueba de humo** proporciona retroalim
 * A menudo solo se ejecutan contra la infraestructura de **producción**, ya que replicar suficientes recursos en un entorno de prueba puede ser prohibitivo.
 
 > Aunque costosas, las pruebas de extremo a extremo y de humo son esenciales en sistemas complejos, pues validan la funcionalidad crítica del negocio y aseguran que los cambios de IaC no rompan la experiencia del usuario.
+
