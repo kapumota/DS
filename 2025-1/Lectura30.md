@@ -93,7 +93,7 @@ Acabamos de ejecutar pruebas unitarias sobre la IaC de la red. Una prueba unitar
 
 Ten en cuenta que las pruebas unitarias pueden analizar metadatos en archivos de conción o estado de infraestructura. Algunas herramientas proporcionan información directamente en la conción, mientras que otras exponen valores a través del estado. 
 
-#### Probando la configuración de infraestructura
+#### Probando la conción de infraestructura
 
 Comenzaremos escribiendo pruebas unitarias para módulos que usan plantillas para generar la conción de infraestructura. El módulo factory de red utiliza una función para crear un objeto con la conción de red. Necesitas saber si la función `_network_contion` genera la conción correcta.
 
@@ -408,6 +408,7 @@ Un entorno de prueba de módulos está separado de producción y se usa para pro
 
 > Probar módulos en un entorno diferente al de prueba o producción ayuda a aislar los módulos fallidos de un entorno activo con aplicaciones. También puedes medir y controlar el costo de infraestructura de las pruebas de módulos. 
 
+
 #### Probando la configuración de entornos
 
 Las pruebas de integración para módulos de infraestructura pueden crear y eliminar recursos en un entorno de prueba, pero las pruebas de integración para configuraciones de entorno no pueden hacerlo. Imagina que necesitas añadir un registro A a tu nombre de dominio actual configurado por una configuración composite o singleton. ¿Cómo escribes pruebas de integración para comprobar que añadiste correctamente el registro?
@@ -461,6 +462,7 @@ La prueba de extremo a extremo de ejemplo verifica el flujo de trabajo completo 
 
 > **Importancia**
 > Las pruebas de extremo a extremo se vuelven vitales para garantizar que tus cambios no rompan la funcionalidad upstream. Por ejemplo, podrías actualizar accidentalmente una configuración que permite a los usuarios autenticados acceder a la URL del servicio de Cloud Run. Si tu prueba de extremo a extremo falla después de aplicar el cambio, sabes que alguien podría dejar de tener acceso al servicio.
+
 
 #### Implementación en Python
 
@@ -551,3 +553,77 @@ Como variante de extremo a extremo, una **prueba de humo** proporciona retroalim
 
 > Aunque costosas, las pruebas de extremo a extremo y de humo son esenciales en sistemas complejos, pues validan la funcionalidad crítica del negocio y aseguran que los cambios de IaC no rompan la experiencia del usuario.
 
+A continuación tienes un informe detallado, de más de 800 palabras, basado en el texto proporcionado. No incluyo referencias a ninguna figura ni añado sección de conclusiones.
+
+
+#### Elección de pruebas
+
+Hemos explicado algunos de los tipos de pruebas más comunes en infraestructura, que van desde las pruebas unitarias hasta las pruebas de extremo a extremo. Sin embargo, no siempre es necesario implementar todos ellos. Debes evaluar en qué tipo de pruebas invertir tu tiempo y esfuerzo, teniendo en cuenta que tu estrategia de pruebas de infraestructura evolucionará a medida que tu sistema crezca y aumente en complejidad. En todo momento deberás preguntarte: ¿qué pruebas me ayudarán a detectar problemas de configuración antes de llevarlos a producción?
+
+Se suele emplear una pirámide como guía para establecer prioridades en la estrategia de pruebas. En su parte más baja se sitúan las pruebas unitarias: rápidas, económicas y capaces de comprobar pequeños fragmentos de configuración sin requerir infraestructuras completas. A medida que ascendemos, encontramos las pruebas de integración, que implican desplegar componentes en un entorno controlado para verificar su correcto funcionamiento conjunto. En la cúspide están las pruebas de extremo a extremo, las más costosas en tiempo y recursos, pues requieren infraestructuras activas y flujos de trabajo similares a producción.
+
+Esta [estructura piramidal](https://medium.com/@joatmon08/test-driven-development-techniques-for-infrastructure-a73bd1ab273b) sirve como marco de referencia para determinar la proporción y la frecuencia de cada tipo de prueba. La base amplia de pruebas unitarias garantiza rapidez y cobertura en las unidades de configuración más básicas; el nivel intermedio de pruebas de integración permite validar interacciones entre módulos; y la cúspide, con menor número de pruebas, se dedica a validar el sistema completo bajo condiciones reales o muy similares a producción. Este enfoque práctico evita la sobrecarga de recursos y reduce el mantenimiento de pruebas redundantes.
+
+La llamada "pirámide de pruebas" se adapta al contexto de infraestructura imponiendo las restricciones propias de herramientas como Terraform, CloudFormation o Ansible. No se espera que tu pirámide tenga siempre su forma perfecta: puede adoptar configuraciones más rectangulares o incluso invertirse parcialmente según las necesidades del proyecto y los costes asociados. Lo esencial es evitar el "poste indicador de pruebas", que se caracteriza por un exceso de pruebas manuales y una carencia de automatización, lo cual resulta ineficiente y poco fiable.
+
+
+#### Estrategia de pruebas de módulos
+
+Cuando desarrollas módulos de infraestructura (por ejemplo, un módulo que provisiona una base de datos PostgreSQL), la práctica recomendada es probarlos de forma aislada antes de integrarlos en flujos de entrega continua. En lugar de desplegar manualmente el módulo y verificar su funcionamiento de forma manual, conviene automatizar tres tipos de pruebas en orden secuencial:
+
+1. **Pruebas unitarias**
+   Se centran en comprobar el formato, la sintaxis y la generación de configuraciones estáticas. Por ejemplo, podrías validar que el módulo genera correctamente el bloque de recursos JSON o HCL, que las variables recibidas cumplen los tipos esperados y que los valores por defecto están bien establecidos. Estas pruebas se ejecutan en fracciones de segundo y no requieren desplegar ningún recurso.
+
+2. **Pruebas de contrato**
+   Verifican las relaciones de entrada y salida entre módulos. Siguiendo el ejemplo de la base de datos y la red, una prueba de contrato podría comprobar que el identificador de red (network ID) que el módulo de base de datos espera coincide con el identificador que devuelve el módulo de red correspondiente. Así se detectan de forma temprana discrepancias en la interoperabilidad entre distintos componentes.
+
+3. **Pruebas de integración**
+   Despliegan el módulo en un entorno temporal y realista (por ejemplo, en la nube de desarrollo o en un sandbox de infraestructura) para asegurar que funciona correctamente en conjunto: que efectivamente se crea la base de datos, que levanta la instancia, que acepta conexiones, etc. Tras la prueba, se destruyen automáticamente los recursos generados para no incurrir en costes innecesarios.
+
+Este flujo de trabajo escalonado garantiza rapidez en la detección de errores básicos, robustez en la validación de dependencias y fiabilidad en el comportamiento real del módulo. Además, el uso de patrones de diseño como factory, builder o prototype facilita la modularidad y la parametrización, lo cual simplifica la escritura de pruebas y la extensión de casos de prueba al añadir nuevos parámetros o escenarios.
+
+Dependiendo del coste y del tiempo disponible, puedes decidir cuántas pruebas de integración escribir. En muchos casos, una pequeña batería de pruebas de integración,  centradas en los escenarios críticos con mayor riesgo de fallo es suficiente para obtener la confianza necesaria en los módulos.
+
+#### Estrategia de pruebas de configuración
+
+Las configuraciones que describen entornos activos completos suelen adoptar patrones de mayor complejidad, como singleton o composite. Estos patrones agrupan múltiples módulos y hacen referencia a ellos en cascada. Cuando actualizas parámetros globales (por ejemplo, el tamaño de un servidor de aplicaciones), es fundamental validar tanto las configuraciones individuales como el comportamiento del sistema completo.
+
+Una estrategia efectiva consiste en:
+
+1. **Pruebas unitarias de configuración**
+   Verificar rápidamente el formato y las reglas de validación de parámetros, como nombres de recursos, formatos de etiquetas, tipos de variables, etc.
+
+2. **Pruebas de integración de configuración**
+   Aplicar el cambio en un entorno de prueba aislado que reproduzca la topología de producción y validar que los componentes individuales siguen funcionando tras el cambio. Por ejemplo, tras ampliar la capacidad de un servidor, comprobar que el servicio se inicia correctamente con la nueva configuración.
+
+3. **Pruebas de extremo a extremo**
+   Validar la funcionalidad íntegra del sistema: emitir peticiones HTTP a la aplicación, realizar transacciones contra la base de datos, verificar la conectividad con servicios dependientes, etc. Estas pruebas suelen automatizarse mediante frameworks de testing que simulan escenarios reales de usuario.
+
+Repetir este ciclo de pruebas en entornos de pruebas y de producción ayuda a detectar desviaciones de configuración ("drift") entre ambos. Puedes parametrizar la ejecución de pruebas para habilitar ciertos casos en entornos de preproducción y otros en producción, garantizando un control de calidad adaptado al nivel de riesgo y coste de cada entorno.
+
+
+#### Creación de imágenes y gestión de configuración
+
+Las herramientas de image building (como Packer) y las de gestión de configuración (Ansible, Chef, Puppet) también necesitan estrategias de prueba específicas:
+
+* **Pruebas unitarias de metadatos**
+  Comprobar que los scripts de generación de imágenes o los playbooks de configuración contienen los parámetros, paquetes y servicios esperados. Estas pruebas no requieren desplegar la imagen ni provisionar un nodo.
+
+* **Pruebas de integración**
+  Construir la imagen en un entorno controlado, desplegarla en una instancia de prueba y verificar que el sistema arranca correctamente con la configuración deseada (servicios activos, archivos en las ubicaciones correctas, etc.).
+
+* **Pruebas de extremo a extremo**
+  Usar la imagen para provisionar entornos completos y validar escenarios de uso real: ejecutar cargas de trabajo típicas, simular picos de tráfico, ejecutar pruebas de rendimiento, etc., asegurando que los cambios en la imagen o en la configuración no rompen la operatividad.
+
+Este enfoque garantiza que tanto el proceso de creación de imágenes como el de configuración en caliente se validan en cada nivel, evitando sorpresas cuando lleguen a producción.
+
+#### Identificando pruebas útiles
+
+Para determinar **cuándo escribir** una nueva prueba, ten en cuenta:
+
+* **Conocidos desconocidos**: aspectos del sistema que sabemos que existen pero no entendemos bien, por ejemplo, reglas de formato de contraseñas, límites de variables o requisitos de red. Si un compañero conoce estas reglas y tú no, conviene convertir ese conocimiento en una prueba automatizada antes de que provoque un fallo en producción.
+* **Flakiness**: si una prueba falla de forma intermitente sin indicar un verdadero problema, es preferible eliminarla o reescribirla, pues genera ruido y merma la confianza en la suite de pruebas.
+* **Valor aportado**: siempre cuestiona si la prueba proporciona información útil. Si un caso de prueba cubre escenarios improbables o redundantes, quizá no compense su coste de mantenimiento.
+* **Equilibrio de cobertura**: busca un balance entre la base de pruebas unitarias (rápidas y numerosas), las de integración (menos numerosas pero esenciales para validar interacciones) y las de extremo a extremo (ocasionales, centradas en los flujos críticos).
+
+Actualizar y refinar tu suite de pruebas es un proceso continuo. Conforme el sistema y el equipo evolucionen, tus pruebas deben adaptarse para reflejar nuevos requisitos, eliminar casos obsoletos y mantener un nivel óptimo de cobertura sin incurrir en sobrecostes operativos.
