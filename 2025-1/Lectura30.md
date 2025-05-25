@@ -1,5 +1,8 @@
 ## Pruebas para IaC
 
+> Basado en el capítulo 6 del libro de Rosemary Wang [ Infrastructure as Code, Patterns and Practices
+With examples in Python and Terraform](https://www.manning.com/books/infrastructure-as-code-patterns-and-practices)
+
 La infraestructura como código implica un proceso completo para promover un cambio en un sistema: actualizas scripts o configuraciones con los cambios de infraestructura, los envías a un sistema de control de versiones y, a continuación, aplicas esos cambios de forma automatizada. Sin embargo, aunque utilices todos los módulos y patrones de dependencia, ¡podrías seguir experimentando fallos en los cambios! ¿Cómo detectar un cambio fallido antes de aplicarlo en producción?
 
 Puedes resolver este problema implementando pruebas para IaC. Las pruebas son un proceso que evalúa si un sistema funciona según lo esperado. Esta lectura repasa algunas consideraciones y conceptos relacionados con las pruebas de IaC, con el fin de reducir la tasa de fallos en los cambios y generar confianza en las modificaciones de infraestructura.
