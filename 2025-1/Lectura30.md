@@ -9,7 +9,7 @@ Puedes resolver este problema implementando pruebas para IaC. Las pruebas son un
 
 > Probar IaC es un proceso que verifica si la infraestructura funciona correctamente.
 
-Imagina que configuras un switch de red con un nuevo segmento. Para comprobar manualmente las redes existentes, haces ping a cada servidor de cada segmento y verificas su conectividad. Para asegurarte de que la nueva red está bien configurada, creas un servidor en ella y compruebas que responde al conectarte. Esta prueba manual puede llevar horas cuando hay dos o tres redes.
+Imagina que cons un switch de red con un nuevo segmento. Para comprobar manualmente las redes existentes, haces ping a cada servidor de cada segmento y verificas su conectividad. Para asegurarte de que la nueva red está bien conda, creas un servidor en ella y compruebas que responde al conectarte. Esta prueba manual puede llevar horas cuando hay dos o tres redes.
 
 A medida que creas más redes, puedes tardar días en verificar toda la conectividad. Con cada actualización de segmento, debes comprobar manualmente la conectividad de la red y de los recursos asociados (servidores, colas, bases de datos, etc.). Como no es viable probarlo todo, sueles elegir solo algunos recursos, lo que deja espacio para errores ocultos que podrían manifestarse semanas o meses después.
 
@@ -21,43 +21,43 @@ Obviamente, las pruebas no detectan todos los problemas ni eliminan por completo
 
 Puedes utilizar frameworks de pruebas específicos de tu proveedor o herramienta de infraestructura, así como bibliotecas nativas de testing en distintos lenguajes de programación. En los ejemplos de código se emplea pytest (un framework de Python) y Apache Libcloud (una biblioteca de Python para conectar con GCP), pero el enfoque es aplicable a cualquier herramienta o framework.
 
-No conviene escribir tests para cada pequeño fragmento de IaC, ya que podrían volverse difíciles de mantener y generar redundancias. En su lugar, es fundamental evaluar cuándo merece la pena crear una prueba y qué tipo aplica a cada recurso modificado. Las **pruebas de infraestructura son una heurística**: nunca podrás predecir ni simular completamente un cambio en producción. Una buena prueba aporta claridad sobre cómo configurar la infraestructura y cómo un cambio impactará el sistema. Por último, distinguiremos qué tests resultan adecuados para módulos (fábricas, prototipos o constructores) frente a la configuración general de patrones composite o singleton en un entorno de producción.
+No conviene escribir tests para cada pequeño fragmento de IaC, ya que podrían volverse difíciles de mantener y generar redundancias. En su lugar, es fundamental evaluar cuándo merece la pena crear una prueba y qué tipo aplica a cada recurso modificado. Las **pruebas de infraestructura son una heurística**: nunca podrás predecir ni simular completamente un cambio en producción. Una buena prueba aporta claridad sobre cómo conr la infraestructura y cómo un cambio impactará el sistema. Por último, distinguiremos qué tests resultan adecuados para módulos (fábricas, prototipos o constructores) frente a la conción general de patrones composite o singleton en un entorno de producción.
 
 #### El ciclo de pruebas de infraestructura
 
 Las pruebas te ayudan a ganar confianza y evaluar el impacto de los cambios en los sistemas de infraestructura. Sin embargo, ¿cómo puedes probar un sistema sin crearlo primero? Además, ¿cómo sabes que tu sistema funciona después de aplicar los cambios?
 
-Después de definir una configuración de infraestructura, ejecutas pruebas iniciales para comprobarla. Si pasan, puedes aplicar los cambios a la infraestructura activa y probar el sistema.
+Después de definir una conción de infraestructura, ejecutas pruebas iniciales para comprobarla. Si pasan, puedes aplicar los cambios a la infraestructura activa y probar el sistema.
 
-En este flujo de trabajo, ejecutas dos tipos de pruebas. Unas analizan estáticamente la configuración **antes** de desplegar los cambios en la infraestructura, y otras analizan dinámicamente los recursos de infraestructura **después** de aplicarlos, para asegurarse de que todo sigue funcionando. La mayoría de tus pruebas sigue este patrón: pruebas antes y después del despliegue de cambios.
+En este flujo de trabajo, ejecutas dos tipos de pruebas. Unas analizan estáticamente la conción **antes** de desplegar los cambios en la infraestructura, y otras analizan dinámicamente los recursos de infraestructura **después** de aplicarlos, para asegurarse de que todo sigue funcionando. La mayoría de tus pruebas sigue este patrón: pruebas antes y después del despliegue de cambios.
 
 #### Análisis estático
 
 ¿Cómo aplicarías el ciclo de pruebas de infraestructura a nuestro ejemplo de red? Imagina que analizas tu script de red para verificar que el nuevo segmento tiene el rango de direcciones IP correcto. No necesitas desplegar los cambios en la red; en su lugar, examinas el script, un archivo estático.
 
-Las pruebas que evalúan la configuración de infraestructura antes de desplegar cambios en los recursos realizan **análisis estático**.
+Las pruebas que evalúan la conción de infraestructura antes de desplegar cambios en los recursos realizan **análisis estático**.
 
-> El análisis estático para IaC verifica la configuración de infraestructura en texto plano antes de desplegar cambios en los recursos en vivo.
+> El análisis estático para IaC verifica la conción de infraestructura en texto plano antes de desplegar cambios en los recursos en vivo.
 
-Las pruebas de análisis estático no requieren recursos de infraestructura, ya que normalmente parséan la configuración. No corren el riesgo de afectar sistemas activos. Si las pruebas de análisis estático pasan, tenemos más confianza de poder aplicar el cambio.
+Las pruebas de análisis estático no requieren recursos de infraestructura, ya que normalmente parséan la conción. No corren el riesgo de afectar sistemas activos. Si las pruebas de análisis estático pasan, tenemos más confianza de poder aplicar el cambio.
 
-A menudo uso pruebas de análisis estático para comprobar normas de nombrado y dependencias en la infraestructura. Se ejecutan antes de aplicar los cambios y, en cuestión de segundos, señalan cualquier inconsistencia en nombres o configuraciones. Puedo corregir, volver a ejecutar las pruebas hasta que pasen y luego aplicar los cambios a los recursos. Como las pruebas de análisis estático no modifican infraestructura activa, la reversión es más sencilla. Si fallan, regresas a la configuración, corriges los problemas y vuelves a hacer commit. Si no consigues que pase el análisis estático, puedes revertir el commit a una versión anterior que sí lo haga.
+A menudo uso pruebas de análisis estático para comprobar normas de nombrado y dependencias en la infraestructura. Se ejecutan antes de aplicar los cambios y, en cuestión de segundos, señalan cualquier inconsistencia en nombres o conciones. Puedo corregir, volver a ejecutar las pruebas hasta que pasen y luego aplicar los cambios a los recursos. Como las pruebas de análisis estático no modifican infraestructura activa, la reversión es más sencilla. Si fallan, regresas a la conción, corriges los problemas y vuelves a hacer commit. Si no consigues que pase el análisis estático, puedes revertir el commit a una versión anterior que sí lo haga.
 
 #### Análisis dinámico
 
-Si el análisis estático pasa, puedes desplegar los cambios en la red. Sin embargo, no sabes si el segmento funciona realmente: un servidor necesita conectarse. Para probar la conectividad, creas un servidor en la red y ejecutas un script de prueba que comprueba la conectividad entrante y saliente. Una vez aplicados los cambios al entorno de infraestructura en vivo, ejecutas pruebas para verificar la funcionalidad del sistema. Si el script falla y muestra que el servidor no se conecta, vuelves a la configuración para corregirla.
+Si el análisis estático pasa, puedes desplegar los cambios en la red. Sin embargo, no sabes si el segmento funciona realmente: un servidor necesita conectarse. Para probar la conectividad, creas un servidor en la red y ejecutas un script de prueba que comprueba la conectividad entrante y saliente. Una vez aplicados los cambios al entorno de infraestructura en vivo, ejecutas pruebas para verificar la funcionalidad del sistema. Si el script falla y muestra que el servidor no se conecta, vuelves a la conción para corregirla.
 
 Ten en cuenta que tu script de pruebas necesita una red en vivo para crear el servidor y testear su conectividad. Las pruebas que verifican la funcionalidad tras aplicar cambios a recursos en vivo realizan **análisis dinámico**.
 
 > El análisis dinámico para IaC verifica la funcionalidad del sistema después de aplicar cambios a recursos de infraestructura en vivo.
 
-Cuando estas pruebas pasan, tenemos más confianza en que la actualización tuvo éxito. Si fallan, identifican un problema en el sistema; sabes que debes depurar, corregir la configuración o los scripts y volver a ejecutar las pruebas. Funcionan como un sistema de alerta temprana para cambios que podrían romper recursos o funcionalidades.
+Cuando estas pruebas pasan, tenemos más confianza en que la actualización tuvo éxito. Si fallan, identifican un problema en el sistema; sabes que debes depurar, corregir la conción o los scripts y volver a ejecutar las pruebas. Funcionan como un sistema de alerta temprana para cambios que podrían romper recursos o funcionalidades.
 
 Solo puedes analizar dinámicamente un entorno en vivo. Pero, ¿y si no sabes si la actualización funcionará? ¿Puedes aislar estas pruebas del entorno de producción? En lugar de aplicar todos los cambios directamente a producción, puedes usar un entorno de pruebas intermedio para separarlos y testearlos.
 
 #### Entornos de prueba de infraestructura
 
-Algunas organizaciones duplican redes completas en un entorno separado para probar cambios de gran envergadura. Aplicar cambios en un entorno de pruebas facilita detectar y corregir errores, actualizar la configuración y confirmar los cambios sin afectar sistemas críticos.
+Algunas organizaciones duplican redes completas en un entorno separado para probar cambios de gran envergadura. Aplicar cambios en un entorno de pruebas facilita detectar y corregir errores, actualizar la conción y confirmar los cambios sin afectar sistemas críticos.
 
 Cuando ejecutas tus pruebas en un entorno separado antes de promoverlas al activo, añades una capa al ciclo de pruebas de infraestructura. Primero aplicas el cambio en pruebas y ejecutas el análisis dinámico. Si pasa, lo aplicas a producción y vuelves a ejecutar el análisis dinámico allí.
 
@@ -72,7 +72,7 @@ Un entorno de pruebas antes de producción te ayuda a practicar y verificar camb
 
 No obstante, ten en cuenta que debes mantener los entornos de prueba como los de producción. Cuando sea posible, un entorno de pruebas debe:
 
-* Tener una configuración lo más similar posible a la de producción.
+* Tener una conción lo más similar posible a la de producción.
 * Ser distinto del entorno de desarrollo de la aplicación.
 * Ser persistente (no crearse y destruirse en cada prueba).
 
@@ -80,7 +80,170 @@ Es de importancia reducir la deriva entre entornos. Si tu entorno de pruebas dup
 
 Mantener un entorno de pruebas persistente te permite comprobar si las actualizaciones impactarán sistemas críticos en funcionamiento. Desafortunadamente, mantenerlo puede no ser práctico por costes o recursos. 
 
+### Pruebas unitarias
 
+Como se ha mencionado el análisis estático evalúa los archivos en busca de conciones específicas. ¿Qué tipos de pruebas puedes escribir para el análisis estático?
+
+Imagina que tienes un módulo factory para crear una red llamada **hello-world-network** y tres subredes con rangos de direcciones IP en **10.0.0.0/16**. Quieres verificar sus nombres de red y rangos de IP. Esperas que las subredes dividan el rango **10.0.0.0/16** entre ellas.
+Como solución, puedes escribir pruebas para comprobar el nombre de la red y los rangos de direcciones IP de las subredes en tu IaC sin crear la red ni las subredes. Este análisis estático verifica los parámetros de conción para valores esperados (nombre de red, de subnets, rango de IP para subnets) en cuestión de segundos.
+
+Acabamos de ejecutar pruebas unitarias sobre la IaC de la red. Una prueba unitaria se ejecuta en aislamiento y analiza estáticamente la conción o el estado de la infraestructura. Estas pruebas no dependen de recursos activos de infraestructura ni de dependencias y comprueban el subconjunto más pequeño de conción.
+
+> Las pruebas unitarias analizan estáticamente la conción o el estado de infraestructura en texto plano. No dependen de recursos de infraestructura en vivo ni de dependencias.
+
+Ten en cuenta que las pruebas unitarias pueden analizar metadatos en archivos de conción o estado de infraestructura. Algunas herramientas proporcionan información directamente en la conción, mientras que otras exponen valores a través del estado. 
+
+#### Probando la conción de infraestructura
+
+Comenzaremos escribiendo pruebas unitarias para módulos que usan plantillas para generar la conción de infraestructura. El módulo factory de red utiliza una función para crear un objeto con la conción de red. Necesitas saber si la función `_network_contion` genera la conción correcta.
+
+Para el módulo factory de red, puedes escribir pruebas unitarias en pytest para comprobar las funciones que generan la conción JSON de las redes y subredes. El archivo de pruebas incluye tres tests: uno para el nombre de la red, otro para el número de subredes y otro para los rangos de IP.
+
+Pytest identificará las pruebas buscando archivos y tests con prefijo `test_`. En el listado siguiente, llamamos al archivo de pruebas `test_network.py` para que pytest lo encuentre. Las pruebas en el archivo tienen el prefijo `test_` y una descripción de lo que comprueban.
+
+ ```python
+ import pytest
+ from main import NetworkFactoryModule
+
+ NETWORK_PREFIX = 'hello-world'
+ NETWORK_IP_RANGE = '10.0.0.0/16'
+
+ @pytest.fixture(scope="module")
+ def network():
+     return NetworkFactoryModule(
+         name=NETWORK_PREFIX,
+         ip_range=NETWORK_IP_RANGE,
+         number_of_subnets=3
+     )
+
+ @pytest.fixture
+ def network_contion(network):
+     return network._network_contion()['google_compute_network'][0]
+
+ @pytest.fixture
+ def subnet_contion(network):
+     return network._subnet_contion()['google_compute_subnetwork']
+
+ def test_configuration_for_network_name(network, network_configuration):
+     assert network_configuration[network._network_name][0]['name'] == f"{NETWORK_PREFIX}-network"
+
+ def test_configuration_for_three_subnets(subnet_configuration):
+     assert len(subnet_configuration) == 3
+
+ def test_configuration_for_subnet_ip_ranges(subnet_configuration):
+     for i, subnet in enumerate(subnet_configuration):
+         assert subnet[next(iter(subnet))][0]['ip_cidr_range'] == f"10.0.{i}.0/24"
+ ```
+
+El archivo de pruebas incluye un objeto `network` estático que se pasa entre tests. Esta fixture crea un objeto de red consistente al que cada prueba puede referirse. Reduce el código repetitivo utilizado para construir un recurso de prueba.
+
+>Un fixture de prueba es una configuración conocida utilizada para ejecutar un test. A menudo refleja valores conocidos o esperados para un recurso de infraestructura dado. Algunas fixtures analizan por separado la información de la red y la subred. Cada vez que añadimos nuevas pruebas, no tenemos que copiar y pegar el análisis; en su lugar, hacemos referencia a la fixture para la configuración.
+
+Puedes ejecutar pytest en la línea de comandos pasando un argumento con el archivo de prueba. Pytest ejecuta las tres pruebas y muestra su éxito:
+
+ ```bash
+ $ pytest test_network.py
+ ==================== test session starts ====================
+ collected 3 items
+ test_network.py ...                                             [100%]
+ ===================== 3 passed in 0.06s =====================
+ ```
+
+En este ejemplo, importas el módulo factory de red, creas un objeto de red con configuración y lo pruebas. No necesitas escribir ninguna configuración en un archivo; en su lugar, haces referencia a la función y pruebas el objeto.
+
+Este ejemplo utiliza el mismo enfoque que adopto para las pruebas unitarias de código de aplicación. A menudo resulta en funciones más pequeñas y modulares que puedes probar de forma más eficiente. La función que genera la configuración de red necesita devolver la configuración para la prueba; de lo contrario, las pruebas no pueden parsear y comparar los valores.
+
+#### Probando lenguajes específicos de dominio (DSL)
+
+¿Cómo pruebas la configuración de tu red y subred si usas un DSL? No tienes funciones que puedas llamar en tu prueba. En su lugar, tus pruebas unitarias deben parsear valores desde el archivo de configuración o de **dry-run**. Ambos tipos de archivos almacenan algún tipo de metadatos en texto plano sobre los recursos de infraestructura.
+Imagina que usas un DSL en lugar de Python para crear tu red. Para este ejemplo se crea un archivo JSON con configuración compatible con Terraform. El archivo JSON contiene las tres subredes, sus rangos de direcciones IP y sus nombres. Puedes decidir ejecutar las pruebas unitarias con el archivo de configuración JSON de la red. Las pruebas se ejecutan rápidamente porque no implementa las redes.
+
+En general, siempre puedes probar unitariamente los archivos que usaste para definir IaC. Si una herramienta usa un archivo de configuración, como CloudFormation, Terraform, Bicep, Ansible, Puppet, Chef y más, puedes probar unitariamente cualquier línea de la configuración.
+
+En el siguiente listado , puedes probar el nombre de la red, el número de subredes y los rangos de direcciones IP de subred para tu módulo de red sin generar un dry run. Se ejecuta pruebas similares con pytest para verificar los mismos parámetros.
+
+```python
+import json
+import pytest
+
+NETWORK_CONFIGURATION_FILE = 'network.tf.json'
+expected_network_name = 'hello-world-network'
+
+@pytest.fixture(scope="module")
+def configuration():
+    with open(NETWORK_CONFIGURATION_FILE, 'r') as f:
+        return json.load(f)
+
+@pytest.fixture
+def resource():
+    def _get_resource(configuration, resource_type):
+        for resource in configuration['resource']:
+            if resource_type in resource.keys():
+                return resource[resource_type]
+    return _get_resource
+
+@pytest.fixture
+def network(configuration, resource):
+    return resource(configuration, 'google_compute_network')[0]
+
+@pytest.fixture
+def subnets(configuration, resource):
+    return resource(configuration, 'google_compute_subnetwork')
+
+def test_configuration_for_network_name(network):
+    assert network[expected_network_name][0]['name'] \
+        == expected_network_name
+
+def test_configuration_for_three_subnets(subnets):
+    assert len(subnets) == 3
+
+def test_configuration_for_subnet_ip_ranges(subnets):
+    for i, subnet in enumerate(subnets):
+        assert subnet[next(iter(subnet))][0]['ip_cidr_range'] \
+            == f"10.0.{i}.0/24"
+```
+
+Quizás notes que las pruebas unitarias para DSLs se parecen a las de los lenguajes de programación. Verifican el nombre de la red, el número de subredes y las direcciones IP. Algunas herramientas tienen frameworks de pruebas especializados. Normalmente utilizan el mismo flujo de trabajo de generar una ejecución simulada (dry run) o un archivo de estado y analizarlo para extraer valores.
+
+Sin embargo, tu archivo de configuración puede no contenerlo todo. Por ejemplo, no tendrás ciertas configuraciones en Terraform o Ansible hasta después de hacer un dry run. Un dry run prevé los cambios de IaC sin desplegarlos y, internamente, identifica y resuelve posibles problemas.
+
+> Un dry run prevé los cambios de IaC sin desplegarlos. Internamente identifica y resuelve posibles problemas.
+
+Los dry runs vienen en diferentes formatos y estándares. La mayoría de dry runs muestra la salida en la terminal, y puedes guardar esa salida en un archivo. Algunas herramientas generan automáticamente el dry run en un archivo.
+
+#### Generando dry runs para pruebas unitarias
+
+Algunas herramientas guardan sus dry runs en un archivo, mientras que otras muestran los cambios en la terminal. Si usas Terraform, escribes el plan de Terraform en un archivo JSON usando el siguiente comando:
+
+```bash
+$ terraform plan -out=dry_run && terraform show -json dry_run > dry_run.json
+```
+
+AWS CloudFormation ofrece *change sets*, y puedes analizar la descripción del change set una vez que se complete. De manera similar, puedes obtener información de dry-run de Kubernetes con la opción `--dry-run=client` de `kubectl run`.
+
+Como práctica general, priorizo las pruebas que verifican archivos de configuración. Escribo pruebas para analizar dry runs cuando no puedo obtener el valor directamente de los archivos de configuración. Un dry run normalmente necesita acceso en red a la API del proveedor de infraestructura y tarda un poco en ejecutarse. En ocasiones, la salida o el archivo contiene información sensible o identificadores que no quiero que una prueba analice explícitamente.
+
+Aunque la configuración de dry-run puede no ajustarse a la definición más tradicional de pruebas unitarias en desarrollo de software, el análisis de dry runs no requiere ningún cambio en la infraestructura activa. Sigue siendo una forma de análisis estático. El dry run en sí actúa como una prueba unitaria para validar y mostrar el comportamiento de cambio esperado antes de aplicar el cambio.
+
+#### ¿Cuándo debes escribir pruebas unitarias?
+
+Las pruebas unitarias te ayudan a verificar que tu lógica genera los nombres correctos, produce el número adecuado de recursos de infraestructura y calcula los rangos de IP u otros atributos correctamente. Algunas pruebas unitarias pueden solaparse con el formateo y el linting.  Se clasifica el linting y el formateo como parte de las pruebas unitarias porque te ayudan a entender cómo nombrar y organizar tu configuración.
+
+Debes escribir pruebas unitarias adicionales para verificar cualquier lógica que uses para generar configuración de infraestructura, especialmente con bucles o sentencias condicionales (if-else). Las pruebas unitarias también pueden detectar configuraciones erróneas o problemáticas, como el sistema operativo equivocado.
+
+Como las pruebas unitarias verifican la configuración de forma aislada, no reflejan precisamente cómo un cambio afectará al sistema. Por lo tanto, no puedes esperar que una prueba unitaria evite un fallo mayor durante un cambio en producción. Sin embargo, ¡deberías seguir escribiendo pruebas unitarias! Aunque no identifiquen problemas durante la ejecución de un cambio, las pruebas unitarias pueden prevenir configuraciones problemáticas antes de producción.
+
+Por ejemplo, alguien podría escribir por error una configuración para 1.000 servidores en lugar de 10. Una prueba que verifique el número máximo de servidores en una configuración puede evitar que alguien sobrecargue la infraestructura y controle el costo. Las pruebas unitarias también pueden impedir cualquier configuración de infraestructura insegura o no conforme en un entorno de producción.
+
+Además de la identificación temprana de valores de configuración erróneos, las pruebas unitarias ayudan a automatizar la comprobación de sistemas complejos. Cuando tienes muchos recursos de infraestructura gestionados por diferentes equipos, ya no puedes buscar manualmente en una lista de recursos y verificar cada configuración. Las pruebas unitarias comunican las configuraciones más críticas o estándar a otros equipos. Cuando escribes pruebas unitarias para módulos de infraestructura, verificas que la lógica interna del módulo produzca los recursos esperados.
+
+#### Pruebas unitarias de tu automatización
+
+Se ha limitado la explicación en esta sección a las pruebas de configuración de infraestructura. Sin embargo, podrías escribir una herramienta de automatización personalizada que acceda directamente a una API de infraestructura. La automatización utiliza un enfoque más secuencial para configurar un recurso paso a paso (también conocido como estilo imperativo).
+
+Debes usar pruebas unitarias para comprobar los pasos individuales y su idempotencia. Las pruebas unitarias deben ejecutar los pasos individuales con varios prerrequisitos y verificar que obtienen el mismo resultado. Si necesitas acceder a una API de infraestructura, puedes simular (mock) las respuestas de la API en tus pruebas unitarias.
+
+Los casos de uso para las pruebas unitarias incluyen verificar que has creado el número esperado de recursos de infraestructura, fijado versiones específicas de infraestructura o utilizado el estándar de nombres correcto. Las pruebas unitarias se ejecutan rápidamente y ofrecen retroalimentación casi instantánea a coste prácticamente cero (¡una vez escritas!). Se ejecutan en cuestión de segundos porque no realizan actualizaciones en la infraestructura ni requieren la creación de recursos de infraestructura activos. Si escribes pruebas unitarias para comprobar la salida de un dry run, añades un poco de tiempo debido al tiempo inicial que lleva generar el dry run.
 
 ### Pruebas de contrato
 
