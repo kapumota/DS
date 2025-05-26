@@ -434,7 +434,7 @@ Otro desafío consiste en decidir si debes crear o eliminar recursos durante cad
 
 En general, si una configuración o módulo no tiene demasiadas dependencias, puedes crearlo, probarlo y eliminarlo. Sin embargo, si tu configuración o módulo tarda en crearse o requiere la existencia de muchos otros recursos, necesitarás usar un **entorno de prueba persistente**.
 
-No todos los módulos se benefician de un enfoque de crear y eliminar en las pruebas de integración. Recomiendo ejecutar pruebas de integración para módulos de bajo nivel, como redes o DNS, y evitar eliminar los recursos. Estos módulos suelen requerir actualizaciones in situ en entornos con un coste financiero mínimo. A menudo encuentro más realista probar la actualización en lugar de crear y eliminar el recurso.
+No todos los módulos se benefician de un enfoque de crear y eliminar en las pruebas de integración. Se recomienda ejecutar pruebas de integración para módulos de bajo nivel, como redes o DNS, y evitar eliminar los recursos. Estos módulos suelen requerir actualizaciones in situ en entornos con un coste financiero mínimo. A menudo encuentro más realista probar la actualización en lugar de crear y eliminar el recurso.
 
 Los recursos creados por pruebas de integración para módulos de nivel medio, como orquestadores de cargas de trabajo, pueden ser persistentes o temporales según el tamaño del módulo y del recurso. Cuanto más grande sea el módulo, más probable es que necesite ser de larga duración. Puedes ejecutar pruebas de integración para módulos de alto nivel, como despliegues de aplicaciones o SaaS, y crear y eliminar los recursos en cada ocasión.
 
@@ -442,7 +442,7 @@ Un entorno de prueba persistente sí tiene sus límites. Las pruebas de integrac
 
 Incluso si mantienes configuraciones y módulos pequeños con pocos recursos, las pruebas de integración a menudo son la causa del aumento de tu factura con el proveedor de infraestructura. Varios tests necesitan recursos de larga duración como redes, gateways y más. Sopesar el coste de ejecutar una prueba de integración y detectar problemas frente al coste de una mala configuración o un recurso de infraestructura roto.
 
-Puedes considerar usar mocks de infraestructura para reducir el coste de ejecutar una prueba de integración (o cualquier prueba). Algunos frameworks replican las APIs de un proveedor de infraestructura para pruebas locales. No recomiendo depender en gran medida de mocks. Los proveedores de infraestructura cambian las APIs con frecuencia y a menudo tienen errores y comportamientos complejos, que los mocks no suelen capturar.
+Puedes considerar usar mocks de infraestructura para reducir el coste de ejecutar una prueba de integración (o cualquier prueba). Algunos frameworks replican las APIs de un proveedor de infraestructura para pruebas locales. No se recomienda depender en gran medida de mocks. Los proveedores de infraestructura cambian las APIs con frecuencia y a menudo tienen errores y comportamientos complejos, que los mocks no suelen capturar.
 
 ### Pruebas de extremo a extremo
 
