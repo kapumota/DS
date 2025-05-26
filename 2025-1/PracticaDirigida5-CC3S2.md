@@ -1,15 +1,15 @@
 ### 1. Introducción a la infraestructura como código
 
-**Conceptos clave:** ¿Qué es la infraestructura? (Servidores, Plataformas de orquestación de cargas de trabajo, Switches de red, Balanceadores de carga, Bases de datos, Almacenes de objetos, Cachés, Colas, Plataformas de transmisión de eventos, Plataformas de monitorización, Sistemas de canalización de datos, Plataformas de pago), Configuración manual, Radio de impacto (blast radius), IaC aplica DevOps. Qué no es IaC.
+**Conceptos clave:** ¿Qué es la infraestructura? (Servidores, Plataformas de orquestación de cargas de trabajo, Switches de red, Balanceadores de carga, Bases de datos, Almacenes de objetos, Cachés, Colas, Plataformas de transmisión de eventos, Plataformas de monitorización, Sistemas de canalización de datos, Plataformas de pago), Configuración manual, Radio de explosión (blast radius), IaC aplica DevOps. Qué no es IaC.
 
 #### Ejercicios teóricos
 
-1. **Explicación del radio de impacto:**
+1. **Explicación del radio de explosión:**
 
-   * Explica el concepto de 'radio de impacto (blast radius)' en el contexto de la configuración manual de la infraestructura frente a la Infraestructura como código.
-   * Proporciona un escenario detallado que ilustre un gran radio de impacto resultante de un error manual.
-   * Proporciona un escenario donde la IaC ayuda a limitar el radio de impacto para un cambio similar.
-   * ¿Cómo puede el diseño de tu IaC (por ejemplo, modularidad, separación de entornos) influir/minimizar aún más el radio de impacto?
+   * Explica el concepto de 'radio de explosión (blast radius)' en el contexto de la configuración manual de la infraestructura frente a la infraestructura como código.
+   * Proporciona un escenario detallado que ilustre un gran radio de explosión resultante de un error manual.
+   * Proporciona un escenario donde la IaC ayuda a limitar el radio de explosión para un cambio similar.
+   * ¿Cómo puede el diseño de tu IaC (por ejemplo, modularidad, separación de entornos) influir/minimizar aún más el radio de explosión?
 
 2. **IaC para componentes diversos:**
 
@@ -41,7 +41,7 @@
      * **Entrada:** Un archivo JSON (por ejemplo, `server_spec.json`) que defina configuraciones como el nombre de host, paquetes a instalar y parámetros de archivos de configuración.
      * **Salida:** Imprime acciones en la consola (por ejemplo, "Estableciendo nombre de host a 'web01'...", "Instalando paquete 'nginx'...", "Escribiendo configuración '/etc/nginx/nginx.conf' con parámetro 'worker\_processes: 4'...").
    * Crea un `server_spec_error.json` con una configuración inválida o problemática.
-   * Ejecuta tu script con esta especificación propensa a errores. En comentarios dentro de tu script o en un archivo de texto separado, explica cómo tal error en un proceso manual podría llevar a un despliegue inconsistente o fallido y a un radio de impacto más amplio.
+   * Ejecuta tu script con esta especificación propensa a errores. En comentarios dentro de tu script o en un archivo de texto separado, explica cómo tal error en un proceso manual podría llevar a un despliegue inconsistente o fallido y a un radio de explosión más amplio.
 
 2. **Bash: Configuración de un entorno de servidor simulado:**
 
