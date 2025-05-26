@@ -25,7 +25,7 @@ locals {
   common_app_config = {
     app1 = { version = "1.0.2", port = 8081 }
     app2 = { version = "0.5.0", port = 8082 }
-    # Se pueden añadir más para superar las 700 líneas fácilmente
+    # Se pueden añadir más lineas
     # app3 = { version = "2.1.0", port = 8083 }
     # app4 = { version = "1.0.0", port = 8084 }
   }
