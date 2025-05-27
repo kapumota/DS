@@ -3,8 +3,13 @@ SERVICE_PATH=$1
 SERVICE_NAME=$(basename "$SERVICE_PATH") # Asumir que el último componente es el nombre
 
 echo "--- Comprobando salud de: $SERVICE_NAME en $SERVICE_PATH ---"
-LOG_FILE="$SERVICE_PATH/logs/${SERVICE_NAME}_health.log"
-PID_FILE="$SERVICE_PATH/${SERVICE_NAME}.pid" # Nombre del servicio sin _vX.Y.Z
+
+# Directorio y fichero de logs
+LOG_DIR="$SERVICE_PATH/logs"
+LOG_FILE="$LOG_DIR/${SERVICE_NAME}_health.log"
+
+# Asegurarse de que exista el directorio de logs
+mkdir -p "$LOG_DIR"
 
 # Intentar extraer nombre base del servicio (app1 de app1_v1.0.2)
 BASE_SERVICE_NAME=$(echo "$SERVICE_NAME" | cut -d'_' -f1)
