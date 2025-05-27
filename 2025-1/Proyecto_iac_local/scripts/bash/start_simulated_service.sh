@@ -12,8 +12,12 @@ if [ ! -f "$CONFIG_FILE" ]; then
   exit 1
 fi
 
+# 1) Asegurarse de que exista el directorio de logs
+LOG_DIR="$INSTALL_PATH/logs"
+mkdir -p "$LOG_DIR"
+
 PID_FILE="$INSTALL_PATH/${APP_NAME}.pid"
-LOG_FILE="$INSTALL_PATH/logs/${APP_NAME}_startup.log"
+LOG_FILE="$LOG_DIR/${APP_NAME}_startup.log"
 
 echo "Simulando inicio de $APP_NAME a las $(date)" >> "$LOG_FILE"
 # Simular más líneas de logging y operaciones
@@ -23,7 +27,7 @@ for i in {1..25}; do
 done
 
 # Crear un archivo PID simulado
-echo $$ > "$PID_FILE" # $$ es el PID del script actual
+echo $$ > "$PID_FILE"  # $$ es el PID del script actual
 echo "Servicio $APP_NAME 'iniciado'. PID guardado en $PID_FILE" >> "$LOG_FILE"
-echo "Servicio $APP_NAME 'iniciado'. PID: $(cat $PID_FILE)"
+echo "Servicio $APP_NAME 'iniciado'. PID: $(cat "$PID_FILE")"
 echo "--- Fin inicio servicio $APP_NAME ---"
