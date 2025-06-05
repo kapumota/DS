@@ -8,6 +8,216 @@ Para cada proyecto se especifican:
 - **Enunciado general**
 - **Requerimientos de entrega por sprint** (Sprint 1, Sprint 2, Sprint 3)
 
+#### Rúbricas
+
+A continuación se presenta un conjunto de **criterios de rúbrica estrictos adicionales** que se aplicarán a TODOS los proyectos descritos a continuación. Estos criterios buscan detectar y penalizar patrones asociados a la dependencia de generación de código automática (IA), prácticas deficientes de versionado, falta de trazabilidad, estilos inconsistentes, violaciones de restricciones, ausencia o deficiencia de linters y pruebas, y scripts mal construidos. 
+
+Cada ítem debe entenderse como un criterio "de aplastamiento": si se identifica, el equipo deberá exponer en vivo TODO el código ( 5 puntos de penalización si no pueden responder las dudas de la sección y 0 sino son capaces de explicar todo el proyecto).
+
+**Control de versiones y commits**
+
+- **Volcados masivos de código en commits iniciales o intermedios ("Initial commit" con miles de líneas)**
+
+   * **Señal de sospecha**: commits que introducen gran parte del código de golpe, sin historial previo ("Initial commit"), o commits enormes sin división lógica.
+   * **Consecuencia**: pida exposición en vivo del proceso de desarrollo; si no pueden explicar cada bloque de código cometido, puntaje máximo 0/5 en esa sección.
+
+- **Commits grandes e infrecuentes, con múltiples cambios no relacionados en un solo commit**
+
+   * **Señal de sospecha**: cada commit incluye archivos de distintos módulos o capas (por ejemplo, una mezcla de Terraform, Bash, Python y Markdown) sin un hilo conductor claro.
+   * **Consecuencia**: deducir 1-2 puntos de la sección "uso de git y buenas prácticas" (según proyecto). Exigir exposición para justificar la lógica de cada cambio.
+
+- **Mensajes de commit genéricos, ausentes o sin propósito claro**
+
+   * **Señal de sospecha**: mensajes como "update", "fix", "wip", "cambios" o simplemente "". O bien, usar el mismo mensaje en múltiples commits.
+   * **Consecuencia**: deducir 1 punto por cada commit inválido del puntaje destinado a "Mensajes de commit y trazabilidad". Si más del 50 % de los commits incumple, nota máxima 0/5 en esa sección y 0 en todo el proyecto si son más del 50% de los commits en todas las secciones.
+
+- **Commits idénticos para múltiples ramas o ausencia total de mensajes significativos**
+
+   * **Señal de sospecha**: ramas creadas con los mismos mensajes de commit que otra rama, sin diferencia en el historial.
+   * **Consecuencia**: deducción de 1 punto por cada repetición innecesaria; si no se justifica, exposición pública y reducción a 0/5 en esa parte.
+
+
+**Ramas y pull requests (PR)**
+
+- **Uso esporádico, inconsistente o nulo de ramas de feature**
+
+   * **Señal de sospecha**: desarrollar funcionalidades directamente en `main/master` o crear un caos de ramas sin merges claros ni convenciones (`rama_juan_ia`, `ramita1`, etc.).
+   * **Consecuencia**: deducir hasta 2 puntos del apartado "branching y Git Flow" (o equivalente). Obligación de explicar en vivo toda la evolución del código.
+
+- **Features desarrolladas en ramas principales sin justificación**
+
+   * **Señal de sospecha**: commits de funcionalidades completas directamente en `main` sin pull request ni revisión.
+   * **Consecuencia**: 2 puntos de penalización si no se justifica claramente por qué se omitió la rama de feature.
+
+- **Pull Requests masivos que parecen volcados de código generado por IA o sin discusión**
+
+   * **Señal de sospecha**: PR cuyo diff incluye cientos o miles de líneas de una sola vez, sin comentarios en la descripción o con texto genérico ("Feature completa").
+   * **Consecuencia**: revisión manual inmediata; si no hay comentarios ni iteraciones (quienes revisan no dejan feedback o solo ponen "LGTM"), penalización de hasta 3 puntos en la sección "revisión de código / pull requests". Se exigirá demostración de cada parte del PR.
+
+- **Descripciones de PR copiadas/pegadas o que no guardan relación con el contenido**
+
+   * **Señal de sospecha**: cuerpo del PR con párrafos genéricos ("Se agregó la funcionalidad X"), sin detalle de los cambios, o texto que aparece idéntico a documentación pública o ejemplos de IA.
+   * **Consecuencia**: deducir 2 puntos en "calidad de documentación de PR"; exposición en vivo si persiste la duda.
+
+- **Fusión automática de PR sin ninguna revisión significativa**
+
+   * **Señal de sospecha**: PR merges hechos con un solo clic ("Merge pull request #X") sin indicios de discusión ni correcciones, o solo comentarios "LGTM" de cuentas inactivas.
+   * **Consecuencia**: deducción de 1-2 puntos en "proceso de revisión" y examen oral sobre la lógica de los cambios.
+
+**Estilo y consistencia de código**
+
+- **Inconsistencias drásticas en estilo entre diferentes partes del código**
+
+   * **Señal de sospecha**: un mismo proyecto donde algunos archivos están indentados con 2 espacios y otros con 4; uso aleatorio de comillas dobles y simples; mezcla de tabulaciones y espacios.
+   * **Consecuencia**: restar hasta 2 puntos en "calidad de código y estilo". Si se constata que esto proviene de múltiples fuentes (copiado de distintas IA), exigencia de unificación antes de la corrección final.
+
+- **Uso de patrones de diseño o algoritmos excesivamente complejos para tareas triviales ("soluciones IA-oriented")**
+
+   * **Señal de sospecha**: implementar, por ejemplo, un árbol B+ completo en Python para validar la existencia de un archivo local o usar un Transformer para parsear un JSON sencillo.
+   * **Consecuencia**: deducir hasta 2 puntos en "simplicidad y pertinencia de la solución". Se pedirá que justifiquen por escrito la elección del patrón y, si no convencen, se exigirán cambios para simplificar.
+
+- **Código ofuscado o innecesariamente complejo (funciona pero es difícil de leer)**
+
+   * **Señal de sospecha**: cadenas de llamadas en una sola línea, expresiones lambda extremadamente largas, recursiones sin necesidad, variables con nombres genéricos (`arg1`, `tmp`, `data_input`).
+   * **Consecuencia**: deducir 1 punto en "legibilidad y mantenimiento"; se solicitará una versión refactorizada entendible.
+
+- **Soluciones copia-pega de StackOverflow, blogs o ejemplos IA sin adaptación**
+
+   * **Señal de sospecha**: fragmentos de código que coinciden con 100 % (o prácticamente) con posts de internet; nombres de variables no relacionados al dominio del proyecto.
+   * **Consecuencia**: deducir 2–3 puntos en "originalidad y adaptación al problema". Exposición en vivo requerida para determinar si comprenden el código. Posible 0 en todo el proyecto.
+
+**Documentación, comentarios y docstrings**
+
+- **Comentarios escasos, redundantes o ausentes**
+
+   * **Señal de sospecha**: un solo comentario por archivo, o comentarios que explican obviedades ("# esto imprime x").
+   * **Consecuencia**: restar 1 punto en "Comentarios y docstrings". Si el proyecto exige docstrings detallados, valoración máxima 0/5 en esta subsección si no se corrige.
+
+- **Comentarios que no coinciden con el código o plantillas genéricas insertadas por IA**
+
+   * **Señal de sospecha**: comentarios del estilo "// Add business logic here" que no revelan ninguna lógica real, o docstrings con contenido genérico ("This function does X").
+   * **Consecuencia**: deducir 2 puntos en "calidad de los comentarios"; requerir corrección manual detallada antes de aceptar.
+
+- **Docstrings incompletas o inexistentes en funciones/módulos donde se pidió nivel de detalle**
+
+   * **Señal de sospecha**: funciones complejas sin docstring o con docstrings vacíos (`"""TODO"""`).
+   * **Consecuencia**: deducir 1–2 puntos en "Documentación interna"; se pedirá como corrección inmediata.
+
+- **Textos de documentación (README, Markdown) con contenido copiado de tutoriales o IA (frases genéricas típicas)**
+
+   * **Señal de sospecha**: párrafos con fragmentos que coinciden con libros en línea o blogs (por búsqueda rápida).
+   * **Consecuencia**: deducir 2 puntos en "documentación externa"; exposición oral sobre cada sección. Si falla, anulación de esa porción del proyecto (0/5).
+
+
+**Adherencia a las restricciones del proyecto**
+
+- **Violaciones flagrantes de las restricciones (uso de APIs cloud, Docker, librerías no permitidas, etc.)**
+
+   * **Señal de sospecha**: código que importa `boto3`, `docker`, `google-cloud-sdk`, o utiliza comandos `aws`, `gcloud`.
+   * **Consecuencia**: deducir 3 puntos en "cumplimiento de restricciones". Si persiste, destacarse como incumplimiento grave y posible nota 0/5 en la sección.
+
+- **Artefactos que son copias directas de tutoriales sin adaptar (por ejemplo, un script que utiliza Terraform Cloud en lugar de local)**
+
+   * **Señal de sospecha**: scripts que ejecutan `terraform apply` contra un backend remoto o referencias a módulos públicos sin parametrización local.
+   * **Consecuencia**: deducir 2 puntos en "ajuste al entorno local"; se exigirá refactorización total de la parte afectada.
+
+- **Comentarios o metadatos de herramientas generadoras en el código (fragmentos que incluyen etiquetas tipo "Generated by ChatGPT" o similar)**
+
+   * **Señal de sospecha**: comentarios como "# Generated by ChatGPT on …" o metadatos en scripts Python (`__author__ = "IA Bot"`).
+   * **Consecuencia**: nota de 0/5 en todo el proyecto.
+
+- **Ignorar configuraciones de linters/formateadores durante todo el ciclo, o aplicar un formateo masivo solo al final ("All code linted en un solo commit gigantesco")**
+
+   * **Señal de sospecha**: un único commit al final con "Apply linter" que corrige miles de advertencias.
+   * **Consecuencia**: deducir 2 puntos en "uso de linters y formateadores". Se pedirá evidencia de ejecución progresiva de linting en sprints anteriores (logs de CI o hooks).
+
+**Linters, hooks y formateo automático**
+
+- **Sin evidencia de uso de linters en todo el proyecto, o código perfectamente formateado desde el primer commit masivo**
+
+   * **Señal de sospecha**: todo el código está impecablemente formateado sin ningún commit intermedio que muestre correcciones de estilo.
+   * **Consecuencia**: deducir 2 punto en "calidad de código"; exigir en vivo demostración de la configuración de linters.
+
+- **Hooks configurados pero no funcionales o copiados sin adaptar (rutas incorrectas, scripts vacíos, fallan en local)**
+
+   * **Señal de sospecha**: archivos en `.git/hooks/` con contenido de ejemplo ("#!/bin/sh\nexit 0") o que no detectan errores.
+   * **Consecuencia**: deducir 3 puntos en "Git hooks y automatización"; si los hooks no se activan, nota 0/5 en esa parte.
+
+- **Aplicación tardía o esporádica de formateo (un solo commit gigantesco de "linting" al final sin historia previa de correcciones)**
+
+   * **Señal de sospecha**: commit final con mensaje "apply formatting" que cambia cientos de archivos.
+   * **Consecuencia**: deducir 2 puntos en "uso de linters"; se requerirá reestructuración de la historia para mostrar correcciones progresivas o revertir y volver a hacer formateo incremental.
+
+**Pruebas (Tests)**
+
+- **Pruebas escasas, solo cubren casos triviales ("happy path"), o están comentadas**
+
+   * **Señal de sospecha**: una única prueba que verifica solo que `1 + 1 == 2`, o tests que están deshabilitados con `@pytest.skip`.
+   * **Consecuencia**: deducir 2 puntos en "cobertura y calidad de pruebas"; exigir mínimo de casos de borde y pruebas parametrizadas.
+
+- **Pruebas que no fallan aunque el código esté roto (tests inútiles)**
+
+   * **Señal de sospecha**: tests que siempre pasan porque no comprueban nada (por ejemplo, `assert True`).
+   * **Consecuencia**: deducir 3 puntos en "pruebas efectivas"; se requerirá corrección inmediata de dichos tests.
+
+- **Pruebas copiadas de ejemplos genéricos sin relación con el proyecto**
+
+   * **Señal de sospecha**: tests que verifican comportamientos genéricos de Python (`len([]) == 0`) en lugar de probar la lógica real del proyecto.
+   * **Consecuencia**: deducir 2 puntos en "pertinencia de pruebas"; se requerirá implementar tests relevantes al proyecto.
+
+- **Ausencia total de pruebas en proyectos que requieren cobertura mínima (≥ 80 %)**
+
+   * **Señal de sospecha**: carpeta `tests/` vacía o ausente.
+   * **Consecuencia**: nota 0/5 en "pruebas y cobertura".
+
+**Scripts bash y herramientas auxiliares**
+
+- **Scripts básicos que apenas funcionan o extremadamente difíciles de entender**
+
+   * **Señal de sospecha**: scripts con cientos de líneas en un solo bloque, sin comentarios, con variables sin significado (`VAR1`, `TMPDIR`, etc.).
+   * **Consecuencia**: deducir 1-2 puntos en "Legibilidad de scripts"; se exigirá refactorizar en funciones y documentar cada paso.
+
+- **Scripts que fallan por errores obvios (rutas hardcodeadas, comandos inexistentes, placeholders sin reemplazar)**
+
+   * **Señal de sospecha**: `#!/bin/bash\ncd /home/user/project && terraform apply` (sin comprobar permisos).
+   * **Consecuencia**: deducir 2 puntos en "robustez de scripts"; se pedirá corrección y demostración en vivo.
+
+- **Scripts innecesariamente complejos para tareas simples (por ejemplo, reemplazar un `sed` con un Python completo, o viceversa)**
+
+   * **Señal de sospecha**: emplear un script Python de 200 líneas para copiar un archivo, en lugar de usar `cp`.
+   * **Consecuencia**: restar 1 punto en "simplicidad y adecuación de la herramienta".
+
+- **Scripts que son refritos de comandos de IA con placeholders sin reemplazar**
+
+   * **Señal de sospecha**: líneas como `{{ path_to_module }}` o `# TODO: replace this with actual variable`.
+   * **Consecuencia**: deducir 2 puntos en "funcionalidad de scripts"; se requerirá corrección inmediata y explicación de cada placeholder.
+
+**Linter, formateo y Hooks Git (Resumen)**
+
+Cada proyecto deberá demostrar, a lo largo de su historial:
+
+* **Uso consistente e incremental de linters** (`flake8`, `shellcheck`, `tflint`) durante el desarrollo (no solo un commit al final).
+* **Hooks Git funcionales** (`pre-commit`, `pre-push`, `commit-msg`) que realmente validen reglas y fallen en caso de incumplimiento.
+* **Código formateado progresivamente**, con commits que muestren correcciones paso a paso.
+
+De no cumplirse, se aplicarán las penalizaciones ya detalladas en los apartados anteriores.
+
+#### Evaluación en vivo y exposición
+
+Si en cualquier momento se detecta alguno de los patrones de sospecha anteriores, se aplicarán de la siguiente manera:
+
+- **Exposición de todo el código** (clasificación de 0 si no pueden responder las dudas)
+
+   * Se les pedirá que muestren en vivo cómo escribieron cada fragmento de código, expliquen por qué existen determinados commits grandes, o justifiquen la lógica detrás de soluciones complejas.
+
+- **Evaluación reducida a 5 puntos**
+
+   * En caso de copia masiva de código generado por IA (por ejemplo, soluciones "mágicamente" completas, sin commits intermedios), la calificación de todo el proyecto puede reducirse a un máximo de **5 puntos** en su sección clave (por ejemplo, "código y estilo" o "pruebas"), según corresponda.
+
+- **Penalizaciones sucesivas**
+
+   * Si, tras la exposición en vivo, se determina falta de conocimiento o incapacidad para responder preguntas técnicas, se deducirán puntos adicionales hasta anular por completo la sección específica del proyecto (0/5) y, en casos extremos, se considerará como incumplimiento total.
+
 
 ### Proyecto 1: "GitOps local para despliegue simulado de servicios"
 
@@ -145,13 +355,13 @@ El proyecto debe estar dividido en al menos **4 módulos Terraform** independien
      * Sprint 2: despliegue completo y póster de diagrama 
      * Sprint 3: demostración de drift y rollback 
    * Participación **equitativa** de todos los miembros (evidenciada en video) (incluye verificación de voz/nombre en pantalla)
-7. **Uso de Git y buenas prácticas** 
+- **Uso de Git y buenas prácticas** 
 
    * Uso de ramas temáticas (`feature/`, `bugfix/`, `release/`) y merges limpios 
    * Commits atómicos y GPG firmados 
    * Issues bien definidas y etiquetadas en el tablero Kanban 
    * Versionado semántico de tags (`v-0`, `v-1`, etc.) 
-8. **Originalidad y autenticidad** (- evaluación cualitativa)
+- **Originalidad y autenticidad** (- evaluación cualitativa)
 
    * Se verificará manualmente que no existan fragmentos idénticos a repositorios públicos ni generados por IA.
    * En caso de dudas, se solicitará demostración en vivo de la escritura de código.
@@ -314,7 +524,7 @@ El código Python debe estar estructurado en al menos **5 paquetes** distintos (
      * Sprint 2: muestra pruebas IAC y dashboard ASCII 
      * Sprint 3: badge de cobertura y pipeline fallando si < 85% 
    * Participación de todos los miembros en videos (evidencia en pantalla)
-7. **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
+- **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
 
    * Los tests y fixtures deben diseñarse sobre escenarios inventados por el equipo (no importar ejemplos genéricos).
    * Si se detectan fragmentos idénticos a repositorios públicos o herramientas generadoras de IA, se solicitará explicación en vivo de cada línea de test.
@@ -458,11 +668,11 @@ El total de líneas de **Terraform + Bash + Python** debe superar las **1 700 l�
    * Commits atómicos, mensajería clara y GPG firmados 
    * Uso de submódulos correctamente referenciados 
    * Branching coherente: ramas `feature/patrón` y merges limpios 
-7. **Videos y presentación** 
+- **Videos y presentación** 
 
    * Cada sprint documentado con claridad 
    * Participación completa de todos los miembros 
-8. **Prevención de copias de IA** (- evaluación cualitativa)
+- **Prevención de copias de IA** (- evaluación cualitativa)
 
    * Criterio estricto: cualquier párrafo con alta probabilidad de contenido genérico o parafraseo riesgoso anula puntos de documentación.
    * En caso de sospecha de IA, se pedirá justificación en vivo.
@@ -635,7 +845,7 @@ Se exigirá un mínimo de **1 500 líneas** de código distribuido en Terraform,
 
    * Videos de cada sprint muestran flujos completos y explicaciones 
    * Participación activa y equitativa de todos los miembros 
-7. **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
+- **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
 
    * Documentos con texto no genérico ni copiado (sospechas penalizan fuertemente).
    * Si se detectan fragmentos genéricos o copiado generado por la IA, se solicitará justificación en vivo.
@@ -794,7 +1004,7 @@ El repositorio debe contener **al menos 1 600 líneas** entre Python, Bash, Terr
 
    * `README.md` con instrucciones claras para Vagrant, act y pipeline 
    * Videos de cada sprint con explicaciones detalladas 
-7. **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
+- **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
 
    * Workflows YAML y Makefile deben crearse manualmente sin referencias directas de plantillas públicas.
    * Si se detectan fragmentos estándar de GitHub Actions, se requiere justificación en vivo.
@@ -942,7 +1152,7 @@ El proyecto debe contener al menos **1 500 líneas** entre Python, Bash y Terraf
 
    * Videos de cada sprint muestran flujos y recomendaciones 
    * Participación completa de todos los miembros 
-7. **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
+- **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
 
    * Textos de mitigación elaborados por el equipo (sin párrafos genéricos).
    * En caso de fragmentos sospechosos, se requerirá justificación en vivo.
@@ -1092,7 +1302,7 @@ El código total (Terraform, Bash y Python) debe superar las **1 600 líneas**.
 
    * Videos detallan cada paso de restauración, balanceo y costos 
    * Participación activa de todo el equipo 
-7. **Originalidad y autenticidad** (- evaluación cualitativa)
+- **Originalidad y autenticidad** (- evaluación cualitativa)
 
    * Si se identifica fragmento de código chatbot (IA) sin justificación, se pedirá la exposición en vivo.
    * Diagramas ASCII y razonamientos deben ser creación original del equipo.
@@ -1259,11 +1469,11 @@ El total de código (Python + Bash) debe superar las **1 500 líneas** y emplear
    * ≥ 1 500 líneas entre Python y Bash 
    * Uso de al menos 5 paquetes Python (p. ej., `subprocess`, `csv`, `json`, `datetime`, `re`) 
    * Código legible, con comentarios y manejo de excepciones 
-7. **Videos y presentación** 
+- **Videos y presentación** 
 
    * Videos muestran claramente cada paso y explican resultados 
    * Participación equitativa de todos los miembros 
-8. **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
+- **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
 
    * Mensajes de commit, issues y scripts deben ser escritos por el equipo (no usar plantillas genéricas).
    * Si se detectan outputs de IA en scripts o documentación, se exigirá explicación en vivo.
@@ -1458,7 +1668,7 @@ El repositorio debe contener **al menos 1 600 líneas** de Terraform, Bash y Pyt
 
    * Videos de cada sprint muestran flujos completos y explicaciones 
    * Participación activa de todos los miembros 
-7. **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
+- **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
 
    * Descripciones en Markdown deben ser originales; se penaliza cualquier párrafo con coincidencia con documentos públicos.
    * Si se detectan fragmentos con alta probabilidad de IA, se solicitará explicación en vivo 
@@ -1654,7 +1864,7 @@ El repositorio debe contener **al menos 1 500 líneas** entre Python, Bash, YAML
 
    * `README.md` con instrucciones claras para hooks, act y PR validation 
    * Videos muestran flujos claros y explicaciones detalladas 
-7. **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
+- **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
 
    * Patrones de commit, scripts y workflows deben ser obra original del equipo.
    * Si se detecta uso de plantillas genéricas (p. ej., ejemplos de docs de GitHub Actions), se descontará un 50% en esa sección.
@@ -1795,7 +2005,7 @@ El repositorio debe contener **al menos 1 500 líneas** de código Python y Bash
 
    * Videos detallan flujos de Git Flow y Trunk-Based 
    * Participación de todos los miembros 
-7. **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
+- **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
 
    * Texto de `docs/git_workflows.md` escrito manualmente por el equipo (sin copiar fuentes).
    * Scripts y comandos Git deben ser propios, no extraídos literalmente de tutoriales públicos.
@@ -2007,7 +2217,7 @@ El repositorio deberá contener **al menos 1 500 líneas** entre Terraform, Pyth
    * ≥ 1 500 líneas entre Terraform, Python, Bash, YAML y HTML 
    * Organización de carpetas clara: `iac/`, `iac_tests/`, `scripts/`, `reports/`, `logs/` 
    * Código Python con docstrings, manejo de excepciones y comentarios 
-7. **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
+- **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
 
    * Suites de prueba y scripts deben crearse desde cero. Cualquier parecido con ejemplos encontrados en Internet resultará en penalización (50% de la sección implicada).
 
@@ -2208,7 +2418,7 @@ Se exigirá un mínimo de **1 600 líneas** repartidas entre Terraform, Bash, Py
 
    * READMEs explican claramente flujos y comandos 
    * Videos detallan los procesos de actualización y comparativa 
-7. **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
+- **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
 
    * Si se detectan fragmentos de scripts o descripciones tomadas de artículos públicos, se penaliza un 50% en la  sección correspondiente.
    * Conclusiones escritas en `workflow_comparison_final.md` deben ser originales; en caso de sospecha de IA, se requerirá defensa oral.
