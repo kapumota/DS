@@ -2756,7 +2756,7 @@ Cada estudiante, además de trabajar en el repositorio grupal, deberá entregar 
    * Así el evaluador puede aplicar el parche sobre el repositorio grupal y comprobar tu lógica aislada.
    * En la carpeta `branches/` guarda esos archivos `.patch` con nombre descriptivo.
 
-4. **Videos personales por sprint**
+4. **Videos  por sprint**
 
    * Dentro de `videos/`, cada estudiante debe subir **exactamente tres** grabaciones (una por sprint). Cada video debe incluir:
 
@@ -2766,7 +2766,8 @@ Cada estudiante, además de trabajar en el repositorio grupal, deberá entregar 
         * Por ejemplo, abrir tu script Bash, ejecutarlo y mostrar la salida.
         * O bien, abrir tu módulo Terraform en VSCode y describir variable por variable.
      3. Explicar por qué tu solución es correcta, menciona el commit y el número de pull request correspondiente.
-     4. Y todo lo demás que corresponde.
+     4. Y todo lo demás que corresponde. 
+     5. Este video forma parte del video grupal por sprints que has presentado. Aseguráte de que sea vea esa información en el video grupal.
 
 5. **Documentos parciales o textos especializados**
 
