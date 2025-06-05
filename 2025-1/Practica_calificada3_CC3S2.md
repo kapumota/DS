@@ -7,6 +7,7 @@ Para cada proyecto se especifican:
 
 - **Enunciado general**
 - **Requerimientos de entrega por sprint** (Sprint 1, Sprint 2, Sprint 3)
+- Fecha de entrega: 22 de junio
 
 #### Rúbricas
 
@@ -226,7 +227,7 @@ Construir un pipeline GitOps completamente local que simule el despliegue y la g
 
 El proyecto debe estar dividido en al menos **4 módulos Terraform** independientes (cada uno con sus scripts Bash de aprovisionamiento), y **3 scripts Bash** para orquestar tareas de validación, despliegue y destrucción. Se exigirá un total mínimo de **1 500 líneas de código** distribuidas en Python (para herramientas auxiliares, reportes y generación de diagramas) y Bash (para hooks y automatización).
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Crear repositorio Git con estructura inicial:
 
@@ -248,7 +249,7 @@ El proyecto debe estar dividido en al menos **4 módulos Terraform** independien
   - Creación y funcionalidad básica del módulo Terraform `servicio_a`.
   - Uso de ramas Git: crear rama `feature/terraform-inicial` y merge a `main` mostrando commits GPG firmados.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Ampliar la infraestructura local:
 
@@ -278,7 +279,7 @@ El proyecto debe estar dividido en al menos **4 módulos Terraform** independien
   - Análisis del reporte JSON de `verificar_estado.py`.
   - Flujo de trabajo en el tablero Kanban y uso de issues para reportar bugs en el pipeline.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Añadir **funcionalidad avanzada** de rollback local:
 
@@ -384,7 +385,7 @@ Desarrollar una **plataforma local** que integre:
 
 El código Python debe estar estructurado en al menos **5 paquetes** distintos (p. ej., `tests/`, `utils/`, `iac_tests/`, `reporting/`, `helpers/`). Se requerirá un mínimo de **1 600 líneas de código** entre Python y Bash. Además, deberá integrarse un **script Python** que lea los resultados de pruebas y genere un **dashboard en ASCII** (por ejemplo, barras que representen porcentaje de cobertura y número de pruebas pasadas).
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Estructura inicial del repositorio:
 
@@ -417,7 +418,7 @@ El código Python debe estar estructurado en al menos **5 paquetes** distintos (
   - Ejecución de `run_tests.sh` y salida de pruebas unitarias básicas.
   - Git: creación de la rama `feature/testing-inicial` y push al repo.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Ampliar pruebas unitarias y de integración:
 
@@ -452,7 +453,7 @@ El código Python debe estar estructurado en al menos **5 paquetes** distintos (
   - Dashboard ASCII corriendo en terminal.
   - Uso de issues en Kanban para reportar fallos de pruebas.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Completar cobertura y expandir pruebas:
 
@@ -543,7 +544,7 @@ Crear un **monorepo local** de módulos Terraform que implementen los patrones d
 
 El total de líneas de **Terraform + Bash + Python** debe superar las **1 700 líneas**, estructuradas en al menos **6 carpetas** para cada patrón más la carpeta de documentación.
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Estructura inicial del monorepo:
 
@@ -567,7 +568,7 @@ El total de líneas de **Terraform + Bash + Python** debe superar las **1 700 l�
   - Uso de submódulos Git (agregar un submódulo vacío en `modules/ejemplo_externo`).
   - Primeros contenidos generados en `docs/` por `documentar_modulos.py`.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Completar la implementación de cada patrón:
 
@@ -607,7 +608,7 @@ El total de líneas de **Terraform + Bash + Python** debe superar las **1 700 l�
   - `script Python clone_prototype.py` copiando un archivo HCL.
   - Diagrama actualizado en `docs/`.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Refinar módulos y documentación:
 
@@ -692,7 +693,7 @@ Se exigirá un mínimo de **1 500 líneas** de código distribuido en Terraform,
 - Registre en `logs/` la salida de cada paso.
 - Genere un archivo JSON `dependencies.json` que describa dependencias entre módulos (p. ej., "adapter" exporta variable X que usa "facade").
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Estructura inicial del repositorio:
 
@@ -728,7 +729,7 @@ Se exigirá un mínimo de **1 500 líneas** de código distribuido en Terraform,
   - Creación del archivo `dependencies.json` inicial.
   - Documentación de carpetas vacías para los siguientes patrones en el tablero Kanban.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Completar módulo **Facade**:
 
@@ -774,7 +775,7 @@ Se exigirá un mínimo de **1 500 líneas** de código distribuido en Terraform,
   - Creación y paso de mensajes mediante `mediator/`.
   - `generar_dependencies.py` actualizando `dependencies.json`.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Refinar cada módulo e incorporar validaciones:
 
@@ -871,7 +872,7 @@ Se requiere un **Makefile** con targets: `lint`, `test`, `plan`, `deploy`, `dest
 
 El repositorio debe contener **al menos 1 600 líneas** entre Python, Bash, Terraform y YAML.
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Crear repositorio con:
 
@@ -896,7 +897,7 @@ El repositorio debe contener **al menos 1 600 líneas** entre Python, Bash, Terr
   - Comandos `make lint`, `make test`, `make plan` en terminal.
   - Primer Issue en GitHub describiendo errores de lint.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Completar `cd.yaml` para la fase de despliegue:
 
@@ -932,7 +933,7 @@ El repositorio debe contener **al menos 1 600 líneas** entre Python, Bash, Terr
   - Falla del deploy por error sintáctico y disparo de job `rollback`.
   - Ejecución de `report_ci.py` y muestra de `ci_report.md`.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Refinar pipeline y agregar validaciones:
 
@@ -1026,7 +1027,7 @@ Implementar un **entorno local de DevSecOps** que incorpore:
 
 El proyecto debe contener al menos **1 500 líneas** entre Python, Bash y Terraform, y un módulo Terraform simulado que represente una infraestructura dummy (p. ej., tres recursos `null_resource` con tags en `locals` o `variables`).
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Estructura inicial:
 
@@ -1060,7 +1061,7 @@ El proyecto debe contener al menos **1 500 líneas** entre Python, Bash y Terraf
   - Explicación de estructura de `locals` en Terraform para etiquetas obligatorias.
   - Primeros issues en Kanban para vulnerabilidades encontradas.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Expandir checks y mejorar reporting:
 
@@ -1092,7 +1093,7 @@ El proyecto debe contener al menos **1 500 líneas** entre Python, Bash y Terraf
   - `serve_reports.sh` lanzando servidor y vista en navegador.
   - Uso de Kanban para abrir issues de vulnerabilidades relevantes.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Completar cobertura de seguridad y documentar:
 
@@ -1174,7 +1175,7 @@ Se debe crear un **script Python** `balanceador.py` que:
 
 El código total (Terraform, Bash y Python) debe superar las **1 600 líneas**.
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Estructura inicial:
 
@@ -1207,7 +1208,7 @@ El código total (Terraform, Bash y Python) debe superar las **1 600 líneas**.
   - Estructura inicial de `balanceador/` y carpetas vacías.
   - Ejecución de `simulate_drift.sh` y resultado parcial en log.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Completar lógica de **balanceador** en `balanceador.py`:
 
@@ -1234,7 +1235,7 @@ El código total (Terraform, Bash y Python) debe superar las **1 600 líneas**.
   - Manejo de archivo corrupto en `balanceador/errors/`.
   - Modificación en `iac/main.tf` y `simulate_drift.sh` mostrando log de drift.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Completar **alta disponibilidad simulada** y **gestión de costos**:
 
@@ -1329,7 +1330,7 @@ Desarrollar un **mini dashboard ágil local** que calcule y muestre métricas de
 
 El total de código (Python + Bash) debe superar las **1 500 líneas** y emplear al menos **5 paquetes Python** distintos para parseo, manejo de fechas, generación de CSV, ASCII charts, envío de correos simulados y manejo de JSON.
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Estructura inicial:
 
@@ -1364,7 +1365,7 @@ El total de código (Python + Bash) debe superar las **1 500 líneas** y emplear
   - Demonstración del hook `commit-msg` rechazando un commit sin formato correcto.
   - Primeros commits y creación de `metrics/commits.csv`.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Completar `calc_metrics.py`:
 
@@ -1408,7 +1409,7 @@ El total de código (Python + Bash) debe superar las **1 500 líneas** y emplear
   - Contenido de `reports/metrics.txt` y `reports/burn_down.txt`.
   - Ejecución de `notify_delays.py` con la generación de correos en `reports/emails/`.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Completar integración y validaciones:
 
@@ -1520,7 +1521,7 @@ Crear un **generador automático** de documentación local para un conjunto de m
 
 El repositorio debe contener **al menos 1 600 líneas** de Terraform, Bash y Python, con al menos **6 módulos Terraform** distintos (por ejemplo, `network/`, `compute/`, `storage/`, `security/`, `logging/`, `monitoring/`).
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Estructura inicial del repositorio:
 
@@ -1545,7 +1546,7 @@ El repositorio debe contener **al menos 1 600 líneas** de Terraform, Bash y Pyt
   - Avance de `terraform_docs.py` mostrando las funciones vacías.
   - Primeros issues en Kanban: "Implementar parseo variables", "Generar diagrama DOT".
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Completar **terraform_docs.py**:
 
@@ -1608,7 +1609,7 @@ El repositorio debe contener **al menos 1 600 líneas** de Terraform, Bash y Pyt
   - Generación de `diagrama_red.dot` por `generar_diagrama.py`.
   - Ejecución de `update_docs.sh` hasta la generación de `docs/index.md`.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Refinar diagrama y documentación:
 
@@ -1718,7 +1719,7 @@ Desarrollar un **repositorio local** donde se simule un flujo **Pull Request** c
 
 El repositorio debe contener **al menos 1 500 líneas** entre Python, Bash, YAML y archivos de configuración.
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Estructura inicial:
 
@@ -1751,7 +1752,7 @@ El repositorio debe contener **al menos 1 500 líneas** entre Python, Bash, YAML
   - Primer pull de la rama `feature/XYZ` (simple), y creación de carpeta `pr_simulation/123`.
   - Estructura de `pr_validation.yaml` vacía en `.github/workflows/`.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Completar **`check_pr.py`**:
 
@@ -1794,7 +1795,7 @@ El repositorio debe contener **al menos 1 500 líneas** entre Python, Bash, YAML
   - Ejecución de flake8 y pytest con cobertura.
   - Issues en Kanban para commits inválidos o documentación faltante.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Refinar validaciones y documentación:
 
@@ -1885,7 +1886,7 @@ Implementar en un repositorio local dos **modelos de branching** avanzados:
 
 El repositorio debe contener **al menos 1 500 líneas** de código Python y Bash, y se deben demostrar ambos workflows con merges y releases.
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Inicializar proyecto para **Git Flow**:
 
@@ -1915,7 +1916,7 @@ El repositorio debe contener **al menos 1 500 líneas** de código Python y Bash
   - Creación y merge de `feature/config` en Trunk-Based.
   - Uso de tags (`v-0`) y merges en Git Flow.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Avanzar con **Git Flow** para la **Versión -0**:
 
@@ -1948,7 +1949,7 @@ El repositorio debe contener **al menos 1 500 líneas** de código Python y Bash
   - Creación de tags `v-0` (Git Flow) y `v-0` (Trunk).
   - Revisión en Kanban local (tarjetas de features completadas).
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Documentar y refinar procesos:
 
@@ -2066,7 +2067,7 @@ Aunque no se puede usar herramientas externas como Terratest o Kitchen-Terraform
 
 El repositorio deberá contener **al menos 1 500 líneas** entre Terraform, Python, Bash, YAML y HTML.
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Estructura inicial:
 
@@ -2113,7 +2114,7 @@ El repositorio deberá contener **al menos 1 500 líneas** entre Terraform, Pyth
   - Esqueleto de `run_iac_tests.py` (mostrar funciones vacías).
   - Primeros commits en Git y tablero Kanban configurado.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * Implementar **simulate_terratest.py**:
 
@@ -2159,7 +2160,7 @@ El repositorio deberá contener **al menos 1 500 líneas** entre Terraform, Pyth
   - Ejecución de `run_iac_tests.py` y `iac_tests/report_consolidado.json` con resultados.
   - Resultados en `logs/iac_tests.log`.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Generar **dashboard HTML** en `iac_tests/dashboard.html`:
 
@@ -2257,7 +2258,7 @@ Comparar y demostrar, en un entorno local, los enfoques de **Monorepo** versus *
 
 Se exigirá un mínimo de **1 600 líneas** repartidas entre Terraform, Bash, Python y archivos Markdown.
 
-#### Sprint 1 (días 1-5)
+#### Sprint 1 (días 1-3)
 
 * Configurar **Monorepo**:
 
@@ -2293,7 +2294,7 @@ Se exigirá un mínimo de **1 600 líneas** repartidas entre Terraform, Bash, Py
   - Estructura de `multirepo/` (network-repo, compute-repo, storage-repo).
   - Creación de `umbrella-repo/` y adición de submódulos.
 
-#### Sprint 2 (días 6-10)
+#### Sprint 2 (días 4-8)
 
 * En **Monorepo**:
 
@@ -2352,7 +2353,7 @@ Se exigirá un mínimo de **1 600 líneas** repartidas entre Terraform, Bash, Py
   - Uso de `update_all.sh` en `umbrella-repo` y logs generados.
   - Ejecución de `compare_workflows.py` y revisión de `workflow_comparison.md`.
 
-#### Sprint 3 (días 11-15)
+#### Sprint 3 (días 9-12)
 
 * Finalizar **Monorepo** con versión **-0.0**:
 
