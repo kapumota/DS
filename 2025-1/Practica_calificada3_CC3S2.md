@@ -7,7 +7,7 @@ Para cada proyecto se especifican:
 
 - **Enunciado general**
 - **Requerimientos de entrega por sprint** (Sprint 1, Sprint 2, Sprint 3)
-- Fecha de entrega: 22 de junio
+- Fecha de entrega: 19 de junio
 
 #### Rúbricas
 
@@ -85,7 +85,7 @@ Cada ítem debe entenderse como un criterio "de aplastamiento": si se identifica
 - **Soluciones copia-pega de StackOverflow, blogs o ejemplos IA sin adaptación**
 
    * **Señal de sospecha**: fragmentos de código que coinciden con 100 % (o prácticamente) con posts de internet; nombres de variables no relacionados al dominio del proyecto.
-   * **Consecuencia**: deducir 2–3 puntos en "originalidad y adaptación al problema". Exposición en vivo requerida para determinar si comprenden el código. Posible 0 en todo el proyecto.
+   * **Consecuencia**: deducir 2-3 puntos en "originalidad y adaptación al problema". Exposición en vivo requerida para determinar si comprenden el código. Posible 0 en todo el proyecto.
 
 **Documentación, comentarios y docstrings**
 
@@ -102,7 +102,7 @@ Cada ítem debe entenderse como un criterio "de aplastamiento": si se identifica
 - **Docstrings incompletas o inexistentes en funciones/módulos donde se pidió nivel de detalle**
 
    * **Señal de sospecha**: funciones complejas sin docstring o con docstrings vacíos (`"""TODO"""`).
-   * **Consecuencia**: deducir 1–2 puntos en "Documentación interna"; se pedirá como corrección inmediata.
+   * **Consecuencia**: deducir 1-2 puntos en "Documentación interna"; se pedirá como corrección inmediata.
 
 - **Textos de documentación (README, Markdown) con contenido copiado de tutoriales o IA (frases genéricas típicas)**
 
@@ -225,7 +225,7 @@ Si en cualquier momento se detecta alguno de los patrones de sospecha anteriores
 **Enunciado general**
 Construir un pipeline GitOps completamente local que simule el despliegue y la gestión de servicios (por ejemplo, aplicaciones dummy que representen servidores web, bases de datos o colas de mensajes) mediante **Terraform local** (uso de `null_resource` y provisioners Bash). El objetivo es demostrar un flujo GitOps "de la rama al despliegue" en un entorno exclusivamente local, sin contenedores ni proveedores cloud. 
 
-El proyecto debe estar dividido en al menos **4 módulos Terraform** independientes (cada uno con sus scripts Bash de aprovisionamiento), y **3 scripts Bash** para orquestar tareas de validación, despliegue y destrucción. Se exigirá un total mínimo de **1 500 líneas de código** distribuidas en Python (para herramientas auxiliares, reportes y generación de diagramas) y Bash (para hooks y automatización).
+El proyecto debe estar dividido en al menos **4 módulos Terraform** independientes (cada uno con sus scripts Bash de aprovisionamiento), y **3 scripts Bash** para orquestar tareas de validación, despliegue y destrucción. Se exigirá un total mínimo de **800 líneas de código** distribuidas en Python (para herramientas auxiliares, reportes y generación de diagramas) y Bash (para hooks y automatización).
 
 #### Sprint 1 (días 1-3)
 
@@ -328,7 +328,7 @@ El proyecto debe estar dividido en al menos **4 módulos Terraform** independien
      * Rechazo de push ante validaciones fallidas 
 - **Calidad del código y modularidad** 
 
-   * Total de líneas ≥ 1 500 entre Python y Bash 
+   * Total de líneas ≥ 800 entre Python y Bash 
    * Scripts Bash bien comentados y con control de errores robusto 
    * Código Python legible, con `docstrings` y manejo de excepciones 
    * Separación lógica en al menos 3 archivos Python distintos 
@@ -383,7 +383,7 @@ Desarrollar una **plataforma local** que integre:
    * `run_tests.sh` que ejecute `pytest --cov` y genere reporte de cobertura en HTML, y ejecute validaciones de Terraform.
    * `generate_badge.sh` que construya un badge de cobertura (porcentaje mínimo 85%).
 
-El código Python debe estar estructurado en al menos **5 paquetes** distintos (p. ej., `tests/`, `utils/`, `iac_tests/`, `reporting/`, `helpers/`). Se requerirá un mínimo de **1 600 líneas de código** entre Python y Bash. Además, deberá integrarse un **script Python** que lea los resultados de pruebas y genere un **dashboard en ASCII** (por ejemplo, barras que representen porcentaje de cobertura y número de pruebas pasadas).
+El código Python debe estar estructurado en al menos **5 paquetes** distintos (p. ej., `tests/`, `utils/`, `iac_tests/`, `reporting/`, `helpers/`). Se requerirá un mínimo de **800 líneas de código** entre Python y Bash. Además, deberá integrarse un **script Python** que lea los resultados de pruebas y genere un **dashboard en ASCII** (por ejemplo, barras que representen porcentaje de cobertura y número de pruebas pasadas).
 
 #### Sprint 1 (días 1-3)
 
@@ -511,7 +511,7 @@ El código Python debe estar estructurado en al menos **5 paquetes** distintos (
    * Reporte completo en consola con tests pasados/fallidos 
 - **Calidad de código y modularidad** 
 
-   * ≥ 1 600 líneas totales entre Python y Bash 
+   * ≥ 800 líneas totales entre Python y Bash 
    * Estructura en al menos 5 paquetes Python distintos 
    * Scripts Bash robustos, con validación de argumentos y código de retorno 
    * Código Python con `docstrings`, PEP8 (flake8 sin errores severos) 
@@ -542,7 +542,7 @@ Crear un **monorepo local** de módulos Terraform que implementen los patrones d
    * Documentación Markdown para cada módulo (explicando patrón, variables y ejemplos de uso).
    * Un diagrama generado con Diagrams.py que represente cómo se combinan los módulos entre sí (por ejemplo, un módulo Factory que llama a Prototype).
 
-El total de líneas de **Terraform + Bash + Python** debe superar las **1 700 líneas**, estructuradas en al menos **6 carpetas** para cada patrón más la carpeta de documentación.
+El total de líneas de **Terraform + Bash + Python** debe superar las **1000 líneas**, estructuradas en al menos **6 carpetas** para cada patrón más la carpeta de documentación.
 
 #### Sprint 1 (días 1-3)
 
@@ -647,12 +647,12 @@ El total de líneas de **Terraform + Bash + Python** debe superar las **1 700 l�
    * **Builder** con flujo encadenado y uso de YAML 
 - **Modularidad y líneas de código** 
 
-   * ≥ 1 700 líneas totales entre Terraform, Bash y Python 
+   * ≥ 1000 líneas totales entre Terraform, Bash y Python 
    * Separación lógica en al menos 6 carpetas/módulos 
    * Scripts Bash con validaciones de parámetros y manejo de errores 
 - **Documentación y originalidad** 
 
-   * Markdown de cada módulo con descripción original (≥ 100 palabras) (8 pt)
+   * Markdown de cada módulo con descripción original (≥ 100 palabras)
    * Diagrama generado con Diagrams.py que muestre interdependencias 
    * `verificar_ia_docs.py` detecta frases genéricas y equipo justifica en video 
 - **Pruebas locales de módulos** 
@@ -687,7 +687,7 @@ Diseñar un conjunto de módulos Terraform locales que ilustren los patrones est
 * **Adapter**: Un módulo `adapter/` que convierta la salida de un recurso dummy (p. ej., un script Python que muestra "status=OK") en una variable Terraform consumible por otro módulo.
 * **Mediator**: Un módulo `mediator/` que coordine la interacción entre dos módulos "clientes" (por ejemplo, `cliente_a/` y `cliente_b/`), simulando intercambio de mensajes mediante archivos o pipes locales.
 
-Se exigirá un mínimo de **1 500 líneas** de código distribuido en Terraform, Python y Bash, y la creación de un **script Bash** `run_all.sh` que:
+Se exigirá un mínimo de **800 líneas** de código distribuido en Terraform, Python y Bash, y la creación de un **script Bash** `run_all.sh` que:
 
 - Inicialice y aplique cada módulo en el orden `adapter` -> `facade` -> `mediator`.
 - Registre en `logs/` la salida de cada paso.
@@ -835,7 +835,7 @@ Se exigirá un mínimo de **1 500 líneas** de código distribuido en Terraform,
    * JSON resultante refleja el DAG real de dependencias 
 - **Calidad de código y modularidad** 
 
-   * ≥ 1 500 líneas totales entre Terraform, Bash y Python 
+   * ≥ 800 líneas totales entre Terraform, Bash y Python 
    * Estructura de directorios clara y consistente 
    * Scripts y código Python con docstrings/comentarios y manejo de errores 
 - **Documentación y diagramas** 
@@ -870,7 +870,7 @@ Se requiere un **Makefile** con targets: `lint`, `test`, `plan`, `deploy`, `dest
   * `cd.yaml` que se active manualmente (workflow_dispatch) para deploy y rollback.
 * Implementar un script Python `report_ci.py` que lea resultados de logs y genere un reporte en Markdown con sección de "estadísticas de CI" (tiempo por etapa, tests pasados/fallidos, tamaño de plan).
 
-El repositorio debe contener **al menos 1 600 líneas** entre Python, Bash, Terraform y YAML.
+El repositorio debe contener **al menos 1000 líneas** entre Python, Bash, Terraform y YAML.
 
 #### Sprint 1 (días 1-3)
 
@@ -1025,7 +1025,7 @@ Implementar un **entorno local de DevSecOps** que incorpore:
    * Reporte de recursos sin etiquetas obligatorias.
    * Lista de vulnerabilidades críticas encontradas en `reports/security_report.md`.
 
-El proyecto debe contener al menos **1 500 líneas** entre Python, Bash y Terraform, y un módulo Terraform simulado que represente una infraestructura dummy (p. ej., tres recursos `null_resource` con tags en `locals` o `variables`).
+El proyecto debe contener al menos **1000 líneas** entre Python, Bash y Terraform, y un módulo Terraform simulado que represente una infraestructura dummy (p. ej., tres recursos `null_resource` con tags en `locals` o `variables`).
 
 #### Sprint 1 (días 1-3)
 
@@ -1142,7 +1142,7 @@ El proyecto debe contener al menos **1 500 líneas** entre Python, Bash y Terraf
    * `schedule_scan.py` programa escaneo y notifica cambios 
 - **Calidad de código y modularidad** 
 
-   * ≥ 1 500 líneas totales entre Python, Bash y Terraform 
+   * ≥ 800 líneas totales entre Python, Bash y Terraform 
    * Estructura de carpetas clara (`iac/`, `scripts/`, `src/`, `docs/`, `reports/`) 
    * Código Python con `docstrings` y manejo de excepciones 
 - **Documentación de mitigación de riesgos** 
@@ -1173,7 +1173,7 @@ Se debe crear un **script Python** `balanceador.py` que:
 * Lea una carpeta `incoming_requests/`, tome archivos de texto uno a uno y los copie a carpetas `service_<id>/processed_<timestamp>.txt`.
 * Mantenga un log de carga por instancia en `logs/load_<id>.json`.
 
-El código total (Terraform, Bash y Python) debe superar las **1 600 líneas**.
+El código total (Terraform, Bash y Python) debe superar las **800 líneas**.
 
 #### Sprint 1 (días 1-3)
 
@@ -1296,7 +1296,7 @@ El código total (Terraform, Bash y Python) debe superar las **1 600 líneas**.
    * Logs de `cost.log` con registros adecuados 
 - **Calidad de código y modularidad** 
 
-   * ≥ 1 600 líneas totales entre Terraform, Bash y Python 
+   * ≥ 800 líneas totales entre Terraform, Bash y Python 
    * Organización de carpetas: `iac/`, `scripts/`, `balanceador/`, `archived/` 
    * Código legible, con comentarios y excepciones en Python 
 - **Videos y presentación** 
@@ -1328,7 +1328,7 @@ Desarrollar un **mini dashboard ágil local** que calcule y muestre métricas de
    * `commit-msg` que valide que los mensajes de commit incluyan referencia a un issue válido (`feat[#n]`).
    * `post-commit` que ejecute `calc_metrics.py` y actualice los gráficos en `reports/metrics.txt`.
 
-El total de código (Python + Bash) debe superar las **1 500 líneas** y emplear al menos **5 paquetes Python** distintos para parseo, manejo de fechas, generación de CSV, ASCII charts, envío de correos simulados y manejo de JSON.
+El total de código (Python + Bash) debe superar las **1000 líneas** y emplear al menos **5 paquetes Python** distintos para parseo, manejo de fechas, generación de CSV, ASCII charts, envío de correos simulados y manejo de JSON.
 
 #### Sprint 1 (días 1-3)
 
@@ -1467,7 +1467,7 @@ El total de código (Python + Bash) debe superar las **1 500 líneas** y emplear
    * Manejo adecuado de errores en hooks 
 - **Calidad de código y modularidad** 
 
-   * ≥ 1 500 líneas entre Python y Bash 
+   * ≥ 800 líneas entre Python y Bash 
    * Uso de al menos 5 paquetes Python (p. ej., `subprocess`, `csv`, `json`, `datetime`, `re`) 
    * Código legible, con comentarios y manejo de excepciones 
 - **Videos y presentación** 
@@ -1519,7 +1519,7 @@ Crear un **generador automático** de documentación local para un conjunto de m
    * Verifique que todos los nombres de módulos en `iac/` sigan la convención `^[a-z][a-z0-9_]+$`.
    * Informe al final en consola los módulos que no cumplan (al menos 3 errores si existen).
 
-El repositorio debe contener **al menos 1 600 líneas** de Terraform, Bash y Python, con al menos **6 módulos Terraform** distintos (por ejemplo, `network/`, `compute/`, `storage/`, `security/`, `logging/`, `monitoring/`).
+El repositorio debe contener **al menos 800 líneas** de Terraform, Bash y Python, con al menos **6 módulos Terraform** distintos (por ejemplo, `network/`, `compute/`, `storage/`, `security/`, `logging/`, `monitoring/`).
 
 #### Sprint 1 (días 1-3)
 
@@ -1648,7 +1648,7 @@ El repositorio debe contener **al menos 1 600 líneas** de Terraform, Bash y Pyt
    * `docs/index.md` con enlaces correctos y sección de introducción 
 - **Generación de diagrama de red** 
 
-   * `generar_diagrama.py` extrae dependencias y crea DOT válido (8 pt)
+   * `generar_diagrama.py` extrae dependencias y crea DOT válido
    * Conversión a SVG con estilo de colores y labels 
    * Explicación clara en README de cómo interpretar el diagrama 
 - **Scripts de orquestación Bash** 
@@ -1658,7 +1658,7 @@ El repositorio debe contener **al menos 1 600 líneas** de Terraform, Bash y Pyt
    * `verificar_nomenclatura.py` detecta todos los casos de error y reporta 
 - **Calidad de código y modularidad** 
 
-   * ≥ 1 600 líneas totales entre Terraform, Bash y Python 
+   * ≥ 800 líneas totales entre Terraform, Bash y Python 
    * Organización de carpetas: `iac/`, `scripts/`, `docs/`, `metrics/` 
    * Código Python con docstrings, manejo de excepciones y uso de paquetes 
 - **Documentación y usabilidad** 
@@ -1717,7 +1717,7 @@ Desarrollar un **repositorio local** donde se simule un flujo **Pull Request** c
      - Llame a `check_pr.py`.
    * Simular ejecución local con `act pr_validation.yaml`.
 
-El repositorio debe contener **al menos 1 500 líneas** entre Python, Bash, YAML y archivos de configuración.
+El repositorio debe contener **al menos 800 líneas** entre Python, Bash, YAML y archivos de configuración.
 
 #### Sprint 1 (días 1-3)
 
@@ -1858,7 +1858,7 @@ El repositorio debe contener **al menos 1 500 líneas** entre Python, Bash, YAML
    * Ejecución de hooks sin fallos inesperados 
 - **Calidad de código y modularidad** 
 
-   * ≥ 1 500 líneas entre Python, Bash, YAML y configuraciones 
+   * ≥ 800 líneas entre Python, Bash, YAML y configuraciones 
    * Uso de al menos 3 scripts Python distintos (`config_modifier.py`, `check_pr.py`, `notify_delays.py`) 
    * Código legible, con comentarios y manejo de excepciones en Python 
 - **Documentación y presentación** 
@@ -1884,7 +1884,7 @@ Implementar en un repositorio local dos **modelos de branching** avanzados:
 * Versión -0: añadir en `app.py` la funcionalidad de leer un archivo `config.json` y mostrar su contenido.
 * Versión -0: agregar en `app.py` un subcomando (`--status`) que imprima "OK" y `--version` que imprima la versión actual.
 
-El repositorio debe contener **al menos 1 500 líneas** de código Python y Bash, y se deben demostrar ambos workflows con merges y releases.
+El repositorio debe contener **al menos 1000 líneas** de código Python y Bash, y se deben demostrar ambos workflows con merges y releases.
 
 #### Sprint 1 (días 1-3)
 
@@ -1996,7 +1996,7 @@ El repositorio debe contener **al menos 1 500 líneas** de código Python y Bash
    * Código Python legible, PEP8, con docstrings 
 - **Reporte comparativo de workflows** 
 
-   * `compare_workflows.py` genera `workflow_comparison.md` con comparativa clara (8 pt)
+   * `compare_workflows.py` genera `workflow_comparison.md` con comparativa clara
    * Métricas de merges, commits y tiempos calculados correctamente 
 - **Documentación y análisis conceptual** 
 
@@ -2065,7 +2065,7 @@ Aunque no se puede usar herramientas externas como Terratest o Kitchen-Terraform
    * Tabla de resultados (suite, test, estado).
    * Gráfico de torta con porcentaje de tests pasados/fallidos (usar matplotlib, exportar a SVG e incrustar).
 
-El repositorio deberá contener **al menos 1 500 líneas** entre Terraform, Python, Bash, YAML y HTML.
+El repositorio deberá contener **al menos 800 líneas** entre Terraform, Python, Bash, YAML y HTML.
 
 #### Sprint 1 (días 1-3)
 
@@ -2197,7 +2197,7 @@ El repositorio deberá contener **al menos 1 500 líneas** entre Terraform, Pyth
 - **Simulación de Kitchen-Terraform** 
 
    * `simulate_kitchen.py` ejecuta validaciones Bash correctamente 
-   * Resultados en YAML bien formateados (8 pt)
+   * Resultados en YAML bien formateados 
 - **Framework de pruebas en YAML y Python** 
 
    * Estructura y parseo de archivos YAML en `run_iac_tests.py` 
@@ -2215,7 +2215,7 @@ El repositorio deberá contener **al menos 1 500 líneas** entre Terraform, Pyth
    * Archivo `reports/dashboard.html` bien formateado y navegable 
 - **Calidad de código y modularidad** 
 
-   * ≥ 1 500 líneas entre Terraform, Python, Bash, YAML y HTML 
+   * ≥ 800 líneas entre Terraform, Python, Bash, YAML y HTML 
    * Organización de carpetas clara: `iac/`, `iac_tests/`, `scripts/`, `reports/`, `logs/` 
    * Código Python con docstrings, manejo de excepciones y comentarios 
 - **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
@@ -2256,7 +2256,7 @@ Comparar y demostrar, en un entorno local, los enfoques de **Monorepo** versus *
    * Calcule métricas: número de comandos Git necesarios para actualizar todos los módulos a una nueva versión mayor.
    * Genere un reporte en Markdown `workflow_comparison.md` con tablas comparativas y conclusiones.
 
-Se exigirá un mínimo de **1 600 líneas** repartidas entre Terraform, Bash, Python y archivos Markdown.
+Se exigirá un mínimo de **800 líneas** repartidas entre Terraform, Bash, Python y archivos Markdown.
 
 #### Sprint 1 (días 1-3)
 
@@ -2394,7 +2394,7 @@ Se exigirá un mínimo de **1 600 líneas** repartidas entre Terraform, Bash, Py
 
    * Creación de tags v-0.0, v-0.0 y v-0.0 en Monorepo 
    * Creación de tags semánticos en cada repo de Multirepo 
-   * Archivos `CHANGELOG.md` con descripciones originales (≥ 50 palabras por módulo en v-0.0) (8 pt)
+   * Archivos `CHANGELOG.md` con descripciones originales (≥ 50 palabras por módulo en v-0.0) 
 - **Submódulos y actualización en Monorepo** 
 
    * Uso correcto de `git submodule` para versiones específicas 
@@ -2407,12 +2407,12 @@ Se exigirá un mínimo de **1 600 líneas** repartidas entre Terraform, Bash, Py
    * Logs en `umbrella/reports/update.log` bien formateados 
 - **Comparativa de workflows** 
 
-   * `compare_workflows.py` calcula correctamente commits y comandos (8 pt)
-   * Reporte `workflow_comparison_final.md` con tablas y secciones de conclusiones (8 pt)
+   * `compare_workflows.py` calcula correctamente commits y comandos 
+   * Reporte `workflow_comparison_final.md` con tablas y secciones de conclusiones
    * Métricas de tiempo capturadas en `reports/time_comparison.txt` 
 - **Calidad de código y modularidad** 
 
-   * ≥ 1 600 líneas totales entre todos los componentes 
+   * ≥ 800 líneas totales entre todos los componentes 
    * Organización de carpetas: `monorepo/`, `multirepo/`, `umbrella-repo/`, `iac/`, `scripts/`, `reports/` 
    * Código Python con docstrings, manejo de errores y comentarios 
 - **Documentación y presentación** 
@@ -2423,4 +2423,393 @@ Se exigirá un mínimo de **1 600 líneas** repartidas entre Terraform, Bash, Py
 
    * Si se detectan fragmentos de scripts o descripciones tomadas de artículos públicos, se penaliza un 50% en la  sección correspondiente.
    * Conclusiones escritas en `workflow_comparison_final.md` deben ser originales; en caso de sospecha de IA, se requerirá defensa oral.
+
+### Reglas generales para los commits
+
+1. **Atómicos y coherentes**: Cada commit debe agrupar cambios relacionados (por ejemplo, "crear estructura inicial de carpetas y archivos", "añadir script de validación de variables Terraform", "documentar módulo X con README").
+2. **Tamaño moderado**: Idealmente, ningún commit debería superar las 200-300 líneas de cambio (sumando adiciones y eliminaciones).
+3. **Mensajes descriptivos**: Usar un formato claro, por ejemplo:
+
+   ```
+   feat(tf-module): agregar variables iniciales en network-module
+   fix(hooks): corregir validación de commit-msg para pattern "feat[#n]"
+   docs(readme): añadir sección de "Ejemplo de uso" para módulo compute
+   test(py): añadir pruebas parametrizadas de pytest para función XYZ
+   ```
+4. **Commits frecuentes**: No esperar a "tener todo listo" para subir 1.000 líneas de golpe. Mejor dividir en pequeños pasos y pushear cada avance significativo.
+
+#### Esquema recomendado por sprint
+
+#### Sprint 1
+
+En este primer sprint se definen la estructura general del proyecto, carpetas base, scripts de arranque y un pequeño "mínimo viable" (MVP). Se recomienda entre **5 y 7 commits**. Por ejemplo:
+
+1. **Commit 1** (estructura inicial):
+
+   * Crear repositorio y carpeta raíz.
+   * Añadir directorios base (`iac/`, `scripts/`, `src/`, `tests/`, `docs/`, etc.).
+   * Archivos vacíos `main.tf`, `validate.sh`, `conftest.py`, `README.md` con esqueleto.
+
+2. **Commit 2** (configuración Git hooks):
+
+   * Agregar `pre-commit` y `commit-msg` en `.git/hooks/` con validación básica.
+   * Documentar en `README.md` cómo funcionan los hooks.
+
+3. **Commit 3** (Módulo Terraform mínimo):
+
+   * Implementar un `network-module/main.tf` con un `null_resource`.
+   * Añadir `variables.tf` con dos variables dummy.
+
+4. **Commit 4** (Script de validación básica):
+
+   * Escribir `scripts/validate.sh` para correr `terraform fmt -check` y `terraform validate`.
+   * Ajustar mensaje de commit según patrón de la rúbrica (ej. `feat(tf): validar formato y sintaxis`).
+
+5. **Commit 5** (Python para diagramas o reporting mínimo):
+
+   * Agregar `src/generar_diagrama.py` con función vacía o "print(‘función de parseo pendiente’)".
+   * Crear archivos de configuración inicial (`.gitignore`, `.flake8`, `.bandit`).
+
+6. **Commit 6** (Primeras pruebas Pytest básicas):
+
+   * Agregar en `tests/test_basic.py` dos pruebas triviales de ejemplo.
+   * Configurar `pytest.ini` o similar para cobertura mínima.
+
+7. **Commit 7** (Documentación y vídeo de Sprint 1):
+
+   * Completar `README.md` con instrucciones de instalación.
+   * Subir enlace (o anotación) del video de 10 min mostrando todo lo anterior.
+
+Si alguno de esos pasos reúne demasiado código (por ejemplo, un módulo Terraform **y** el script Python completo), conviene dividirlo en dos commits distintos: "feat(tf): crear módulo network con null_resource" y "feat(py): implementar función parseo de tfstate".
+
+#### Sprint 2 
+
+En este sprint se extiende la funcionalidad (módulos adicionales, tests de integración, scripts avanzados, dashboards, etc.). Se recomiendan entre **7 y 10 commits**, desglosados así:
+
+1. **Commit 1 (feature)**:
+
+   * Añadir segundo módulo Terraform (por ejemplo, `compute-module/` con su propio `main.tf`, `variables.tf` y `validate_compute.sh`).
+
+2. **Commit 2 (feat/scripts)**:
+
+   * Crear o mejorar `scripts/deploy_all.sh` que itere sobre todos los módulos en `iac/` y ejecute `terraform init && terraform apply`.
+
+3. **Commit 3 (feat/validation)**:
+
+   * Implementar `src/verificar_estado.py` que lea `tfstate` y genere un JSON/report mínimo con resultados.
+
+4. **Commit 4 (test/iac_tests)**:
+
+   * En `iac_tests/`, añadir `test_network.py` y `test_compute.py` que validen outputs de Terraform.
+   * Configurar las fixtures necesarias en `conftest.py`.
+
+5. **Commit 5 (docs/intermediate)**:
+
+   * Actualizar `docs/<módulo>.md` con contenido original (mínimo 100 palabras) para cada módulo.
+   * Incluir gráficos DOT simples generados por `generar_diagrama.py`.
+
+6. **Commit 6 (feat/hooks mejorados)**:
+
+   * Ajustar `.git/hooks/pre-push` para que invoque `verificar_estado.py` y bloquee push si alguna comprobación falla.
+
+7. **Commit 7 (test/python_tests)**:
+
+   * Agregar al menos 2 pruebas parametrizadas en `tests/test_python_logic.py` (por ejemplo, Hypothesis o `@pytest.mark.parametrize`).
+
+8. **Commit 8 (refactor)**:
+
+   * Refactorizar código Bash para corregir errores detectados (por ejemplo, manejo de fallos, validación de parámetros).
+
+9. **Commit 9 (docs/actualización sprint)**:
+
+   * Completar `README.md` con instrucciones extendidas para Carpeteta `iac/`, `scripts/`, `tests/`.
+   * Añadir ejemplo de salida de `verificar_estado.py` en Markdown.
+
+10. **Commit 10 (video y cierre Sprint 2)**:
+
+    * Incluir enlace o comentario al video de 10 min explicando lo implementado en Sprint 2.
+
+Si la adición de un módulo nuevo implica más de 200 líneas de Terraform y Bash, conviene separar en:
+
+* "feat(tf): agregar compute-module con variables e outputs"
+* "feat(sh): script validate_compute.sh para compute-module"
+
+
+#### Sprint 3 
+
+Este sprint suele incluir funcionalidades avanzadas (rollback, drift, dashboard HTML, generación de badges, etc.). Se recomienda entre **7 y 10 commits** igualmente:
+
+1. **Commit 1 (feat/rollback)**:
+
+   * Implementar `scripts/rollback.sh` que restaure estado a partir de un tag Git.
+
+2. **Commit 2 (feat/drift)**:
+
+   * Crear `scripts/simular_drift.sh` para modificar un recurso y detectar drift.
+   * Adaptar `src/generar_diagrama.py` para marcar recursos con drift en el grafo.
+
+3. **Commit 3 (feat/dashboard)**:
+
+   * Implementar `scripts/generate_dashboard.py` o similar para leer JSON de tests y generar un HTML o gráfico SVG.
+
+4. **Commit 4 (test/drift_tests)**:
+
+   * Añadir pruebas en `tests/test_drift.py` que simulen un cambio y verifiquen que drift sea detectado correctamente.
+
+5. **Commit 5 (docs/final)**:
+
+   * Completar toda la documentación en `docs/`, incluyendo ejemplos de uso de rollback y drift.
+   * Incluir diagramas finales en `docs/diagrama_red.svg`.
+
+6. **Commit 6 (ci/correcciones)**:
+
+   * Ajustar scripts `ci.sh` o workflow YAML para incluir las nuevas etapas (drift, rollback, dashboard).
+
+7. **Commit 7 (refactor/general)**:
+
+   * Unificar estilo de código en Python (PEP8) y Bash (`shellcheck`).
+   * Corregir cualquier warning de linters.
+
+8. **Commit 8 (test/final)**:
+
+   * Añadir pruebas finales de cobertura (pytest con `--cov`) y generar badge de cobertura ≥ 85%.
+
+9. **Commit 9 (docs/video)**:
+
+   * Anotar en `README.md` el enlace al video final de presentación de Sprint 3.
+
+10. **Commit 10 (release/version)**:
+
+    * Crear tag semántico final del proyecto (por ejemplo, `v1.0.0-final`).
+    * Merge de la rama de release a `main` (si se siguió Git Flow).
+
+
+#### Total aproximado de commits
+
+Sumando los rangos recomendados:
+
+* **Sprint 1**: 5-7 commits
+* **Sprint 2**: 7-10 commits
+* **Sprint 3**: 7-10 commits
+
+**Total por proyecto**: entre **19 y 27 commits**.
+
+> **Nota**: En caso de proyectos particularmente más complejos (por ejemplo, aquellos con múltiples submódulos, tests avanzados, dashboards y comparativas), no sería raro llegar a **30 commits** o incluso **35 commits**, siempre y cuando cada uno sea atómico y logre documentar claramente un paso de desarrollo.
+
+#### Ejemplo de desglose por tipo de cambio
+
+Para que la guía quede aún más concreta, a continuación se muestra un **esquema genérico de commits por categoría**, que también ayuda a evitar "commits grandes e infrecuentes":
+
+1. **Configuración inicial**
+
+   * Commit A1: `feat(structure): crear carpetas raíz (iac/, scripts/, src/, tests/, docs/)`
+   * Commit A2: `feat(git-hooks): añadir pre-commit y commit-msg en .git/hooks/`
+
+2. **Estructura y módulos base**
+
+   * Commit B1: `feat(tf): crear network-module con null_resource y variables`
+   * Commit B2: `feat(tf): crear compute-module skeleton (main.tf y variables.tf)`
+   * Commit B3: `feat(sh): agregar scripts validate_network.sh y validate_compute.sh`
+
+3. **Scripts de orquestación y validaciones**
+
+   * Commit C1: `feat(sh): implementar deploy_all.sh para iterar sobre módulos IaC`
+   * Commit C2: `feat(py): crear verificar_estado.py para parsear terraform.tfstate`
+   * Commit C3: `refactor(sh): mejorar manejo de errores en deploy_all.sh`
+
+4. **Pruebas unitarias y de integración**
+
+   * Commit D1: `test(py): agregar tests básicos en tests/test_network.py`
+   * Commit D2: `test(py): añadir pruebas parametrizadas en tests/test_compute.py`
+   * Commit D3: `test(py): crear test_drift.py para simular drift detection`
+
+5. **Documentación intermedia**
+
+   * Commit E1: `docs(module): completar docs/network-module.md con descripción original`
+   * Commit E2: `docs(diagrams): generar diagrama_red.dot y agregar en docs/`
+
+6. **Funcionalidades avanzadas (rollback, drift, dashboard)**
+
+   * Commit F1: `feat(sh): implementar rollback.sh basado en tags Git`
+   * Commit F2: `feat(sh): agregar simular_drift.sh para detectar drift`
+   * Commit F3: `feat(py): desarrollar generate_dashboard.py para HTML/ SVG`
+
+7. **Ajustes finales y refactor**
+
+   * Commit G1: `refactor(py): unificar estilo PEP8 y corregir docstrings faltantes`
+   * Commit G2: `refactor(sh): optimizar scripts de CI y corregir linters`
+   * Commit G3: `test(py): garantizar coverage ≥ 85% y generar badge`
+
+8. **Documentación final y versionado**
+
+   * Commit H1: `docs(readme): actualizar README con guías de uso completas y ejemplos`
+   * Commit H2: `chore(release): tag v1.0.0 y merge release branch a main`
+
+> **Total ejemplo**: 20 commits, bien repartidos en categorías.
+
+
+#### Cómo adaptar el número de commits según tu equipo
+
+1. **Tamaño del equipo (2-4 estudiantes)**: Si son 4 personas, pueden hacer hasta **35 commits** sin problema, pues cada uno puede encargarse de tareas menores (por ejemplo, un commit por cada script Bash, otro por cada test agregado, etc.).
+2. **División de tareas**: Cada subfuncionalidad (modulo Terraform, script Python, prueba nueva) merece su propio commit.
+3. **Documentar en Kanban**: Vincula cada card del tablero Kanban con al menos **1 commit** (incluir en el mensaje de commit la referencia al issue o tarjeta, p. ej. `feat(tf): (Issue #12) crear módulo storage`).
+4. **Evitar "commits gigantes"**: Si detectas que un commit modifica 1.000 líneas, detente y pregúntate si puedes dividirlo en 2 ó 3 commits semánticos (ej. uno para Terraform, otro para Bash, otro para documentación).
+
+#### Resumen de rangos recomendados por sprint
+
+* **Sprint 1**: 5 -7 commits
+* **Sprint 2**: 7 -10 commits
+* **Sprint 3**: 7 -10 commits
+* **Total por proyecto**: **19 -27 commits** (con margen para llegar a 30-35 si hay mucho detalle)
+
+Si el equipo realiza menos de **15 commits** en total, probablemente está agrupando cambios de forma demasiado amplia. Si realizan más de **35 commits**, asegúrense de que cada uno sea verdaderamente atómico (40+ commits no suele ser necesario para un solo proyecto de 15 días salvo que se incluyan abundantes refactors o pruebas adicionales).
+
+#### Entrega
+
+Cada estudiante, además de trabajar en el repositorio grupal, deberá entregar un **repositorio individual público** (por ejemplo, en GitHub) con los siguientes elementos:
+
+1. **URL del repositorio**
+
+   * Debe proporcionarse el enlace completo ([https://github.com/usuario/nombre-del-proyecto](https://github.com/usuario/nombre-del-proyecto)).
+   * En ese repositorio individual no puede haber código "extraño" ajeno al proyecto: únicamente debe contener los ficheros y carpetas en los que ese estudiante haya trabajado.
+
+2. **Estructura mínima esperada**
+
+   ```text
+   / (raíz del repositorio individual)
+   ├── README.md
+   ├── CONTRIBUTIONS.md
+   ├── branches/ 
+   │   ├── feature-<mi_nombre>-<tarea1>.patch
+   │   └── feature-<mi_nombre>-<tarea2>.patch
+   ├── videos/
+   │   ├── sprint1-mi_nombre.mp4
+   │   ├── sprint2-mi_nombre.mp4
+   │   └── sprint3-mi_nombre.mp4
+   ├── docs_parciales/
+   │   ├── doc_módulo1-<mi_nombre>.md
+   │   └── doc_módulo2-<mi_nombre>.md
+   └── (cualquier otro script .py o .sh en los que participaste)
+   ```
+
+   * **README.md**: Debe incluir
+
+     1. Tu nombre completo y correo institucional.
+     2. El título del proyecto grupal que elegieron.
+     3. La URL del repositorio grupal (para referencia).
+     4. Breve descripción (2-3 líneas) de tu rol en el equipo ("Me encargué de…, contribuí a…, implementé…").
+     5. Instrucciones para clonar tu repositorio y reproducir la parte de tu código:
+
+        ```markdown
+        git clone https://github.com/mi_usuario/mi_proyecto_individual.git
+        cd mi_proyecto_individual
+        # Si hay scripts Python:
+        python3 -m venv .venv
+        source .venv/bin/activate
+        pip install -r requirements.txt  # si aplica
+        # Ejemplo de ejecución de mi script principal:
+        python3 scripts/verificar_estado.py iac/network-module/terraform.tfstate
+        ```
+   * **CONTRIBUTIONS.md**: Un listado puntual y cronológico de todas tus aportaciones al repositorio grupal. Por ejemplo:
+
+     ```markdown
+     # Contribuciones de [Nombre Apellido]
+
+     ## Sprint 1
+     - 2025-06-02: Creé el directorio `iac/network-module/` con `main.tf` y `variables.tf`.  
+       Commit: `feat(tf): crear network-module`  
+       Pull request grupal: #5
+
+     - 2025-06-03: Escribí `scripts/validate.sh` para validar `terraform fmt` y `terraform validate`.  
+       Commit: `feat(sh): validar tf-format y tf-validate`  
+       Pull request grupal: #8
+
+     ## Sprint 2
+     - 2025-06-07: Agregué `src/verificar_estado.py` que lee `terraform.tfstate` y genera JSON de validación.  
+       Commit: `feat(py): parsear tfstate y generar reporte JSON`  
+       Pull request grupal: #12
+
+     - 2025-06-09: Añadí pruebas en `tests/test_network.py`: validan existence de archivo dummy.  
+       Commit: `test(py): prueba pytest para recurso network`  
+       Pull request grupal: #15
+
+     ## Sprint 3
+     - 2025-06-12: Implementé `scripts/rollback.sh` y documenté uso en `docs_parciales/doc_rollback-<mi_nombre>.md`.  
+       Commit: `feat(sh): rollback desde tag Git`  
+       Pull request grupal: #23
+
+     - 2025-06-13: Realicé corrección de estilo en `src/generar_diagrama.py` (PEP8) y añadí docstrings.  
+       Commit: `refactor(py): unificar estilo según flake8 y añadir docstrings`  
+       Pull request grupal: #27
+     ```
+
+     * Cada entrada debe apuntar al **ID de commit** (hash corto o largo) y al **número de pull request** (o issue) en el repositorio grupal, para que el evaluador pueda rastrear exactamente lo que hiciste.
+
+3. **Ramas y parches (opcional pero recomendado)**
+
+   * Aunque tu repositorio individual no necesite un branching complejo, es muy útil incluir las **diferencias parciales** que subiste al repositorio grupal. Por ejemplo, si tuviste una rama `feature/rollback-una-etiqueta`, exporta ese parche con:
+
+     ```bash
+     git format-patch origin/main..feature/rollback-una-etiqueta \
+       --stdout > branches/feature-rollback-<mi_nombre>.patch
+     ```
+   * Así el evaluador puede aplicar el parche sobre el repositorio grupal y comprobar tu lógica aislada.
+   * En la carpeta `branches/` guarda esos archivos `.patch` con nombre descriptivo.
+
+4. **Videos personales por sprint**
+
+   * Dentro de `videos/`, cada estudiante debe subir **exactamente tres** grabaciones (una por sprint). Cada video debe incluir:
+
+     1. Tu nombre en pantalla (ej., "Sprint 1 - Kapumota Lara").
+     2. Una demo breve de la parte concreta que implementaste:
+
+        * Por ejemplo, abrir tu script Bash, ejecutarlo y mostrar la salida.
+        * O bien, abrir tu módulo Terraform en VSCode y describir variable por variable.
+     3. Explicar por qué tu solución es correcta, menciona el commit y el número de pull request correspondiente.
+     4. Y todo lo demás que corresponde.
+
+5. **Documentos parciales o textos especializados**
+
+   * Si en grupo pidieron escribir algún fragmento de documentación (por ejemplo, `docs/network-module.md` o `docs/git_workflows.md`), copia en `docs_parciales/` el archivo final que tú redactaste.
+   * En el nombre del archivo, agrega tu nombre para identificar autoría:
+
+     ```
+     docs_parciales/
+     ├── doc_network-<mi_nombre>.md
+     ├── doc_rollback-<mi_nombre>.md
+     └── doc_comparativa-<mi_nombre>.md
+     ```
+   * Cada documento parcial debe incluir una pequeña nota al inicio ("**Autor: Nombre Apellido**") y la fecha de creación.
+
+6. **Buenas prácticas adicionales**
+
+   * **Lint y formateo**: si colaboraste en la configuración de linters, incluye tu `.flake8` o `shellcheck` personalizado en la raíz del repositorio individual para que se vea que lo configuraste tú.
+   * **Pruebas personales**: si contribuiste con tests, deja en `tests/` solo los archivos en los que trabajaste, nombrados claramente (por ejemplo, `test_network_<mi_nombre>.py`).
+   * **Scripts auxiliares**: cualquier script Bash o Python que desarrollaste para el proyecto grupal, y que no esté ya en el repositorio grupal, debe ir aquí (por ejemplo, un prototipo de `generate_dashboard.py` que tú redactaste).
+
+#### Cronograma de entrega individual
+
+* **Antes del cierre del Sprint 3** (por ejemplo, el día 15 a las 23:59 UTC-5):
+
+  1. **Publicar el repositorio individual** en GitHub, asegurándose de que sea **público** y accesible.
+  2. Enviar al profesor/evaluador por correo (o plataforma designada) los siguientes datos:
+
+     * **URL del repositorio individual** ([https://github.com/mi_usuario/mi_proyecto_individual](https://github.com/mi_usuario/mi_proyecto_individual)).
+     * **Nombre completo** y **correo institucional** de cada integrante (si tu repositorio incluye coautores en `CONTRIBUTIONS.md`, menciónalos).
+     * **URLs de los videos** (o subirlos directamente como archivos adjuntos, si así se indicó).
+
+* **Durante la presentación en vivo** (si aplica):
+
+  * Cada estudiante abrirá su propio repositorio en pantalla y mostrará brevemente:
+
+    1. El contenido de `README.md`.
+    2. Un fragmento de su código clave (por ejemplo, la función Python que parsea `terraform.tfstate` o el script Bash de rollback).
+    3. Cómo ejecutar, localmente, su parte (por ejemplo: `bash scripts/rollback.sh v1.0.0`).
+    4. Cómo se relaciona ese commit con el repositorio grupal (mostrando el ID de commit y el pull request).
+
+
+> **Nota final:**
+> Las rúbricas para detectar posible código generado por IA (commits masivos, mensajes genéricos, estilos inconsistentes, falta de pruebas, etc.) se aplicarán tanto al repositorio grupal como al individual. En caso de sospecha, se solicitará exposición en vivo de los fragmentos clave de este repositorio.
+
+
 
