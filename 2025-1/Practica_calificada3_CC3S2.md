@@ -2812,6 +2812,7 @@ Cada estudiante, además de trabajar en el repositorio grupal, deberá entregar 
 
 > **Nota final:**
 > Las rúbricas para detectar posible código generado por IA (commits masivos, mensajes genéricos, estilos inconsistentes, falta de pruebas, etc.) se aplicarán tanto al repositorio grupal como al individual. En caso de sospecha, se solicitará exposición en vivo de los fragmentos clave de este repositorio.
+
 > Se recuerda que la calificación de esta actividad es individual, por lo tanto, cada estudiante debe preparar su propio diálogo y presentarlo claramente en su video. No se permitirá que una sola persona hable por todo el grupo, ni se aceptarán videos con intervenciones genéricas o sin preparación.
 
 
