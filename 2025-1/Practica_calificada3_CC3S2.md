@@ -2010,6 +2010,7 @@ El repositorio debe contener **al menos 1000 líneas** de código Python y Bash,
 
    * Texto de `docs/git_workflows.md` escrito manualmente por el equipo (sin copiar fuentes).
    * Scripts y comandos Git deben ser propios, no extraídos literalmente de tutoriales públicos.
+   * Si vas a utilizar sistemas de base de datos distintas puedes usar mongodb local. No usar sqlite.
    * Si se detecta uso de IA, se pedirá una exposición en vivo de demostración.
 
 ### Proyecto 12: "Pruebas de integración y E2E de infraestructura local con Terratest/Kitchen-Terraform simulados"
@@ -2811,6 +2812,8 @@ Cada estudiante, además de trabajar en el repositorio grupal, deberá entregar 
 
 > **Nota final:**
 > Las rúbricas para detectar posible código generado por IA (commits masivos, mensajes genéricos, estilos inconsistentes, falta de pruebas, etc.) se aplicarán tanto al repositorio grupal como al individual. En caso de sospecha, se solicitará exposición en vivo de los fragmentos clave de este repositorio.
+> Se recuerda que la calificación de esta actividad es individual, por lo tanto, cada estudiante debe preparar su propio diálogo y presentarlo claramente en su video. No se permitirá que una sola persona hable por todo el grupo, ni se aceptarán videos con intervenciones genéricas o sin preparación.
+
 
 
 
