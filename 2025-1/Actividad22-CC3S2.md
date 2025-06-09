@@ -130,7 +130,7 @@
    * Asigna versiones (`v1.0.0`, `v1.1.0`, etc.) a cada módulo.
 2. **Ejercicio práctico**
 
-   * Crea tags Git y un script en `Makefile` que haga:
+   * Crea tags de Git y un script en `Makefile` que haga:
 
      ```makefile
      release:
