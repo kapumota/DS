@@ -28,6 +28,7 @@ Este curso intensivo está diseñado para proporcionar una visión integral de l
 - [Patrones para módulos de infraestructura en IaC con Terraform y Python](https://github.com/kapumota/DS/blob/main/2025-1/Actividad21-CC3S2.md)
 - [Patrones de dependencias en IaC con Terraform y Python](https://github.com/kapumota/DS/blob/main/2025-1/Actividad22-CC3S2.md)
 - [Pruebas en IaC](https://github.com/kapumota/DS/blob/main/2025-1/Actividad23-CC3S2.md)
+
 ### Índice
 
 - [Capítulo 1: DevOps y el desarrollo moderno](#capítulo-1-devops-y-el-desarrollo-moderno)
