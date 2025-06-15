@@ -6,7 +6,6 @@ CONFIG_FILE = 'network_config.json'
 def conf():
     return json.load(open(CONFIG_FILE))
 
-
 def test_schema_keys(conf):
     assert isinstance(conf, dict)
     assert 'resources' in conf
