@@ -26,7 +26,7 @@ iac-project/
 │  ├─ integration/       # pruebas de integración entre network+compute
 │  ├─ smoke/             # pruebas de humo de 'terraform validate' y plan simple
 │  ├─ regression/        # tests de plan vs golden files
-│  └─ e2e/               # end-to-end deploy + curl HTTP
+│  └─ e2e/               # despliegue e2e + curl HTTP
 └─ scripts/
    ├─ run_smoke.sh
    ├─ run_unit.sh
