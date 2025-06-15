@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Genera configuración JSON de servidor local sin proveedor de nube.
+Genera configuración JSON de servidor local sin proveedor de la nube.
 """
 import json
 import argparse
