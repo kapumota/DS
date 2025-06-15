@@ -1,5 +1,5 @@
 """
-Módulo local para definir una red en JSON, sin dependencia de nube.
+Módulo local para definir una red en JSON, sin dependencia de proveedores de la nube.
 """
 import json
 import netaddr
