@@ -17,12 +17,10 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(b"Esta corriendo!")
     def log_message(self, format, *args):
         pass
-
-
+        
 def initialize() -> int:
     # No se requiere inicialización externa
     return 0
-
 
 def apply() -> tuple[int, str, bytes]:
     global _service, _thread, _service_url
@@ -38,12 +36,10 @@ def apply() -> tuple[int, str, bytes]:
     # Simula salida de despliegue con URL
     return 0, _service_url, b''
 
-
 def output(var_name: str) -> tuple[bytes, bytes]:
     if var_name == 'url' and _service_url:
         return _service_url.encode(), b''
     return b'', b'Variable no encontrada'
-
 
 def destroy() -> int:
     global _service
