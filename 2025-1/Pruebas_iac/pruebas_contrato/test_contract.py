@@ -24,7 +24,6 @@ SCHEMA = {
     },
     "required": ["resources"]
 }
-
 @ pytest.mark.parametrize("cls,args", [
     (NetworkFactoryLocal, {"name":"testnet","ip_range":"10.0.0.0/24"}),
     (ServerFactoryLocal, {"name":"web01","network_cidr":"10.0.0.0/24"})
