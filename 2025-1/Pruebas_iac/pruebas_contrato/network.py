@@ -1,6 +1,5 @@
 """
-Módulo local para definir instancias de servidor en JSON,
-usa un rango IP localizado, sin proveedor cloud.
+Módulo local para definir instancias de servidor en JSON, usa un rango IP localizado, sin proveedor cloud.
 """
 import json
 import ipaddress
