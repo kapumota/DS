@@ -13,10 +13,8 @@ def st(tmp_path_factory):
     path = d / 'network_state.json'
     return json.loads(path.read_text())
 
-
 def test_state_contains_planned(st):
     assert 'planned_values' in st
-
 
 def test_planned_matches_config(st):
     cfg = st['planned_values']
