@@ -6,7 +6,6 @@ import json
 import argparse
 
 SERVER_CFG_FILE = 'server_config.json'
-
 class LocalServerFactory:
     def __init__(self, name: str):
         self.name = name
