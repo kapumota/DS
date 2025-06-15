@@ -21,21 +21,17 @@ def apply_changes(tmp_path, monkeypatch):
     # Destruye recursos simulados
     assert utils.destroy() == 0
 
-
 def test_return_code(apply_changes):
     return_code, stdout, stderr = apply_changes
     assert return_code == 0
-
 
 def test_no_errors(apply_changes):
     _, _, stderr = apply_changes
     assert stderr == b''
 
-
 def test_resource_added(apply_changes):
     _, stdout, _ = apply_changes
     assert b'Resources: 1 added' in stdout
-
 
 def test_server_running(apply_changes):
     server = utils.get_server(TEST_NAME)
