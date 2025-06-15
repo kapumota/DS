@@ -25,7 +25,6 @@ def e2e_flow(tmp_path, monkeypatch):
     # teardown
     assert utils.destroy() == 0
 
-
 def test_e2e_service_response(e2e_flow):
     url = e2e_flow
     resp = requests.get(url)
