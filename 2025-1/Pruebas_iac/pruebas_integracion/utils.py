@@ -6,11 +6,9 @@ import subprocess
 
 SERVER_CFG_FILE = 'server_config.json'
 
-
 def initialize() -> int:
     # Simula terraform init verificando que Python esté disponible
     return 0
-
 
 def apply() -> tuple[int, bytes, bytes]:
     # Simula terraform apply creando un archivo de estado
@@ -29,7 +27,6 @@ def destroy() -> int:
     if os.path.exists('server_state.json'):
         os.remove('server_state.json')
     return 0
-
 
 def get_server(name: str) -> dict:
     # Simula recuperación de recurso local
