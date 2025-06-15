@@ -5,9 +5,9 @@ Genera dos archivos:
  - network_config.json: definición de recursos a crear
  - network_state.json: estado planificado (simulado)
 Además soporta:
- - validación de rango CIDR
- - actualización de parámetros de red
- - limpieza de archivos previos
+ - Validación de rango CIDR
+ - Actualización de parámetros de red
+ - Limpieza de archivos previos
 """
 import argparse
 import json

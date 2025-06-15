@@ -17,7 +17,6 @@ def config(factory):
     path = factory / 'network_config.json'
     return json.loads(path.read_text())
 
-
 def test_valid_prefixlen(config):
     # Validar que la red y subred tengan prefijos correctos
     resources = config['resources']
