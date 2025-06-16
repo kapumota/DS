@@ -58,7 +58,7 @@ sed -E '
 ' "${TPL}" \
 | jq . > "${OUT}" \
   || { echo "Error: fallo al generar o validar ${OUT}"; exit 1; }
-echo "✔ ${OUT} generado y validado con jq"
+echo "${OUT} generado y validado con jq"
 
 # --- 3. terraform init ---
 echo "-> terraform init"
