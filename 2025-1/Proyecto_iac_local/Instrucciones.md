@@ -78,3 +78,72 @@ Los siguientes comandos se ejecutan desde la raíz del proyecto (revisa [Terrafo
 * **Composabilidad**: cada módulo es independiente y reutilizable.
 * **Evolutividad**: añadir o modificar servicios cambiando solo variables o `locals`.
 
+### Flujo de verificación 
+
+**Instala jsonschema en tu entorno de Python**
+```
+pip install jsonschema
+```
+
+Para ejecutar el flujo de verificación unificado, sigue estos pasos:
+
+1. **Haz el script ejecutable**
+   Desde la raíz de tu proyecto, donde está `verify.sh`, ejecuta:
+
+   ```bash
+   chmod +x verify.sh
+   ```
+
+2. **Invocar la verificación de cada fase**
+   El script acepta un parámetro `--phase` con valor `1`, `2`, `3` (para `apply`) o `4` (para `destroy`). Por ejemplo:
+
+   * Para la **fase 1**:
+
+     ```bash
+     ./verify.sh --phase 1
+     ```
+   * Para la **fase 2**:
+
+     ```bash
+     ./verify.sh --phase 2
+     ```
+   * Para la **fase 3**:
+
+     ```bash
+     ./verify.sh --phase 3
+     ```
+   * Para la **fase 4** (destroy):
+
+     ```bash
+     ./verify.sh --phase 4
+     ```
+
+3. **Salida y artefactos**
+
+   * Se generará y validará `config.json` a partir de `config.json.tpl`.
+   * Se ejecutará `terraform init` y luego `apply` o `destroy` según la fase.
+   * Al final tendrás un fichero `outputs_filtered.json` con los outputs filtrados de variables sensibles.
+
+#### (Opcional) Uso desde un Makefile
+
+Si quieres atajos con `make`, añade esto a tu `Makefile`:
+
+```makefile
+.PHONY: verify-phase1 verify-phase2 verify-phase3 verify-phase4
+
+verify-phase%:
+    ./verify.sh --phase $*
+
+# Por ejemplo:
+# $ make verify-phase1
+# hará lo mismo que: ./verify.sh --phase 1
+```
+
+Con esto solo bastaría, por ejemplo,
+
+```bash
+make verify-phase1
+```
+
+para lanzar todo el flujo de la fase 1.
+
