@@ -1,4 +1,4 @@
-### Proyecto ETL con Docker y Airflow
+### Docker y Airflow
 
 Este proyecto muestra un flujo completo de ETL utilizando Docker, Docker Compose y Apache Airflow.
 
