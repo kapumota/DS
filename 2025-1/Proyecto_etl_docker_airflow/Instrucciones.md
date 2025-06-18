@@ -147,7 +147,7 @@ docker-compose exec airflow-webserver airflow dags trigger etl_pipeline
 * Refresca la pestaña **"DAG Runs”** en la UI para comprobar el progreso.
 
 
-#### Apagar completamente el sistema
+### Apagar completamente el sistema
 
 Desde la carpeta de tu proyecto:
 
