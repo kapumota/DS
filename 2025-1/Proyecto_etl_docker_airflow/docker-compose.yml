@@ -1,0 +1,98 @@
+services:
+  postgres:
+    image: postgres:13
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: etl_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  etl-app:
+    build: ./app
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: etl_db
+      CSV_PATH: /app/data/input.csv
+    volumes:
+      - ./app/data:/app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  airflow-init:
+    build:
+      context: .
+      dockerfile: airflow/Dockerfile
+    restart: "no"
+    entrypoint: >
+      bash -c "
+        airflow db upgrade &&
+        airflow users create \
+          --username admin \
+          --password admin \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.com \
+          --force
+      "
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://user:pass@postgres:5432/etl_db"
+      AIRFLOW_UID: 50000
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  airflow-webserver:
+    build:
+      context: .
+      dockerfile: airflow/Dockerfile
+    restart: unless-stopped
+    command: ["webserver"]
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://user:pass@postgres:5432/etl_db"
+      AIRFLOW_UID: 50000
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./app:/opt/airflow/app
+    depends_on:
+      - airflow-init
+      - postgres
+
+  airflow-scheduler:
+    build:
+      context: .
+      dockerfile: airflow/Dockerfile
+    restart: unless-stopped
+    command: ["scheduler"]
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://user:pass@postgres:5432/etl_db"
+      AIRFLOW_UID: 50000
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./app:/opt/airflow/app
+    depends_on:
+      - airflow-init
+      - postgres
+
+volumes:
+  postgres_data:
