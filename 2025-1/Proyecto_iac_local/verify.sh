@@ -49,7 +49,7 @@ echo "   Salida   : ${OUT}"
 # --- 2. Preprocesado de la plantilla ---
 echo "-> Generando ${OUT} (wrapping placeholders, eliminando comentarios y comas finales)"
 sed -E '
-  # 1) Envuelve los placeholders no citados en comillas: : ${foo} → : "${foo}"
+  # 1) Envuelve los placeholders no citados en comillas: : ${fa} -> : "${fa}"
   s/:\s*\$\{([a-zA-Z0-9_]+)\}/: "\$\{\1\}"/g
   # 2) Eliminar comentarios estilo //
   s,//.*$,,
