@@ -111,7 +111,7 @@ Este proyecto se centra en construir un robusto marco de pruebas para infraestru
         * Desplieguen combinaciones de módulos Terraform en un **workspace local** de Terraform.
         * Verifiquen la interconexión entre los módulos y los servicios simulados (ej. un módulo crea una configuración que el servicio simulado consume).
         * Utiliza **mocks y monkeypatch de pytest** para simular respuestas de APIs externas si es necesario para los tests.
-    * Usa **Pull Requests y revisión de código** para todas las integraciones de código.
+    * Usa **pull requests y revisión de código** para todas las integraciones de código.
 * **Entregables del Sprint:**
     * Pruebas de contrato para los módulos Terraform.
     * Configuración de Docker Compose para simulación de servicios.
