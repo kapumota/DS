@@ -174,7 +174,7 @@ La referencia completa del proyecto está disponible en GitHub:
         ```
      4. Muestra logs y comprueba la carga de datos.
 
-10. **Retos adicionales “manos a la obra”**
+10. **Retos adicionales "manos a la obra"**
 
     * Modifica el `Dockerfile` para usar un *multi-stage build* que pipistrelee solo las dependencias necesarias en el contenedor final.
     * Añade un volumen nombrado para persistir los datos de PostgreSQL y haz que tu `docker-compose.yml` lo use.
