@@ -452,7 +452,7 @@ Este proyecto implica construir una herramienta que genere manifiestos de Kubern
     * Flujo de despliegue de manifiestos generados.
     * Pruebas E2E para los manifiestos generados.
     * (Opcional) Implementación de GitOps local simulado.
-    * **Video (10+ minutos):** Demostración del despliegue y las pruebas E2E de los manifiestos generados. Explicación de los **Helm Charts** y su relación con la generación parametrizada. Discusión sobre la **Testing de Infraestructura (IaC)**, especialmente **E2E locales**.
+    * **Video (10+ minutos):** Demostración del despliegue y las pruebas E2E de los manifiestos generados. Explicación de los **Helm Charts** y su relación con la generación parametrizada. Discusión sobre las **pruebas de infraestructura (IaC)**, especialmente **E2E locales**.
 * **Video final de proyecto (10+ minutos):** Demostración completa del generador de manifiestos, explicando cómo ayuda a crear configuraciones de Kubernetes reutilizables y validadas. Todos los estudiantes deben participar activamente en este video.
 
 ### Proyecto 9: Herramienta de detección de drift de infraestructura local
