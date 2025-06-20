@@ -1,0 +1,10 @@
+# Core app
+fastapi==0.110.0          # fija Starlette ~=0.37.*
+uvicorn[standard]==0.29.0
+pydantic==2.8.1
+
+# Tests y cliente HTTP
+httpx>=0.27,<0.28         # mínimo 0.27 para transporte síncrono integrado
+pytest==8.2.1
+
+# (añade aquí cualquier otra dependencia interna de tu microservicio)
