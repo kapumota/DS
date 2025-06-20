@@ -40,6 +40,27 @@ Este documento describe cómo poner en marcha el microservicio tanto con Docker 
    docker image prune -f
    ```
 
+#### Atajos con Makefile
+
+Dentro del directorio del proyecto, si dispones de GNU Make, puedes usar:
+
+```bash
+# Construir imagen Docker
+make build
+
+# Arrancar el contenedor
+make run
+
+# Parar y eliminar contenedor
+make stop
+
+# Limpiar imágenes dangling
+make clean
+
+# Etiquetar y subir a GHCR (configura REGISTRY y IMAGE_TAG)
+make publish REGISTRY=ghcr.io/tu-org IMAGE_TAG=0.1.0
+```
+
 #### Ejecución en local (sin Docker)
 
 1. **Crear y activar entorno virtual**
