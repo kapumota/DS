@@ -40,7 +40,7 @@ Este documento describe cómo poner en marcha el microservicio tanto con Docker 
    docker image prune -f
    ```
 
-### Ejecución en local (sin Docker)
+#### Ejecución en local (sin Docker)
 
 1. **Crear y activar entorno virtual**
 
