@@ -1,8 +1,7 @@
 ## **Introducción a los microservicios**
 
 En la última década, la arquitectura de software basada en microservicios ha ganado una enorme popularidad en el desarrollo de aplicaciones distribuidas. 
-Frente a los enfoques monolíticos tradicionales, los microservicios proponen un estilo arquitectónico en el que una aplicación se compone de múltiples servicios 
-independientes, cada uno ejecutando un proceso ligero y comunicándose mediante APIs bien definidas.
+Frente a los enfoques monolíticos tradicionales, los microservicios proponen un estilo arquitectónico en el que una aplicación se compone de múltiples servicios  independientes, cada uno ejecutando un proceso ligero y comunicándose mediante APIs bien definidas.
 
 ### **¿Por qué microservicios?**
 
@@ -34,8 +33,7 @@ pequeño VM ligero. Al estar aislado, los fallos internos de un servicio no cont
 La **comunicación** entre microservicios se realiza a través de **APIs bien definidas**. Estas interfaces suelen basarse en estándares ligeros como HTTP/REST o gRPC, y en ocasiones mediante sistemas de mensajería asíncrona (colas o eventos). 
 Al establecer contratos claros (por ejemplo, esquemas JSON o Protobuf), cada equipo sabe exactamente qué datos esperar y cómo interactuar, facilitando tanto la colaboración entre desarrolladores como la evolución independiente de cada servicio.
 
-Quizás el aspecto más radical sea el de los **datos encapsulados**. A diferencia de los monolitos, donde varios módulos comparten una misma base de datos, cada microservicio es "dueño" de su propio almacén: puede ser una base
-de datos relacional especializada, un almacén de documentos NoSQL o incluso una caché en memoria. 
+Quizás el aspecto más radical sea el de los **datos encapsulados**. A diferencia de los monolitos, donde varios módulos comparten una misma base de datos, cada microservicio es "dueño" de su propio almacén: puede ser una base de datos relacional especializada, un almacén de documentos NoSQL o incluso una caché en memoria. 
 Esta autonomía evita bloqueos impidiendo el acceso concurrente y permite elegir el modelo de datos que mejor se adapte a cada dominio de negocio.
 
 Finalmente, la **capacidad de despliegue independiente** convierte al microservicio en un motor de agilidad. Cuando se detecta un bug o se quiere añadir una nueva funcionalidad, basta con reconstruir y redeplegar únicamente ese servicio, sin interferir con el resto. 
@@ -60,8 +58,7 @@ La **persistencia** se organiza de forma descentralizada: cada servicio puede di
 De este modo, optimizamos el rendimiento y la escalabilidad para cada tipo de carga de trabajo, y evitamos cuellos de botella que suelen generarse cuando todos los módulos concurren sobre un mismo esquema de datos.
 
 Para las operaciones en las que se desea desacoplar aún más los servicios, se implementan **buses de mensajería** o colas. 
-Esto permite procesar eventos de forma asíncrona: por ejemplo, al registrar un nuevo pedido, el servicio de pedidos emite un evento a una cola y el servicio de 
-facturación lo consume cuando tenga capacidad, garantizando resiliencia ante picos de carga y la posibilidad de reintentos automáticos en caso de fallo.
+Esto permite procesar eventos de forma asíncrona: por ejemplo, al registrar un nuevo pedido, el servicio de pedidos emite un evento a una cola y el servicio de facturación lo consume cuando tenga capacidad, garantizando resiliencia ante picos de carga y la posibilidad de reintentos automáticos en caso de fallo.
 
 Finalmente, todo este conjunto de contenedores y servicios se organiza mediante **herramientas de orquestación** como Docker Compose en fase de desarrollo, y Kubernetes o plataformas de cloud gestionadas en producción. 
 Estas herramientas se encargan de programar contenedores en nodos disponibles, gestionar réplicas, lanzar checks de salud, realizar rolling updates y
@@ -130,8 +127,7 @@ Patrones como el **circuit breaker** previenen llamar sistemáticamente a un ser
 backoff exponencial tratan de recuperarse de errores temporales; los **bulkheads** aíslan recursos (por ejemplo hilos o conexiones) entre servicios para que 
 un colapso en uno no agote los recursos globales; y los **timeouts** evitan que llamadas colgadas bloqueen hilos indefinidamente.
 
-La **seguridad y la autenticación** deben plantearse de forma centralizada. Un API Gateway o un proxy inverso puede encargarse de validar tokens JWT, implementar 
-flujos OAuth2 o comprobar permisos sobre cada petición, liberando a los microservicios de gestionar credenciales directamente. 
+La **seguridad y la autenticación** deben plantearse de forma centralizada. Un API Gateway o un proxy inverso puede encargarse de validar tokens JWT, implementar  flujos OAuth2 o comprobar permisos sobre cada petición, liberando a los microservicios de gestionar credenciales directamente. 
 Esto unifica políticas de acceso, simplifica auditorías y minimiza la superficie de ataque en cada servicio individual.
 
 #### **Principios de diseño**
@@ -166,8 +162,7 @@ De esta manera, la lógica común se mantiene coherente sin obligar a todos los 
 #### **¿Cuánto incluir en cada microservicio?**
 
 La **granularidad fina** impulsa la independencia y la claridad de responsabilidades, pero conlleva un mayor **overhead** de comunicación: más peticiones HTTP, más esquemas  que mantener y más complejidad en el despliegue. 
-Por el contrario, la **granularidad gruesa** reduce el número de servicios y simplifica la orquestación, pero sacrifica los beneficios de escalado y despliegue independiente,
-aproximándose a un monolito distribuido.
+Por el contrario, la **granularidad gruesa** reduce el número de servicios y simplifica la orquestación, pero sacrifica los beneficios de escalado y despliegue independiente, aproximándose a un monolito distribuido.
 
 Como regla general, conviene agrupar en un mismo microservicio las funcionalidades que cambian con la misma frecuencia y dependen del mismo modelo de datos.
 Si dos capacidades comparten fuertes interrelaciones, por ejemplo, creación y validación de un objeto de negocio, tendrán mejor rendimiento y menor 
@@ -406,7 +401,6 @@ docker-compose up --build
 
 Así veremos en tiempo real la salida de cada contenedor.
 
-
 #### Trabajo con la aplicación
 
 1. **Listar contenedores y estado**
@@ -490,7 +484,6 @@ services:
 * **Dockerfile.dev**: un Dockerfile especial que instala herramientas de desarrollo (watchdog, debugger) y expone puertos de depuración.
 
 Al ejecutar `docker-compose up` sin parámetros, Docker Compose carga ambos archivos automáticamente, aplicando la configuración de desarrollo.
-
 
 #### ¿Por qué Docker Compose para desarrollo, pero no para producción?
 
