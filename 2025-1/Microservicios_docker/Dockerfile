@@ -33,7 +33,7 @@ COPY --from=builder /root/.local /home/${APP_USER}/.local
 # Copiar todo el código fuente
 COPY . /app
 
-# ← AÑADE ESTO para dar permisos sobre /app
+# <- AÑADE ESTO para dar permisos sobre /app
 RUN chown -R ${APP_USER}:${APP_USER} /app
 
 # Ejecutar como usuario no root
