@@ -8,8 +8,9 @@ Para cada proyecto se especifican:
 - **Requerimientos de entrega por sprint** (Sprint 1, Sprint 2, Sprint 3)
 - **Fecha de entrega:** 30 de junio a las 8am.
 - **Calificación:**
-    - Presentación del trabajo 5 puntos
-    - Vídeo de trabajo 5 puntos
+    - **Presentación del trabajo:** 6 puntos
+    - **Vídeo de trabajo de explicación interna:** 6 puntos
+    - **Cumplimiento de todas las actividades del curso:** 8 puntos
 
 **Consideraciones generales para todos los proyectos:**
 
