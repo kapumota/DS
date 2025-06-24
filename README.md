@@ -30,6 +30,7 @@ Este curso intensivo está diseñado para proporcionar una visión integral de l
 - [Pruebas en IaC](https://github.com/kapumota/DS/blob/main/2025-1/Actividad23-CC3S2.md)
 - [Introducción a Docker, ETL en Docker Compose](https://github.com/kapumota/DS/blob/main/2025-1/Actividad24-CC3S2.md)
 - [Arquitectura y desarrollo de microservicios con Docker y Kubernetes](https://github.com/kapumota/DS/blob/main/2025-1/Actividad25-CC3S2.md)
+- [Implementación continua con GitHub Actions](https://github.com/kapumota/DS/blob/main/2025-1/Actividad26-CC3S2.md)
 
 ### Índice
 
