@@ -1672,12 +1672,12 @@ El repositorio debe contener **al menos 800 líneas** de Terraform, Bash y Pytho
 - **Originalidad y prevención de copias de IA** (- evaluación cualitativa)
 
    * Descripciones en Markdown deben ser originales; se penaliza cualquier párrafo con coincidencia con documentos públicos.
-   * Si se detectan fragmentos con alta probabilidad de IA, se solicitará explicación en vivo 
+   * Si se detectan fragmentos con alta probabilidad de IA, se solicitará explicación en vivo.
 
-#### Proyecto 10: "Pull requests y revisión de código Automatizada con Hooks y Linters"
+#### Proyecto 10: "Pull requests y revisión de código automatizada con hooks y linters"
 
 **Enunciado general**
-Desarrollar un **repositorio local** donde se simule un flujo **Pull Request** completo y la revisión de código automatizada usando:
+Desarrollar un **repositorio local** donde se simule un flujo **pull request** completo y la revisión de código automatizada usando:
 
 - **Git hooks**:
 
@@ -1699,7 +1699,7 @@ Desarrollar un **repositorio local** donde se simule un flujo **Pull Request** c
 - **Simulación de merge**:
 
    * Crear al menos 2 ramas de feature (`feature/XYZ`) con cambios en código (p. ej., un script Python que modifique un archivo de configuración).
-   * Simular un Pull Request localmente:
+   * Simular un pull request localmente:
 
      * Crear una carpeta `pr_simulation/` con archivos:
 
@@ -1782,7 +1782,7 @@ El repositorio debe contener **al menos 800 líneas** entre Python, Bash, YAML y
 
   - `feature/AUTO_INCR_VERSION`: modifica `config_modifier.py` para incrementar también otro parámetro (p. ej., `build_number`).
   - `feature/ADD_LOGGING`: añade un módulo Python `logger.py` que gestione logs en archivos.
-* Simular **2 Pull Requests locales**:
+* Simular **2 Pull requests locales**:
 
   * Para cada rama, crear `pr_simulation/201_title.txt`, `pr_simulation/201_body.md`,
     `pr_simulation/201_commits.txt` con 3 commits apropiados.
@@ -1790,7 +1790,7 @@ El repositorio debe contener **al menos 800 líneas** entre Python, Bash, YAML y
   * Revisar resultados y corregir errores en scripts y código.
 * **Video (10 min)** que muestre:
 
-  - Flujo de Pull Request local con `act pull_request`.
+  - Flujo de pull request local con `act pull_request`.
   - Resultado de `check_pr.py` generando `pr_report.md` con secciones OK/Fail.
   - Ejecución de flake8 y pytest con cobertura.
   - Issues en Kanban para commits inválidos o documentación faltante.
@@ -1827,7 +1827,7 @@ El repositorio debe contener **al menos 800 líneas** entre Python, Bash, YAML y
   - Actualizar `CHANGELOG.md` global con ejemplos de entradas de PR.
 * **Video final (10 min)** que muestre:
 
-  - Ejecución de Pull Request con `act pull_request` y detección de fallos de lint y seguridad.
+  - Ejecución de pull request con `act pull_request` y detección de fallos de lint y seguridad.
   - Correcciones de código siguiendo sugerencias en `pr_report.md`.
   - Última ejecución exitosa de pipeline y merge local simulado.
   - Estado final del tablero Kanban: cierre de PRs y issues.
