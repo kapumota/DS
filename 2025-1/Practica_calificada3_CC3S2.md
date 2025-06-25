@@ -219,61 +219,7 @@ Si en cualquier momento se detecta alguno de los patrones de sospecha anteriores
 
    * Si, tras la exposición en vivo, se determina falta de conocimiento o incapacidad para responder preguntas técnicas, se deducirán puntos adicionales hasta anular por completo la sección específica del proyecto (0/5) y, en casos extremos, se considerará como incumplimiento total.
 
-
-Claro, he analizado el documento de la Práctica Calificada 3. A continuación, te presento mi opinión sobre su estructura y cómo se podría incorporar el sistema de calificación que propones.
-
 ---
-
-### **Opinión General sobre la Práctica Calificada**
-
-En general, es una práctica calificada **excepcionalmente bien diseñada, rigurosa y muy alineada con las prácticas modernas de la industria del software**. No evalúa simplemente un resultado final, sino todo el proceso de desarrollo, la colaboración y la autenticidad del trabajo.
-
-#### **Puntos Fuertes:**
-
-1.  **Enfoque en Buenas Prácticas (DevOps/SRE):** La práctica exige el uso de herramientas y metodologías estándar en la industria como Git (con un flujo de trabajo coherente), Kanban para la gestión de proyectos, y la automatización a través de scripts (Bash, Python). Esto prepara a los estudiantes para desafíos del mundo real.
-2.  **Énfasis en el Proceso y la Trazabilidad:** La exigencia de un tablero Kanban actualizado, commits atómicos y descriptivos, y la conexión entre repositorios individuales y grupales fomenta una trazabilidad clara del trabajo. Esto es fundamental y a menudo se pasa por alto en entornos académicos.
-3.  **Medidas Anti-Plagio y Anti-IA muy Robustas:** Los "criterios de aplastamiento" son una respuesta directa y moderna al desafío del código generado por IA o copiado. Penalizar "volcados masivos de código", mensajes de commit genéricos y la falta de explicación del propio código ataca el problema de raíz.
-4.  **Fomento de la Responsabilidad Individual:** Al exigir un repositorio individual, contribuciones claras (`CONTRIBUTIONS.md`) y la participación de todos en los videos, se combate eficazmente el problema de los "free-riders" (miembros del equipo que no trabajan) y se asegura que cada estudiante domine su parte del proyecto.
-5.  **Evaluación de Habilidades Blandas:** La necesidad de crear videos y presentar en vivo evalúa la capacidad de comunicación, la cohesión del equipo y la claridad para exponer ideas técnicas, habilidades tan importantes como la programación misma.
-
-#### **Áreas de Consideración o Desafíos:**
-
-* **Alta Carga de Trabajo y Complejidad:** La cantidad de entregables (código, Kanban, videos, repositorios múltiples, documentación) es alta. Requiere una excelente organización por parte de los equipos.
-* **Rigor Elevado:** Las penalizaciones son severas ("5 puntos de penalización" o "0 si no son capaces de explicar"). Esto eleva la presión, lo cual puede ser bueno para el aprendizaje pero también puede generar mucha ansiedad si los criterios no se comunican con total transparencia desde el inicio.
-
-
-### **Estructura de calificación (20 Puntos)**
-
-La calificación de esta práctica se distribuirá en tres componentes clave, diseñados para evaluar tanto el producto final como la comprensión profunda del proceso y la colaboración en equipo. La nota máxima es de 20 puntos.
-
-#### **1. Entrega del proyecto (trabajo asíncrono) - 4 Puntos**
-
-Este componente evalúa la calidad y completitud de los artefactos entregados. Se espera que el trabajo cumpla con todos los requerimientos técnicos y de documentación solicitados incluyendo las rúbricas anteriores.
-
-#### **2. Videos de avance y final - 6 Puntos**
-
-Este componente evalúa la capacidad del equipo para comunicar su progreso de manera clara, concisa y profesional. La participación equitativa de todos los miembros es obligatoria.
-
-* **Criterios de evaluación:**
-    * Claridad en la exposición de los avances de cada sprint.
-    * Cohesión y fluidez en la presentación grupal (se debe notar la preparación).
-    * Calidad técnica del video (audio y video claros).
-    * Participación activa y significativa de **todos** los integrantes del equipo.
-
-#### **3. Exposición basada en preguntas - 10 puntos**
-
-Este es el componente **más importante** de la evaluación. Se realizará una sesión de preguntas y respuestas con cada grupo donde se buscará validar la autoría y la comprensión profunda del proyecto. Las preguntas podrán ser dirigidas al grupo o a integrantes específicos.
-
-* **Criterios de evaluación:**
-    * Capacidad para explicar la arquitectura, el diseño y las decisiones técnicas tomadas.
-    * Dominio del código: cada estudiante debe ser capaz de explicar cualquier fragmento de código en el que haya trabajado.
-    * Habilidad para justificar el flujo de trabajo seguido (Git, Kanban).
-    * Respuestas precisas y directas a las preguntas del evaluador.
-    * **Penalización:** La incapacidad para responder satisfactoriamente o explicar el propio trabajo resultará en una reducción significativa o total de los puntos en esta sección, afectando la nota final de manera drástica.
-
----
-
-
 ### Proyecto 1: "GitOps local para despliegue simulado de servicios"
 
 **Enunciado general**
