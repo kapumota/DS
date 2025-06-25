@@ -2744,7 +2744,7 @@ Cada estudiante, además de trabajar en el repositorio grupal, deberá entregar 
        Pull request grupal: #27
      ```
 
-     * Cada entrada debe apuntar al **ID de commit** (hash corto o largo) y al **número de pull request** (o issue) en el repositorio grupal, para que el evaluador pueda rastrear exactamente lo que hiciste.
+     * Cada entrada debe apuntar al **ID de commit** (hash corto o largo) y al **número de pull request** (o issue) en el repositorio grupal, para que el profesor pueda rastrear exactamente lo que hiciste.
 
 3. **Ramas y parches (opcional pero recomendado)**
 
@@ -2754,7 +2754,7 @@ Cada estudiante, además de trabajar en el repositorio grupal, deberá entregar 
      git format-patch origin/main..feature/rollback-una-etiqueta \
        --stdout > branches/feature-rollback-<mi_nombre>.patch
      ```
-   * Así el evaluador puede aplicar el parche sobre el repositorio grupal y comprobar tu lógica aislada.
+   * Así el profesor puede aplicar el parche sobre el repositorio grupal y comprobar tu lógica aislada.
    * En la carpeta `branches/` guarda esos archivos `.patch` con nombre descriptivo.
 
 4. **Videos  por sprint**
