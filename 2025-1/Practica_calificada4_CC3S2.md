@@ -314,7 +314,7 @@ Este proyecto se centra en la refactorización de código Terraform existente pa
         * Parse (usando `hcl2` o similar) los archivos Terraform.
         * Identifique los patrones de deuda técnica definidos.
         * Genere un reporte de los problemas encontrados.
-    * Implementa **Pull Requests y revisión de código** para todas las contribuciones.
+    * Implementa **pull requests y revisión de código** para todas las contribuciones.
 * **Entregables del Sprint:**
     * Definición de patrones anti-IaC y ejemplos de código problemático.
     * Herramienta de análisis estático funcional que reporta deudas técnicas.
@@ -693,7 +693,7 @@ Este proyecto consiste en construir una herramienta que simule un patrón de des
         * Esto podría hacerse actualizando el selector de un Service principal o las reglas de un Ingress.
     * Implementa una funcionalidad de **rollback** (`rollback_to_previous`) que revierta el tráfico a la versión previamente activa.
     * Desarrolla **pruebas de integración** (`pytest` con `requests` o `curl` para verificar las respuestas HTTP) que aseguren que el tráfico se dirige correctamente a la versión activa después de cada cambio y que el rollback funciona.
-    * Utiliza **Pull Requests y Revisión de Código** para gestionar los cambios.
+    * Utiliza **pull requests y revisión de código** para gestionar los cambios.
 * **Entregables del Sprint:**
     * Script con funcionalidad de cambio de tráfico y rollback.
     * Pruebas de integración para el cambio de tráfico y rollback.
@@ -766,7 +766,7 @@ Este proyecto busca crear una herramienta que genere entornos de prueba aislados
     * Pruebas de contrato para las interacciones con mocks.
     * Capacidad de orquestar escenarios de prueba complejos.
     * Reportes de ejecución de pruebas.
-    * **Video (10+ minutos):** Demostración de las pruebas de contrato y la ejecución de un escenario de prueba complejo. Explicación de los **conceptos de Contract Testing**. Discusión sobre los **tests de infraestructura (Integration Tests, E2E locales)** y **GitOps simulado**.
+    * **Video (10+ minutos):** Demostración de las pruebas de contrato y la ejecución de un escenario de prueba complejo. Explicación de los **conceptos de contract testing**. Discusión sobre los **tests de infraestructura (Integration Tests, E2E locales)** y **GitOps simulado**.
 * **Video final de proyecto (10+ minutos):** Demostración completa del constructor de entornos de pruebas, explicando cómo facilita el testing aislado y controlado de microservicios. Todos los estudiantes deben participar activamente en este video.
 
 ### Proyecto 15: Automatización de generación de CHANGELOG y versionado semántico
@@ -854,7 +854,7 @@ Este proyecto busca construir una herramienta que facilite la ejecución de coma
         * Manejar la entrada del usuario (ej. para comandos interactivos como `bash`).
     * Asegúrate de que la CLI pueda manejar diferentes **espacios de nombres** en Kubernetes.
     * Desarrolla **pruebas unitarias** (`pytest`) para la lógica de detección de entorno y construcción de comandos.
-    * Utiliza **Pull Requests y Revisión de Código** para los cambios.
+    * Utiliza **pull requests y revisión de código** para los cambios.
 * **Entregables del Sprint:**
     * CLI extendida para Kubernetes Pods.
     * Manejo de entradas de usuario y espacios de nombres.
