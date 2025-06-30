@@ -1,8 +1,8 @@
-### Microservicios con Kubernetes y Despliegue Continuo
+### Microservicios con Kubernetes y despliegue continuo
 
 Este proyecto muestra cómo construir, desplegar y gestionar microservicios en Python (FastAPI) usando Docker, Kubernetes (Minikube) y GitHub Actions para CI/CD.
 
-### Estructura del Proyecto
+### Estructura del proyecto
 
 * **service-user/** – Servicio de usuarios (FastAPI)
 * **service-order/** – Servicio de pedidos (FastAPI)
@@ -11,7 +11,7 @@ Este proyecto muestra cómo construir, desplegar y gestionar microservicios en P
 * **minikube-setup.sh** – Script para inicializar Minikube y desplegar
 * **scripts/deploy.sh** – Script de ayuda para construir y aplicar manifiestos
 
-#### Conceptos Cubiertos
+#### Conceptos cubiertos
 
 * Docker y Dockerfile
 * Kubernetes: Deployments, Services, ConfigMaps
@@ -19,7 +19,7 @@ Este proyecto muestra cómo construir, desplegar y gestionar microservicios en P
 * Comandos `kubectl`
 * GitHub Actions: compilación, pruebas y despliegue automático
 
-### Pasos para poner en marcha
+#### Pasos para poner en marcha
 
 ### 1. Preparación y descompresión
 
@@ -28,9 +28,7 @@ unzip microservices-k8s.zip -d ~/projects/
 cd ~/projects/microservices-k8s
 ```
 
----
-
-### 2. Ejecución “Bare-Metal” (sin Docker/Kubernetes)
+#### 2. Ejecución "Bare-Metal" (sin Docker/Kubernetes)
 
 > Ideal para desarrollo rápido y depuración individual de cada servicio.
 
@@ -72,18 +70,17 @@ cd ~/projects/microservices-k8s
      -d '{"id":10,"user_id":1,"item":"Café","quantity":2}'
    ```
 
----
 
-### 3. Ejecución con Docker y Kubernetes en Minikube
+#### 3. Ejecución con Docker y Kubernetes en Minikube
 
-#### 3.1 Prerrequisitos
+**3.1 Prerrequisitos**
 
 * Docker instalado
 * Minikube (`>= v1.30`)
 * `kubectl` en tu `$PATH`
 * (Opcional) Bash / Git Bash
 
-#### 3.2 Iniciar Minikube y preparar Docker
+**Iniciar Minikube y preparar Docker**
 
 ```bash
 # Arranca Minikube
@@ -108,7 +105,7 @@ eval "$(minikube -p minikube docker-env --shell bash)"
 >
 >   Pero es más propenso a errores.
 
-#### 3.3 Construcción de Imágenes
+**Construcción de imágenes**
 
 ```bash
 # Desde la raíz del proyecto
@@ -116,14 +113,14 @@ docker build -t user-service:latest ./service-user
 docker build -t order-service:latest ./service-order
 ```
 
-#### 3.4 Despliegue en Kubernetes
+**Despliegue en Kubernetes**
 
 ```bash
 kubectl apply -f k8s/user-deployment.yaml
 kubectl apply -f k8s/order-deployment.yaml
 ```
 
-#### 3.5 Verificación
+**Verificación**
 
 ```bash
 kubectl get pods
@@ -134,9 +131,7 @@ minikube service user-service
 minikube service order-service
 ```
 
----
-
-### 4. Scripts de Ayuda
+#### Scripts de ayuda
 
 Para automatizar los pasos de arranque, construcción y despliegue:
 
@@ -150,9 +145,7 @@ chmod +x scripts/deploy.sh
 ./scripts/deploy.sh
 ```
 
----
-
-## 5. Pipeline CI/CD con GitHub Actions
+#### Pipeline CI/CD con GitHub Actions
 
 Cada push a `main` lanza el workflow que:
 
