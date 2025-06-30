@@ -1,0 +1,40 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    - name: Build and push user-service Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: service-user
+        push: false
+        tags: user-service:latest
+    - name: Build and push order-service Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: service-order
+        push: false
+        tags: order-service:latest
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: '1.26'
+    - name: Set up Minikube
+      run: |
+        curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        sudo install minikube-linux-amd64 /usr/local/bin/minikube
+    - name: Minikube start
+      run: minikube start --driver=none
+    - name: Deploy to Minikube
+      run: |
+        kubectl apply -f k8s/user-deployment.yaml
+        kubectl apply -f k8s/order-deployment.yaml
