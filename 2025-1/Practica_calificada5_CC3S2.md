@@ -87,41 +87,41 @@ Además, durante la demo cada alumno debe ejecutar al menos un comando en vivo, 
 4. **Preguntas relámpago**
    El docente formula una cuestión específica sobre la funcionalidad implementada (ruta de un secreto, flag de `helm`, línea de un Dockerfile). Respuesta incorrecta -> la nota de la demo baja a 0 (pierde 3 pts).
 
-### **Entragables**
+### **Entregables**
 Además de compartir el **URL del repositorio** (rama `main`/`develop`) deberías entregar este tipo de evidencia que aportan:
 
 #### 1 . Evidencia del **proceso de desarrollo**
 
-1. **Export del historial Git en formato patch**
+* **Export del historial Git en formato patch**
 
    ```bash
    git log --reverse --patch --stat --no-color > history.patch
    ```
 
    Muestra la evolución línea-a-línea y los autores reales de cada cambio.
-2. **Gráfico de commits y contribuciones por autor** (`git shortlog -sne`) en un archivo `contribuciones.txt`.
-3. **Commits firmados (GPG o SSH) + "Signed-off-by"** para cada push importante.
-4. **Captura de pantalla** del comando `tig` o `gitk` con la vista de las ramas `feature/...` antes del merge squash.
+* **Gráfico de commits y contribuciones por autor** (`git shortlog -sne`) en un archivo `contribuciones.txt`.
+*  **Commits firmados (GPG o SSH) + "Signed-off-by"** para cada push importante.
+* **Captura de pantalla** del comando `tig` o `gitk` con la vista de las ramas `feature/...` antes del merge squash.
 
 #### 2 . Evidencia de **ejecución y entorno**
 
-5. **Enlace permanente** al *run* de GitHub Actions que quedó verde, o bien el `artifacts.zip` descargado del workflow (incluye logs, cobertura y linters).
-6. **Grabación breve (1-2 min.)** de terminal (asciinema o GIF) donde se vea:
+* **Enlace permanente** al *run* de GitHub Actions que quedó verde, o bien el `artifacts.zip` descargado del workflow (incluye logs, cobertura y linters).
+* **Grabación breve (1-2 min.)** de terminal (asciinema o GIF) donde se vea:
 
    * `minikube start` o `kind create cluster`
    * `kubectl get pods -A` mostrando los cambios aplicados
-7. **Hash SHA-256** del directorio `k8s/` comprimido (`sha256sum k8s.tar.gz > checksum.txt`) para sellar el estado exacto presentado.
+* **Hash SHA-256** del directorio `k8s/` comprimido (`sha256sum k8s.tar.gz > checksum.txt`) para sellar el estado exacto presentado.
 
 
 #### 3 . Evidencia de la **interacción y revisión por pares**
 
-8. **Capturas de las PR** con al menos dos comentarios sustantivos recibidos y enviados (captura o export `.html`).
-9. **Registro de una sesión corta de live-coding** (Meet/Zoom) donde el compañero revisa el PR y el autor aplica la sugerencia.
+* **Capturas de las PR** con al menos dos comentarios sustantivos recibidos y enviados (captura o export `.html`).
+*  **Registro de una sesión corta de live-coding** (Meet/Zoom) donde el compañero revisa el PR y el autor aplica la sugerencia.
 
 #### 4 . Evidencia de **ejecución en directo**
 
-10. **Script de auditoría de comandos** (`script -t session.typescript`) subido como `session.cast`; el docente puede reproducirlo con `asciinema play`.
-11. **Hashicorp Vault/Helm diff** del cambio aplicado durante la demo:
+* **Script de auditoría de comandos** (`script -t session.typescript`) subido como `session.cast`; el docente puede reproducirlo con `asciinema play`.
+* **Hashicorp Vault/Helm diff** del cambio aplicado durante la demo:
 
 ```bash
 helm diff upgrade mi-release charts/ --values values.yaml > diff.txt
