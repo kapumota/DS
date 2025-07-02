@@ -5,8 +5,7 @@ El flujo Git declarado para todo el ciclo es invariable: `main` queda como rama 
 Si alguien decide emplear un esquema distinto, la excepción debe explicarse de forma explícita en el README final.
 
 Desde el primer commit de la práctica anterior hasta la última fusión de esta evaluación, **cada push debe disparar el mismo pipeline de GitHub Actions** 
-situado en `.github/workflows/<nombre>.yaml`. Antes de comenzar la sesión cronometrada, cada estudiante crea a partir de `develop` **tres** ramas individuales de 
-tipo `feature/<su-nombre>/<tema>`; en cada una implementará una sola pieza pendiente (Vault o SealedSecrets, Harbor/Nexus, blue-green rollback, stack Prometheus, Grafana, logging EFK/ELK o NetworkPolicies, etc).
+situado en `.github/workflows/<nombre>.yaml`. Antes de comenzar la sesión cronometrada, cada estudiante crea a partir de `develop` **tres** ramas individuales de tipo `feature/<su-nombre>/<tema>`; en cada una implementará una sola pieza pendiente (Vault o SealedSecrets, Harbor/Nexus, blue-green rollback, stack Prometheus, Grafana, logging EFK/ELK o NetworkPolicies, etc).
 Cualquier archivo nuevo o modificado, ya sea manifiesto de Kubernetes, playbook, script o test, debe incluir al menos un comentario en español, y los mensajes de commit deben ser descriptivos, por ejemplo : 
 
 ```
@@ -28,10 +27,9 @@ El pipeline que se ejecuta en cada *pull request* hacia `develop` lleva cuatro c
 
 Cuando todas las ramas de característica han sido revisadas y fusionadas en `develop`, el equipo debe crear una rama `release/vX.Y`, etiquetar y fusionar a `main`. 
 
-La defensa ocupa los últimos veinticinco minutos: cada integrante abre su rama `feature/...`, realiza *live-coding* de un cambio pequeño, por ejemplo, ajustar una NetworkPolicy o 
-añadir un test, fusiona mediante PR y muestra que el pipeline se ejecuta y pasa. 
+La defensa ocupa los últimos veinticinco minutos: cada integrante abre su rama `feature/...`, realiza *live-coding* de un cambio pequeño, por ejemplo, ajustar una NetworkPolicy o  añadir un test, fusiona mediante PR y muestra que el pipeline se ejecuta y pasa. 
 
-La exposición total por persona no debe exceder los cuatro minutos
+La exposición total por persona no debe exceder los cuatro minutos.
 
 | **Criterio de evaluación**                                 | **Puntos** |
 | ---------------------------------------------------------- | :---------------: |
@@ -54,7 +52,7 @@ Además, durante la demo cada alumno debe ejecutar al menos un comando en vivo, 
 
 | #     | Falta detectada (CI, revisión o demo)                                                                                      | Acción automática del pipeline                                                          | Penalización                                                |
 | ----- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| **1** | **Artefactos de LLM** (títulos "ChatGPT", frases "As an AI…", emojis 🧩 🧠 ✅, marcas ocultas, JSON de system prompt, etc.) | Job `ai-artifact-scan` marca el *check* como **failed** => la PR se cierra               | -8 pts en reincidencia<br>(-4 pts la primera vez)           |
+| **1** | **Artefactos de LLM** (títulos "ChatGPT", frases "As an AI…", emojis 🧩 🧠 ✅, ",marcas ocultas, JSON de system prompt, etc.) | Job `ai-artifact-scan` marca el *check* como **failed** => la PR se cierra               | -8 pts en reincidencia<br>(-4 pts la primera vez)           |
 | **2** | **Falta de comentarios en español** en archivos nuevos/modificados                                                         | Job `check-comments` devuelve la lista de ficheros sin `# comentario` o `// comentario` | -1 pt por fichero<br>(hasta -3 pts)                         |
 | **3** | **Tests o linters fallidos** (unit, integration, smoke, `tflint`, `shellcheck`)                                            | Job correspondiente falla y corta el pipeline                                           | -3 pts                                                      |
 | **4** | **Duplicación > 30 %** detectada por `jscpd`                                                                               | Job `dup-scan` marca **failed** y añade etiqueta `needs-refactor`                       | PR "congelada"  -> si no se corrige antes de la demo => -1 pt |
@@ -88,6 +86,48 @@ Además, durante la demo cada alumno debe ejecutar al menos un comando en vivo, 
 
 4. **Preguntas relámpago**
    El docente formula una cuestión específica sobre la funcionalidad implementada (ruta de un secreto, flag de `helm`, línea de un Dockerfile). Respuesta incorrecta -> la nota de la demo baja a 0 (pierde 3 pts).
+
+### **Entragables**
+Además de compartir el **URL del repositorio** (rama `main`/`develop`) deberías entregar este tipo de evidencia que aportan:
+
+#### 1 . Evidencia del **proceso de desarrollo**
+
+1. **Export del historial Git en formato patch**
+
+   ```bash
+   git log --reverse --patch --stat --no-color > history.patch
+   ```
+
+   Muestra la evolución línea-a-línea y los autores reales de cada cambio.
+2. **Gráfico de commits y contribuciones por autor** (`git shortlog -sne`) en un archivo `contribuciones.txt`.
+3. **Commits firmados (GPG o SSH) + "Signed-off-by"** para cada push importante.
+4. **Captura de pantalla** del comando `tig` o `gitk` con la vista de las ramas `feature/...` antes del merge squash.
+
+#### 2 . Evidencia de **ejecución y entorno**
+
+5. **Enlace permanente** al *run* de GitHub Actions que quedó verde, o bien el `artifacts.zip` descargado del workflow (incluye logs, cobertura y linters).
+6. **Grabación breve (1-2 min.)** de terminal (asciinema o GIF) donde se vea:
+
+   * `minikube start` o `kind create cluster`
+   * `kubectl get pods -A` mostrando los cambios aplicados
+7. **Hash SHA-256** del directorio `k8s/` comprimido (`sha256sum k8s.tar.gz > checksum.txt`) para sellar el estado exacto presentado.
+
+
+#### 3 . Evidencia de la **interacción y revisión por pares**
+
+8. **Capturas de las PR** con al menos dos comentarios sustantivos recibidos y enviados (captura o export `.html`).
+9. **Registro de una sesión corta de live-coding** (Meet/Zoom) donde el compañero revisa el PR y el autor aplica la sugerencia.
+
+#### 4 . Evidencia de **ejecución en directo**
+
+10. **Script de auditoría de comandos** (`script -t session.typescript`) subido como `session.cast`; el docente puede reproducirlo con `asciinema play`.
+11. **Hashicorp Vault/Helm diff** del cambio aplicado durante la demo:
+
+```bash
+helm diff upgrade mi-release charts/ --values values.yaml > diff.txt
+```
+
+Todos los archivos extra pueden subirse en una carpeta `evidencia-originalidad/` o como artefactos de la release `vX.Y`.
 
 ### **Proyectos**
 
