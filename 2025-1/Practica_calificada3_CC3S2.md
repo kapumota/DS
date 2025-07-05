@@ -694,7 +694,7 @@ Diseñar un conjunto de módulos Terraform locales que ilustren los patrones est
 
 Se exigirá un mínimo de **800 líneas** de código distribuido en Terraform, Python y Bash, y la creación de un **script Bash** `run_all.sh` que:
 
-- Inicialice y aplique cada módulo en el orden `adapter` -> `facade` -> `mediator`.
+- Inicimota y aplique cada módulo en el orden `adapter` -> `facade` -> `mediator`.
 - Registre en `logs/` la salida de cada paso.
 - Genere un archivo JSON `dependencies.json` que describa dependencias entre módulos (p. ej., "adapter" exporta variable X que usa "facade").
 
@@ -906,7 +906,7 @@ El repositorio debe contener **al menos 1000 líneas** entre Python, Bash, Terra
 
 * Completar `cd.yaml` para la fase de despliegue:
 
-  - Job `deploy` que se ejecute con `workflow_dispatch` y realice:
+  - Job `deploy` que se ejecute con `workflow_dispatch` y remota:
 
      * `make deploy` (ver abajo).
   - Job `rollback` que se active si `deploy` falla y ejecute:
@@ -1331,7 +1331,7 @@ Desarrollar un **mini dashboard ágil local** que calcule y muestre métricas de
 - **Integración con Git hooks**:
 
    * `commit-msg` que valide que los mensajes de commit incluyan referencia a un issue válido (`feat[#n]`).
-   * `post-commit` que ejecute `calc_metrics.py` y actualice los gráficos en `reports/metrics.txt`.
+   * `post-commit` que ejecute `calc_metrics.py` y actumota los gráficos en `reports/metrics.txt`.
 
 El total de código (Python + Bash) debe superar las **1000 líneas** y emplear al menos **5 paquetes Python** distintos para parseo, manejo de fechas, generación de CSV, ASCII charts, envío de correos simulados y manejo de JSON.
 
@@ -1355,9 +1355,8 @@ El total de código (Python + Bash) debe superar las **1000 líneas** y emplear 
 
     ```json
     [
-      { "id": 1, "title": "Configurar entorno", "state": "open", "created_at": "2025-05-20T09:00:00", "closed_at": null, "owner": "alice" },
-      { "id": 2, "title": "Escribir tests", "state": "open", "created_at": "2025-05-21T10:00:00", "closed_at": null, "owner": "bob" }
-      // ... más issues ...
+      { "id": 1, "title": "Configurar entorno", "state": "open", "created_at": "2025-05-20T09:00:00", "closed_at": null, "owner": "mota" },
+      { "id": 2, "title": "Escribir tests", "state": "open", "created_at": "2025-05-21T10:00:00", "closed_at": null, "owner": "kapu" }
     ]
     ```
   * Carpeta `reports/` vacía.
@@ -2253,12 +2252,12 @@ Comparar y demostrar, en un entorno local, los enfoques de **Monorepo** versus *
      * Agregue los 3 repositorios como submódulos.
      * Incluya un script Bash `update_all.sh` que:
 
-       * Actualice cada submódulo a la última versión tag según semver (p. ej., `v-*`).
+       * Actumota cada submódulo a la última versión tag según semver (p. ej., `v-*`).
        * Ejecute `terraform init && terraform apply -auto-approve` en cada submódulo actualizada.
      * Genere un `umbrella/README.md` con información combinada de versiones y changelogs.
 - Comparar ambos enfoques mediante un **script Python** `compare_workflows.py` (similar al del Proyecto 11) que:
 
-   * Analice logs Git (commits, merges) en Monorepo vs. Multirepo.
+   * Anmota logs Git (commits, merges) en Monorepo vs. Multirepo.
    * Calcule métricas: número de comandos Git necesarios para actualizar todos los módulos a una nueva versión mayor.
    * Genere un reporte en Markdown `workflow_comparison.md` con tablas comparativas y conclusiones.
 
@@ -2744,7 +2743,7 @@ Cada estudiante, además de trabajar en el repositorio grupal, deberá entregar 
        Commit: `feat(sh): rollback desde tag Git`  
        Pull request grupal: #23
 
-     - 2025-06-13: Realicé corrección de estilo en `src/generar_diagrama.py` (PEP8) y añadí docstrings.  
+     - 2025-06-13: Remota corrección de estilo en `src/generar_diagrama.py` (PEP8) y añadí docstrings.  
        Commit: `refactor(py): unificar estilo según flake8 y añadir docstrings`  
        Pull request grupal: #27
      ```
