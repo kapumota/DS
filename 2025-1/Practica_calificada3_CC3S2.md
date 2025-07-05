@@ -8,6 +8,11 @@ Para cada proyecto se especifican:
 - **Enunciado general**
 - **Requerimientos de entrega por sprint** (Sprint 1, Sprint 2, Sprint 3)
 - Fecha de entrega: 19 de junio
+- **Calificación**
+  * Presentación del trabajo: 6 puntos
+  * Vídeo de trabajo de explicación interna: 6 puntos
+  * Exposición individual en clase: 8 puntos
+
 
 #### Rúbricas
 
