@@ -1,5 +1,4 @@
 package telnet
-
 import "fmt"
 
 const (
