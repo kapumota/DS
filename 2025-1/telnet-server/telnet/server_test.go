@@ -6,7 +6,6 @@ import (
 
 	"github.com/stretchr/testify/mock"
 )
-
 // tcpServerMock simula un servidor TCP para pruebas
 type tcpServerMock struct {
 	mock.Mock
