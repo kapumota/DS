@@ -9,7 +9,7 @@
 * Consola con permisos de administrador para evitar problemas de permisos en Windows.
 * Estar dentro del entorno Python `bdd` (opcional, si usas Python para otras tareas).
 
-#### 2. Cómo Ejecutar el Script
+#### 2. Cómo ejecutar el script
 
 1. Descarga o clona el repositorio que contiene `deploy.sh`.
 2. Abre una consola (PowerShell o CMD, Git Bash) **como administrador**.
@@ -72,6 +72,8 @@ Al finalizar, el script habrá:
   ```
 
   y ajusta el entrypoint o los parámetros de arranque.
+
+Resuelve todos estos incidentes.
 
 #### 4. Conexiones Telnet: localhost vs Minikube IP
 
