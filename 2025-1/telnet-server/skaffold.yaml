@@ -1,0 +1,21 @@
+apiVersion: skaffold/v2beta19
+kind: Config
+
+build:
+  local: {}
+  artifacts:
+    - image: dftd/telnet-server
+
+# Pruebas con kubectl
+test:
+  - image: dftd/telnet-server
+    custom:
+      # Espera a que el Deployment esté listo
+      - command: "kubectl wait deployment/telnet-server --for=condition=available --timeout=2m -n default"
+      # Comprueba que el Service exista
+      - command: "kubectl get svc telnet-server -n default"
+
+deploy:
+  kubectl:
+    manifests:
+      - kubernetes/*
