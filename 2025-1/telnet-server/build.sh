@@ -5,7 +5,7 @@ echo "Corriendo pruebas..."
 
 go test ./... -v # todos los test
 
-echo "Building $IMAGE"
+echo "Construyendo $IMAGE"
 docker build -t $IMAGE .
 
 if [[ -v $PUSH_IMAGE ]]; then 
