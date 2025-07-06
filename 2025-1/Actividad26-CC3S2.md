@@ -1,13 +1,13 @@
-### Actividad: Implementación continua con GitHub Actions
+### **Actividad: Implementación continua con GitHub Actions**
 
 Referencia para la actividad: [kapumota/Ejemplos-github-actions](https://github.com/kapumota/Ejemplos-github-actions).
 
-### ¿Qué es la implementación continua?
+### **¿Qué es la implementación continua?**
 
 #### Ejercicio teórico
 
 * ¿Qué es GitHub Actions?
-* Redacta una definición de "implementación continua" (≤150 palabras), diferenciándola de "entrega continua" y "despliegue continuo".
+* Redacta una definición de "implementación continua" (~150 palabras), diferenciándola de "entrega continua" y "despliegue continuo".
 * Incluye un ejemplo de un proyecto Python (por ejemplo, un script `app.py` que escribas tú) donde al hacer `push` a `main` se publique
   automáticamente un paquete en PyPI de prueba.
 
@@ -21,7 +21,7 @@ Referencia para la actividad: [kapumota/Ejemplos-github-actions](https://github.
   ```
 * Modifica el workflow `.github/workflows/ci.yml` para que, al hacer push a `main`:
 
-  1. Instale Python:
+  * Instala Python:
 
      ```yaml
      - name: Setup Python
@@ -29,10 +29,10 @@ Referencia para la actividad: [kapumota/Ejemplos-github-actions](https://github.
        with:
          python-version: "3.x"
      ```
-  2. Ejecute `python deploy.py`.
+  * Ejecuta `python deploy.py`.
 * Verifica en Actions que veas la salida de tu script.
 
-### ¿Por qué automatizar la implementación?
+### **¿Por qué automatizar la implementación?**
 
 * Crea en el repo un archivo `Riesgos-Automatización.md` con una tabla que compare **3 ventajas** de un deploy automatizado vs **3 riesgos** de hacerlo manual, y propone contramedidas.
 
@@ -49,7 +49,7 @@ Referencia para la actividad: [kapumota/Ejemplos-github-actions](https://github.
 * Mide (cronómetro en mano) el tiempo de cada uno desde el push hasta fin de job.
 
 
-### Introducción a la automatización con GitHub Actions
+### **Introducción a la automatización con GitHub Actions**
 
 #### Ejercicio
 
@@ -73,13 +73,12 @@ Referencia para la actividad: [kapumota/Ejemplos-github-actions](https://github.
   ```
 * Crea `ci-lint.yml` que:
 
-  1. Use `actions/setup-python@v4`.
-  2. Instale `flake8` (`pip install flake8`).
-  3. Ejecute `python lint.py`.
+  * Use `actions/setup-python@v4`.
+  * Instale `flake8` (`pip install flake8`).
+  * Ejecute `python lint.py`.
 * Confirma que falla si introducimos una línea con PEP8 violado.
 
-
-### ¿Por qué GitHub Actions?
+### **¿Por qué GitHub Actions?**
 
 #### Ejercicio de investigación
 
@@ -93,7 +92,7 @@ Referencia para la actividad: [kapumota/Ejemplos-github-actions](https://github.
   * `jenkins-pipeline/` con un `Jenkinsfile` equivalente que llame a `index.sh` y a `deploy.py`.
 * Documenta en el README las diferencias de sintaxis.
 
-### ¿Qué es un flujo de trabajo?
+### **¿Qué es un flujo de trabajo?**
 
 #### Ejercicio conceptual
 
@@ -128,7 +127,7 @@ Referencia para la actividad: [kapumota/Ejemplos-github-actions](https://github.
 * Verifica en la pestaña Actions que `build` y `test` corren simultáneos y `deploy` espera a ambos.
 
 
-### Creación de un nuevo flujo de trabajo
+### **Creación de un nuevo flujo de trabajo**
 
 #### Ejercicio paso a paso
 
@@ -161,7 +160,7 @@ Referencia para la actividad: [kapumota/Ejemplos-github-actions](https://github.
 
   y sigue el prompt para generar un template. Luego extrae el YAML generado a `.github/workflows/ci-from-cli.yml` y ajústalo.
 
-###Invocación de comandos en línea
+### **Invocación de comandos en línea**
 
 #### Ejercicio teórico
 
@@ -180,7 +179,7 @@ Referencia para la actividad: [kapumota/Ejemplos-github-actions](https://github.
 * Comprueba que en la salida ves las rutas compiladas.
 
 
-### Activación por cambio de código
+### **Activación por cambio de código**
 
 #### Ejercicio práctico
 
@@ -201,7 +200,7 @@ Referencia para la actividad: [kapumota/Ejemplos-github-actions](https://github.
   * Uno donde no se lanza el workflow (cambio en `README.md`).
   * Otro donde sí (cambio en `src/hello.py`).
 
-###Historial del flujo de trabajo
+### **Historial del flujo de trabajo**
 
 #### Ejercicio de exploración
 
@@ -218,7 +217,7 @@ Referencia para la actividad: [kapumota/Ejemplos-github-actions](https://github.
 * Provoca un fallo (mete un error de sintaxis en `deploy.py`) y confirma que el badge cambia a "failed".
 
 
-### Activación manual desde la UI
+### **Activación manual desde la UI**
 
 #### Ejercicio práctico
 
