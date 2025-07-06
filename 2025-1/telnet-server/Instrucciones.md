@@ -36,12 +36,12 @@ Al finalizar, el script habrá:
 
 * **Warning `overlayfs` vs `overlay2`**:
   "docker is currently using the overlayfs storage driver…"
-  → No detiene el flujo, pero afecta el rendimiento.
+  -> No detiene el flujo, pero afecta el rendimiento.
   **Solución:** Configura Docker para usar `overlay2` editando el archivo `daemon.json` de Docker Desktop.
 
 * **Error de `icacls`**:
   "icacls failed applying permissions…"
-  → Suele ocurrir al crear la VM de Minikube en Windows.
+  -> Suele ocurrir al crear la VM de Minikube en Windows.
   **Solución:** Ejecuta la consola como Administrador o da permisos a la carpeta `~/.minikube`.
 
 * **Desajuste de versiones `kubectl`**:
@@ -334,4 +334,120 @@ Fin del tunel
 * ¿Qué sucede internamente al escalar un Deployment en Kubernetes?
 * ¿Cómo podrías asegurar que los pods recién creados cumplen con las políticas de seguridad (PSP o PodSecurity)?
 
+### **Despliegue de código**
 
+Este `skaffold.yaml` es un "orquestador"  local para todo el flujo de desarrollo con Minikube y Kubernetes. 
+
+1. **Build**
+
+   ```yaml
+   build:
+     local: {}
+     artifacts:
+       - image: dftd/telnet-server
+   ```
+
+   * Usa tu daemon Docker local (que en realidad, cuando haces `eval $(minikube -p minikube docker-env --shell bash)`, será el de Minikube).
+   * Compila la imagen `dftd/telnet-server` a partir de tu `Dockerfile`.
+
+2. **Test**
+
+   ```yaml
+   test:
+     - image: dftd/telnet-server
+       custom:
+         - command: "go test ./... -v"
+         - command: "docker run … container-structure-test ... --image={{.IMAGE}} …"
+   ```
+
+   * Ejecuta primero tus unit tests de Go.
+   * Después corre las pruebas de integridad del contenedor (estructura, metadatos, comandos) usando `container-structure-test` dentro de un contenedor Docker.
+
+3. **Deploy**
+
+   ```yaml
+   deploy:
+     kubectl:
+       manifests:
+         - kubernetes/*
+   ```
+
+   * Aplica **todos** los manifiestos (`*.yaml`) que tengas en la carpeta `kubernetes/` al clúster activo (tu Minikube).
+   * Eso incluye Deployments, Services, ConfigMaps, etc.
+
+4. **Flujo `skaffold dev --cleanup=false`**
+
+   1. Genera un tag único para `dftd/telnet-server` (por ejemplo `:603bafb-dirty`).
+   2. Construye la imagen.
+   3. Corre los tests.
+   4. Aplica los manifiestos con `kubectl apply`.
+   5. **No** borra nada al salir, así puedes inspeccionar el estado de pods, servicios, revisiones, etc.
+
+#### **Script de inspección y rollback**
+
+Puedes automatizar esas comprobaciones y el deshacer ("undo") de un rollout en un sencillo script Bash. Por ejemplo, crea un archivo `check_and_rollback.sh` en la raíz de tu proyecto:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Services: telnet-server"
+minikube kubectl -- get services telnet-server
+
+echo; echo "Historia rollout: telnet-server"
+minikube kubectl -- rollout history deployment telnet-server
+
+echo; echo " A revision 1"
+minikube kubectl -- rollout undo deployment telnet-server --to-revision=1
+
+echo; echo "Pods despues de undo"
+minikube kubectl -- get pods
+```
+
+**Cómo usarlo**
+
+1. Dale permisos de ejecución:
+
+   ```bash
+   chmod +x check_and_rollback.sh
+   ```
+2. Ejecuta:
+
+   ```bash
+   ./check_and_rollback.sh
+   ```
+
+* **`get services telnet-server`**: muestra el Service que expone tu aplicación.
+* **`rollout history deployment telnet-server`**: lista las revisiones de tu Deployment (cada `apply` crea una nueva revisión).
+* **`rollout undo ... --to-revision=1`**: deshace el Deployment a la revisión número 1.
+* **`get pods`**: te enseña los pods actuales tras el rollback.
+
+Así tienes tanto el flujo build -> test -> deploy con Skaffold, como un script ad hoc para inspección y recuperación de despliegues en tu clúster Minikube.
+
+#### **Preguntas**
+
+
+1. **Entorno y contexto**
+
+   * ¿Usas siempre el namespace `default` o despliegas en uno distinto (por ejemplo `monitoring` o `staging`)?
+   * ¿Necesitas que Skaffold cambie automáticamente entre contextos de Kubernetes (p. ej. Minikube vs. otro clúster)?
+
+2. **Pruebas adicionales**
+
+   * Además de las pruebas de Go y de estructura de contenedor, ¿quieres validar algo en el clúster tras el deploy (por ejemplo un "smoke test" vía `kubectl exec` o un simple `curl` a un endpoint)?
+   * ¿Te interesa incluir chequeos de salud o probes para tus pods?
+
+3. **Rollout y rollback**
+
+   * ¿Con qué frecuencia planeas hacer rollouts? ¿Te gustaría automatizar comprobaciones post-rollout (por ejemplo, garantizar que el 100 % de los pods estén disponibles)?
+   * ¿Quieres que el script de rollback forme parte de un hook automático (antes de un nuevo deploy) o prefieres ejecutarlo manualmente?
+
+4. **Observabilidad y métricas**
+
+   * ¿Piensas integrar Prometheus/Grafana en el mismo flujo de Skaffold o lo gestionas por separado?
+   * ¿Te vendría bien un paso que despliegue también un Dashboard y verifique que los endpoints de métricas responden?
+
+5. **Limpieza y estado**
+
+   * Con `--cleanup=false` mantienes los recursos tras detener Skaffold; ¿quieres a la inversa un comando rápido que elimine todo (`skaffold delete` o similar)?
+   * ¿Necesitas preservar volúmenes o datos de métricas entre ejecuciones?
