@@ -2,11 +2,11 @@
 set -euo pipefail
 
 # 1. Información del cluster
-echo "Cluster Info"
+echo "Info del Cluster"
 minikube kubectl cluster-info
 
 # 2. Explicación de labels
-echo "Explain deployment.metadata.labels"
+echo "Explica deployment.metadata.labels"
 minikube kubectl -- explain deployment.metadata.labels
 
 # 3. Despliegue de recursos
@@ -14,13 +14,13 @@ echo " Aplicando manifiestos"
 minikube kubectl -- apply -f kubernetes/
 
 # 4. Inspección de deployments, pods y servicios
-echo "Get Deployment, Pods, Services"
+echo "Deployment, Pods, Services"
 minikube kubectl -- get deployments.apps telnet-server
 minikube kubectl -- get pods -l app=telnet-server
 minikube kubectl -- get services -l app=telnet-server
 
 # 5. Abre el túnel en background
-echo " Starting Tunnel in background"
+echo " Empieza el tunel en background"
 minikube tunnel & TUNNEL_PID=$!
 echo "Tunnel PID: $TUNNEL_PID"
 
@@ -47,5 +47,5 @@ FIRST_POD=$(minikube kubectl -- get pods -l app=telnet-server -o name | head -n1
 minikube kubectl -- logs "$FIRST_POD" --all-containers=true --prefix=true
 
 # 10. Cierre del túnel
-echo "Kill Tunnel"
+echo "Fin del tunel"
 kill "$TUNNEL_PID" || true
