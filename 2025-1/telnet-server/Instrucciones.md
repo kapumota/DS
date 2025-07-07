@@ -225,7 +225,7 @@ Tunnel PID: 12345
 **6. Verificación de Service y Endpoints**
 
 ```bash
-echo "== Service & Endpoints"
+echo "Service & Endpoints"
 minikube kubectl -- get services telnet-server
 minikube kubectl -- get endpoints -l app=telnet-server
 minikube kubectl -- get pods -l app=telnet-server
