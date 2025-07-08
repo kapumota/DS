@@ -10,7 +10,7 @@ Para cada proyecto se especifican:
 - **Calificación:**
     - **Presentación del trabajo:** 6 puntos
     - **Vídeo de trabajo de explicación interna:** 6 puntos
-    - **Cumplimiento de todas las actividades del curso:** 8 puntos
+    - **Cumplimiento de todas las actividades del curso:** 8 puntos (0 si no se hacen hace dos meses)
 
 **Consideraciones generales para todos los proyectos:**
 
