@@ -89,7 +89,6 @@ CMD ["./main"]
 > * El binario se empaqueta “statistically linked” y se copia en alpine.
 > * No hay intérprete Python ni pip en la imagen final.
 
----
 
 #### 1.2 Orquestación con Docker Compose
 
