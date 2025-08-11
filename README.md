@@ -55,6 +55,7 @@ Este curso intensivo está diseñado para proporcionar una visión integral de l
   - Comunicación y colaboración.
 - **Evolución hacia DevSecOps:**
   - Integrar la seguridad desde el inicio.
+  - **AIOps/MLOps & Documentación**
 
 
 #### Capítulo 2: Desarrollo ágil y uso de Git
